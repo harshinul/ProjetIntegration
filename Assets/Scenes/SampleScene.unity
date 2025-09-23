@@ -973,7 +973,6 @@ GameObject:
   - component: {fileID: 659226438}
   - component: {fileID: 659226435}
   - component: {fileID: 659226436}
-  - component: {fileID: 659226439}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -1211,6 +1210,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 030bd91f-0604-4255-9b4f-750457899acd
     m_ActionName: 'Player/FastFall[/Keyboard/s]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 659226436}
+        m_TargetAssemblyTypeName: PlayerComponent, Assembly-CSharp
+        m_MethodName: Dash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4a16e2e8-becd-467b-8ec1-8b902f8ebdcb
+    m_ActionName: 'Player/Dash[/Keyboard/shift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1229,9 +1244,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  jumpForce: 8
   gravityValue: -9.81
   fallMultiplier: 5.4
+  jumpForce: 5
+  maxJumpCount: 2
+  dashPower: 10
 --- !u!143 &659226438
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1257,18 +1274,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &659226439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 659226430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1f6bbaae7c9fbb4f9e862f946bd076c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

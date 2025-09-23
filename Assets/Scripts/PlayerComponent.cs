@@ -5,16 +5,17 @@ using UnityEngine.InputSystem;
 
 public class PlayerComponent : MonoBehaviour
 {
-
+    //Movement
     [SerializeField] private float speed = 5f;
-    [SerializeField] private float jumpForce = 5f;
+    // Gravity
     [SerializeField] private float gravityValue = -9.81f;
     [SerializeField] private float fallMultiplier = 2.5f;
-    [SerializeField] private int maxJumpCount = 2;
     private bool fastFall = false;
     float multiplier;
 
     // Jumping
+    [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private int maxJumpCount = 2;
     int jumpCount = 0;
 
     //Dashing
@@ -46,7 +47,7 @@ public class PlayerComponent : MonoBehaviour
     {
         Movement();
     }
-
+    //Movement
     public void Movement()
     {
 
@@ -64,12 +65,12 @@ public class PlayerComponent : MonoBehaviour
 
         characterController.Move((speed * direction + jump) * Time.deltaTime);
     }
-
+    
     public void Move(InputAction.CallbackContext ctx)
     {
         move = ctx.ReadValue<Vector2>().normalized;
     }
-
+    //Jump
     public void Jump(InputAction.CallbackContext ctx)
     {
         if (ctx.performed && jumpCount < maxJumpCount)
@@ -78,6 +79,7 @@ public class PlayerComponent : MonoBehaviour
             jumpCount++;
         }
     }
+    //Dash
     public void Dash(InputAction.CallbackContext ctx)
     {
         if (ctx.performed && canDash && !isDashing)
@@ -113,7 +115,7 @@ public class PlayerComponent : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
-
+    //FastFall
     public void FastFall(InputAction.CallbackContext ctx)
     {
         fastFall = ctx.performed;
