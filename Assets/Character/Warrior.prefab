@@ -17,9 +17,21 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2194341877839688381, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2194341877839688381, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: bebe7b0f454985a4cbe744d437b01597, type: 2}
+    - target: {fileID: 2194341877839688381, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
+      propertyPath: m_AnimatePhysics
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2194341877839688381, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2460022529154969567, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -154,7 +166,7 @@ MonoBehaviour:
   speed: 5
   gravityValue: -9.81
   fallMultiplier: 5.4
-  jumpForce: 10
+  jumpForce: 5
   maxJumpCount: 2
   dashPower: 20
 --- !u!143 &1901303442458484895
