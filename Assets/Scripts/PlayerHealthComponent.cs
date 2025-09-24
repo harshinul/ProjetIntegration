@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealthComponent : MonoBehaviour
 {
@@ -25,11 +26,11 @@ public class PlayerHealthComponent : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             TakeDamage(10f);
         }
-
+        UpdateHealthUI();
     }
     public void TakeDamage(float damage)
     {
