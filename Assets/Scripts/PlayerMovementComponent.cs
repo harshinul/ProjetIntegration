@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovementComponent : MonoBehaviour
 {
+    //Animation
+    PlayerAnimationComponent playerAnimationComponent;
+
     //Movement
     [SerializeField] private float speed = 5f;
     // Gravity
@@ -35,6 +38,7 @@ public class PlayerMovementComponent : MonoBehaviour
     CharacterController characterController;
     void Start()
     {
+        playerAnimationComponent = GetComponent<PlayerAnimationComponent>();
         characterController = GetComponent<CharacterController>();
 
         playerInput = GetComponent<PlayerInput>();
@@ -61,6 +65,15 @@ public class PlayerMovementComponent : MonoBehaviour
         else
         {
             jump += Time.deltaTime * (gravityValue * multiplier) * transform.up;
+        }
+
+        if(direction.magnitude > 0)
+        {
+            playerAnimationComponent.ActivateRunning();
+        }
+        else
+        {
+            playerAnimationComponent.DeactivateRunning();
         }
 
         characterController.Move((speed * direction + jump) * Time.deltaTime);
