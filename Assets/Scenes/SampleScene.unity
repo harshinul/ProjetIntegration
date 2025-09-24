@@ -129,7 +129,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3362309251389825641, guid: 69d58815463730c48915dee64a625083, type: 3}
       propertyPath: jumpForce
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6207425082242127126, guid: 69d58815463730c48915dee64a625083, type: 3}
       propertyPath: m_Name
