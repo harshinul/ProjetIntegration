@@ -38,7 +38,7 @@ public class PlayerComponent : MonoBehaviour
         characterController = GetComponent<CharacterController>();
 
         playerInput = GetComponent<PlayerInput>();
-        playerInput.actions["Jump"].started += Jump;
+        playerInput.actions["Jump"].started += Jump; 
         playerInput.actions["Jump"].canceled += Jump;
     }
 
