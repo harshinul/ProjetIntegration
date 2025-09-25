@@ -67,14 +67,13 @@ public class PlayerAttackScript : MonoBehaviour
     public void Attack()
     {
 
-
     }
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.CompareTag("Player") && )
+        if (collider.CompareTag("Player"))
         {
-            player.TakeDamage(damage);
+            player.TakeDamage(characterStats.damage);
         }
     }
 }
