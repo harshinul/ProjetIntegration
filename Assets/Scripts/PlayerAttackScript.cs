@@ -67,6 +67,7 @@ public class PlayerAttackScript : MonoBehaviour
     public void Attack()
     {
 
+
     }
 
     private void OnTriggerEnter(Collider collider)
