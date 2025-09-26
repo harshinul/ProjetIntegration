@@ -44,6 +44,24 @@ public class PlayerAnimationComponent : MonoBehaviour
         animator.SetBool("isTakingDamage", true);
     }
 
+    public void ActivateJumping()
+    {
+        animator.SetBool("startJump", true);
+    }
+
+    public void DeactivateJumping()
+    {
+        animator.SetBool("startJump", false);
+    }
+
+    public void ActivateFalling()
+    {
+        animator.SetBool("isFalling", true);
+    }
+    public void DeactivateFalling()
+    {
+        animator.SetBool("isFalling", false);
+    }
     public void DeactivateTakingDamage()
     {
         animator.SetBool("isTakingDamage", false);

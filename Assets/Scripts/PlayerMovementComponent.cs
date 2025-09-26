@@ -29,6 +29,7 @@ public class PlayerMovementComponent : MonoBehaviour
     private float dashCooldown = 1f;
 
     // Movement
+    bool wantsToJump = false;
     Vector3 direction = Vector3.zero;
     Vector3 jump = Vector3.zero;
     Vector2 move = Vector2.zero;
@@ -42,32 +43,23 @@ public class PlayerMovementComponent : MonoBehaviour
         characterController = GetComponent<CharacterController>();
 
         playerInput = GetComponent<PlayerInput>();
-        playerInput.actions["Jump"].started += Jump; 
-        playerInput.actions["Jump"].canceled += Jump;
     }
 
     // Update is called once per frame
     void Update()
     {
         Movement();
+
     }
     //Movement
     public void Movement()
     {
 
         direction = new Vector3(move.x, 0, 0).normalized;
-
-        multiplier = fastFall ? fallMultiplier : 1f;
-        if (characterController.isGrounded && jump.y <= 0)
-        {
-            jumpCount = 0;
-        }
-        else
-        {
-            jump += Time.deltaTime * (gravityValue * multiplier) * transform.up;
-        }
-
-        if(direction.magnitude > 0)
+        ChangeRotation();
+        Jumping();
+        Falling();
+        if (direction.magnitude > 0)
         {
             playerAnimationComponent.ActivateRunning();
         }
@@ -77,7 +69,61 @@ public class PlayerMovementComponent : MonoBehaviour
         }
 
         characterController.Move((speed * direction + jump) * Time.deltaTime);
+
     }
+
+    public void Jumping()
+    {
+        playerAnimationComponent.DeactivateJumping();
+        if (wantsToJump && jumpCount < maxJumpCount)
+        {
+            jump = transform.up * jumpForce;
+            playerAnimationComponent.ActivateJumping();
+            playerAnimationComponent.DeactivateRunning();
+            jumpCount++;
+            wantsToJump = false;
+        }
+        
+    }
+
+    void Falling()
+    {
+        multiplier = fastFall ? fallMultiplier : 1f;
+        if (characterController.isGrounded && jump.y <= 0)
+        {
+            jumpCount = 0;
+        }
+        else
+        {
+            jump += Time.deltaTime * (gravityValue * multiplier) * transform.up;
+        }
+        if (!characterController.isGrounded)
+        {
+            playerAnimationComponent.ActivateFalling();
+            playerAnimationComponent.DeactivateRunning();
+        }
+        if (characterController.isGrounded)
+        {
+            //dplayerAnimationComponent.DeactivateJumping();
+            playerAnimationComponent.DeactivateFalling();
+        }
+    }
+
+    void ChangeRotation()
+    {
+        if (move.x > 0)
+            transform.rotation = Quaternion.Euler(0, 90, 0);
+        else if (move.x < 0)
+            transform.rotation = Quaternion.Euler(0, -90, 0);
+    }
+
+    //void ChangeRotation()
+    //{
+    //    if (move.x > 0)
+    //        transform.rotation = Quaternion.Lerp(Quaternion.identity, Quaternion.Euler(0, 90, 0), 1f);
+    //    else if (move.x < 0)
+    //        transform.rotation = Quaternion.Lerp(Quaternion.identity, Quaternion.Euler(0, -90, 0), 1f);
+    //}
     
     public void Move(InputAction.CallbackContext ctx)
     {
@@ -86,10 +132,13 @@ public class PlayerMovementComponent : MonoBehaviour
     //Jump
     public void Jump(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && jumpCount < maxJumpCount)
+        if (ctx.performed)
         {
-            jump = transform.up * jumpForce;
-            jumpCount++;
+            wantsToJump = true;
+        }
+        else
+        {
+            wantsToJump = false;
         }
     }
     //Dash
