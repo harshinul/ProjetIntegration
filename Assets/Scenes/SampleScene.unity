@@ -131,6 +131,34 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 1.1
       objectReference: {fileID: 0}
+    - target: {fileID: 3241599474216947839, guid: 69d58815463730c48915dee64a625083, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241599474216947839, guid: 69d58815463730c48915dee64a625083, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241599474216947839, guid: 69d58815463730c48915dee64a625083, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1422844949}
+    - target: {fileID: 3241599474216947839, guid: 69d58815463730c48915dee64a625083, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241599474216947839, guid: 69d58815463730c48915dee64a625083, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Attack1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241599474216947839, guid: 69d58815463730c48915dee64a625083, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerAttackScript, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241599474216947839, guid: 69d58815463730c48915dee64a625083, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3362309251389825641, guid: 69d58815463730c48915dee64a625083, type: 3}
       propertyPath: jumpForce
       value: 5
@@ -185,7 +213,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6207425082242127126, guid: 69d58815463730c48915dee64a625083, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1422844942}
+      addedObject: {fileID: 1422844949}
   m_SourcePrefab: {fileID: 100100000, guid: 69d58815463730c48915dee64a625083, type: 3}
 --- !u!1 &763385352
 GameObject:
@@ -437,7 +465,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6207425082242127126, guid: 69d58815463730c48915dee64a625083, type: 3}
   m_PrefabInstance: {fileID: 205921422}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1422844942
+--- !u!114 &1422844949
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -446,9 +474,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1422844941}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef6d9e1fb6273a448a4887217d88c36e, type: 3}
+  m_Script: {fileID: 11500000, guid: 670ce7196acba444da4408d64e20fd44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  classType: 0
 --- !u!1 &2137450331
 GameObject:
   m_ObjectHideFlags: 0

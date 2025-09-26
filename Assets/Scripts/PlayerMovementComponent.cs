@@ -29,10 +29,12 @@ public class PlayerMovementComponent : MonoBehaviour
     private float dashCooldown = 1f;
 
     // Movement
-    bool wantsToJump = false;
     Vector3 direction = Vector3.zero;
     Vector3 jump = Vector3.zero;
     Vector2 move = Vector2.zero;
+
+    // Input
+    bool wantsToJump = false;
 
     // Components
     PlayerInput playerInput;
@@ -97,15 +99,15 @@ public class PlayerMovementComponent : MonoBehaviour
         {
             jump += Time.deltaTime * (gravityValue * multiplier) * transform.up;
         }
-        if (!characterController.isGrounded)
-        {
-            playerAnimationComponent.ActivateFalling();
-            playerAnimationComponent.DeactivateRunning();
-        }
         if (characterController.isGrounded)
         {
             //dplayerAnimationComponent.DeactivateJumping();
             playerAnimationComponent.DeactivateFalling();
+        }
+        if (!characterController.isGrounded)
+        {
+            playerAnimationComponent.ActivateFalling();
+            playerAnimationComponent.DeactivateRunning();
         }
     }
 
@@ -116,14 +118,6 @@ public class PlayerMovementComponent : MonoBehaviour
         else if (move.x < 0)
             transform.rotation = Quaternion.Euler(0, -90, 0);
     }
-
-    //void ChangeRotation()
-    //{
-    //    if (move.x > 0)
-    //        transform.rotation = Quaternion.Lerp(Quaternion.identity, Quaternion.Euler(0, 90, 0), 1f);
-    //    else if (move.x < 0)
-    //        transform.rotation = Quaternion.Lerp(Quaternion.identity, Quaternion.Euler(0, -90, 0), 1f);
-    //}
     
     public void Move(InputAction.CallbackContext ctx)
     {
@@ -182,4 +176,6 @@ public class PlayerMovementComponent : MonoBehaviour
     {
         fastFall = ctx.performed;
     }
+
+
 }

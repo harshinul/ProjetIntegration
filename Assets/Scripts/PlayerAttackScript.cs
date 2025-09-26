@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum ClassType
 {
@@ -16,12 +17,19 @@ public class CharacterStats
 }
 public class PlayerAttackScript : MonoBehaviour
 {
+    //Animation
+    PlayerAnimationComponent playerAnimationComponent;
+
     [SerializeField] ClassType classType;
     private PlayerHealthComponent player;
     private CharacterStats characterStats;
+
+    //input
+    bool wantsToAttack1 = false;
+    bool wantsToAttack2 = false;
     void Start()
     {
-
+        playerAnimationComponent = GetComponent<PlayerAnimationComponent>();
         player = GetComponent<PlayerHealthComponent>();
         characterStats = GetStatsForClass(classType);
     }
@@ -59,14 +67,38 @@ public class PlayerAttackScript : MonoBehaviour
         }
     }
 
+    public void StartAttack1()
+    {
+        playerAnimationComponent.ActivateFirstAttack();
+    }
+
     void Update()
     {
+        if (wantsToAttack1)
+        {
+            StartAttack1();
+        }
+        else
+        {
+            playerAnimationComponent.DeactivateFirstAttack();
+        }
+    }
+
+    public void Attack1(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            wantsToAttack1 = true;
+        }
+        else
+        {
+            wantsToAttack1 = false;
+        }
 
     }
 
-    public void Attack()
+    public void Attack2()
     {
-
 
     }
 
