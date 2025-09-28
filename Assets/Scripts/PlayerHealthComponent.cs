@@ -5,6 +5,9 @@ using UnityEngine.UI;
 public class PlayerHealthComponent : MonoBehaviour
 {
 
+    //Components
+    PlayerAnimationComponent playerAnimationComponent;
+
     [SerializeField] float maxHealth = 100f;
 
     //UI Elements
@@ -20,6 +23,7 @@ public class PlayerHealthComponent : MonoBehaviour
 
     void Start()
     {
+        playerAnimationComponent = GetComponent<PlayerAnimationComponent>();
         health = maxHealth;
 
         frontHealthBar.fillAmount = 1f;

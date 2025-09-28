@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,18 +21,30 @@ public class PlayerAttackScript : MonoBehaviour
     //Animation
     PlayerAnimationComponent playerAnimationComponent;
 
+    //Mouvement
+    PlayerMovementComponent playerMovementComponent;
+
     [SerializeField] ClassType classType;
     private PlayerHealthComponent player;
     private CharacterStats characterStats;
+
+    //Attack
+    float attack1Duration;
+    float attack2Duration;
+    bool isAttacking = false;
 
     //input
     bool wantsToAttack1 = false;
     bool wantsToAttack2 = false;
     void Start()
     {
+        playerMovementComponent = GetComponent<PlayerMovementComponent>();
         playerAnimationComponent = GetComponent<PlayerAnimationComponent>();
         player = GetComponent<PlayerHealthComponent>();
         characterStats = GetStatsForClass(classType);
+
+        attack1Duration = playerAnimationComponent.GetAttack1Duration();
+        attack2Duration = playerAnimationComponent.GetAttack2Duration();
     }
 
     public CharacterStats GetStatsForClass(ClassType type)
@@ -67,20 +80,39 @@ public class PlayerAttackScript : MonoBehaviour
         }
     }
 
-    public void StartAttack1()
+    public IEnumerator CouroutineStartAttack1()
     {
+        isAttacking = true;
+        playerMovementComponent.StopMovement();
         playerAnimationComponent.ActivateFirstAttack();
+        yield return new WaitForSeconds(attack1Duration / characterStats.attackSpeed - 0.4f);
+        playerAnimationComponent.DeactivateFirstAttack();
+        playerMovementComponent.ResumeMovement();
+        isAttacking = false;
+        wantsToAttack1 = false;
+    }
+
+    public IEnumerator CouroutineStartAttack2()
+    {
+        isAttacking = true;
+        playerMovementComponent.StopMovement();
+        playerAnimationComponent.ActivateSecondAttack();
+        yield return new WaitForSeconds(attack2Duration / characterStats.attackSpeed - 0.4f);
+        playerAnimationComponent.DeactivateSecondAttack();
+        playerMovementComponent.ResumeMovement();
+        isAttacking = false;
+        wantsToAttack2 = false;
     }
 
     void Update()
     {
-        if (wantsToAttack1)
+        if (wantsToAttack1 && !isAttacking)
         {
-            StartAttack1();
+            StartCoroutine(CouroutineStartAttack1());
         }
-        else
+        else if (wantsToAttack2 && !isAttacking)
         {
-            playerAnimationComponent.DeactivateFirstAttack();
+            StartCoroutine(CouroutineStartAttack2());
         }
     }
 
@@ -90,16 +122,15 @@ public class PlayerAttackScript : MonoBehaviour
         {
             wantsToAttack1 = true;
         }
-        else
-        {
-            wantsToAttack1 = false;
-        }
 
     }
 
-    public void Attack2()
+    public void Attack2(InputAction.CallbackContext ctx)
     {
-
+        if (ctx.performed)
+        {
+            wantsToAttack2 = true;
+        }
     }
 
     private void OnTriggerEnter(Collider collider)

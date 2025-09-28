@@ -4,11 +4,32 @@ using UnityEngine;
 public class PlayerAnimationComponent : MonoBehaviour
 {
     Animator animator;
+    [SerializeField] AnimationClip attack1;
+    [SerializeField] AnimationClip attack2;
+
     void Start()
     {
         animator = GetComponent<Animator>();
     }
 
+    public float GetAttack1Duration()
+    {
+        return attack1 != null ? attack1.length : 0f;
+    }
+
+    public float GetAttack2Duration()
+    {
+        return attack2 != null ? attack2.length : 0f;
+    }
+
+    public void ActivateIdle()
+    {
+        animator.SetBool("isIdle", true);
+    }
+    public void DeactivateIdle()
+    {
+        animator.SetBool("isIdle", false);
+    }
     public void ActivateFirstAttack()
     {
         animator.SetBool("isFirstAttacking", true);
@@ -39,11 +60,6 @@ public class PlayerAnimationComponent : MonoBehaviour
         animator.SetBool("isRunning", false);
     }
 
-    public void ActivateTakingDamage()
-    {
-        animator.SetBool("isTakingDamage", true);
-    }
-
     public void ActivateJumping()
     {
         animator.SetBool("startJump", true);
@@ -58,10 +74,17 @@ public class PlayerAnimationComponent : MonoBehaviour
     {
         animator.SetBool("isFalling", true);
     }
+
     public void DeactivateFalling()
     {
         animator.SetBool("isFalling", false);
     }
+
+    public void ActivateTakingDamage()
+    {
+        animator.SetBool("isTakingDamage", true);
+    }
+
     public void DeactivateTakingDamage()
     {
         animator.SetBool("isTakingDamage", false);

@@ -31,7 +31,9 @@ public class PlayerMovementComponent : MonoBehaviour
     // Movement
     Vector3 direction = Vector3.zero;
     Vector3 jump = Vector3.zero;
-    Vector2 move = Vector2.zero;
+    public Vector2 move = Vector2.zero;
+    Vector2 lastMove = Vector2.zero;
+    bool canMove = true;
 
     // Input
     bool wantsToJump = false;
@@ -50,7 +52,11 @@ public class PlayerMovementComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Movement();
+        if (canMove)
+        {
+            Movement();
+        }
+        
 
     }
     //Movement
@@ -99,16 +105,17 @@ public class PlayerMovementComponent : MonoBehaviour
         {
             jump += Time.deltaTime * (gravityValue * multiplier) * transform.up;
         }
-        if (characterController.isGrounded)
-        {
-            //dplayerAnimationComponent.DeactivateJumping();
-            playerAnimationComponent.DeactivateFalling();
-        }
         if (!characterController.isGrounded)
         {
             playerAnimationComponent.ActivateFalling();
             playerAnimationComponent.DeactivateRunning();
         }
+        else //(characterController.isGrounded)
+        {
+            //dplayerAnimationComponent.DeactivateJumping();
+            playerAnimationComponent.DeactivateFalling();
+        }
+
     }
 
     void ChangeRotation()
@@ -138,7 +145,7 @@ public class PlayerMovementComponent : MonoBehaviour
     //Dash
     public void Dash(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && canDash && !isDashing)
+        if (ctx.performed && canDash && !isDashing && canMove)
             StartCoroutine(DashCoroutine());
     }
     public IEnumerator DashCoroutine()
@@ -177,5 +184,22 @@ public class PlayerMovementComponent : MonoBehaviour
         fastFall = ctx.performed;
     }
 
+    public void StopMovement()
+    {
+        canMove = false;
+        //lastMove = move;
+        //move = Vector2.zero;
+        //direction = Vector3.zero;
+        playerAnimationComponent.DeactivateRunning();
+        playerAnimationComponent.DeactivateJumping();
+        playerAnimationComponent.DeactivateFalling();
+    }
+
+    public void ResumeMovement()
+    {
+        if(move == Vector2.zero)
+            move = lastMove;
+        canMove = true;
+    }
 
 }
