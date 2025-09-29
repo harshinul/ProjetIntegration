@@ -7,9 +7,9 @@ public class PlayerAnimationComponent : MonoBehaviour
     [SerializeField] AnimationClip attack1;
     [SerializeField] AnimationClip attack2;
 
-    void Start()
+    void Awake()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     public float GetAttack1Duration()

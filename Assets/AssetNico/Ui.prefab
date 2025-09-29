@@ -101,7 +101,7 @@ Transform:
   m_GameObject: {fileID: 164658782181398382}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 919, y: -455, z: 0}
+  m_LocalPosition: {x: 830, y: -665.6, z: 0}
   m_LocalScale: {x: 0.5589656, y: 0.6095256, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -456,7 +456,7 @@ Transform:
   m_GameObject: {fileID: 889859028577056447}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 263, y: -449, z: 0}
+  m_LocalPosition: {x: 196, y: -665.6, z: 0}
   m_LocalScale: {x: 0.5589656, y: 0.6095256, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -661,7 +661,7 @@ Transform:
   m_GameObject: {fileID: 1775816857819029768}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -430, y: -449, z: 0}
+  m_LocalPosition: {x: -440, y: -665.6, z: 0}
   m_LocalScale: {x: 0.5589656, y: 0.6095256, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -741,7 +741,7 @@ Canvas:
   m_GameObject: {fileID: 2068587736739917892}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -769,7 +769,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 0.35
+  m_ScaleFactor: 0.3
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
@@ -896,7 +896,7 @@ Transform:
   m_GameObject: {fileID: 3007120608782633920}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1116, y: -448, z: 0}
+  m_LocalPosition: {x: -1072.3, y: -665.6, z: 0}
   m_LocalScale: {x: 0.55896556, y: 0.60952556, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1700,7 +1700,7 @@ Transform:
   m_GameObject: {fileID: 6815761562740030712}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -857, y: 646, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
