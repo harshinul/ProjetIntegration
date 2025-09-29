@@ -219,6 +219,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Warrior
       objectReference: {fileID: 0}
+    - target: {fileID: 6207425082242127126, guid: 69d58815463730c48915dee64a625083, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8312282910030137463, guid: 69d58815463730c48915dee64a625083, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 9167796343123593190, guid: 69d58815463730c48915dee64a625083, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.791202
@@ -548,7 +556,7 @@ MonoBehaviour:
   maxHealth: 100
   frontHealthBar: {fileID: 1871851856}
   backHealthBar: {fileID: 1997717024}
-  chipSpeed: 4
+  chipSpeed: 1
   chipDelay: 0.5
   defaultMaterial: {fileID: 2100000, guid: 7188913d31ae1e04ba4352e37c503ef0, type: 2}
 --- !u!114 &1871851856 stripped
@@ -661,7 +669,8 @@ PrefabInstance:
       propertyPath: defaultMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 7188913d31ae1e04ba4352e37c503ef0, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4349979986596960064, guid: 152d5da9db86f554b9fad9754f3de5c7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
