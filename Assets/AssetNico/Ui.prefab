@@ -129,6 +129,7 @@ MonoBehaviour:
   backHealthBar: {fileID: 5410440211176938918}
   chipSpeed: 4
   chipDelay: 0.5
+  defaultMaterial: {fileID: 0}
 --- !u!1 &242351293431814877
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,6 +484,7 @@ MonoBehaviour:
   backHealthBar: {fileID: 776397644209026734}
   chipSpeed: 4
   chipDelay: 0.5
+  defaultMaterial: {fileID: 0}
 --- !u!1 &1054176769988264602
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,6 +689,7 @@ MonoBehaviour:
   backHealthBar: {fileID: 6254972527222857118}
   chipSpeed: 4
   chipDelay: 0.5
+  defaultMaterial: {fileID: 0}
 --- !u!1 &2068587736739917892
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,7 +769,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
+  m_ScaleFactor: 0.3
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
@@ -921,6 +924,7 @@ MonoBehaviour:
   backHealthBar: {fileID: 472363460901703992}
   chipSpeed: 4
   chipDelay: 0.5
+  defaultMaterial: {fileID: 0}
 --- !u!1 &3048899537046882131
 GameObject:
   m_ObjectHideFlags: 0
@@ -1696,7 +1700,7 @@ Transform:
   m_GameObject: {fileID: 6815761562740030712}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -857, y: 646, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

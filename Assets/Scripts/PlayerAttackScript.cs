@@ -29,6 +29,7 @@ public class PlayerAttackScript : MonoBehaviour
     private CharacterStats characterStats;
 
     //Attack
+    WeaponScript weapon;
     float attack1Duration;
     float attack2Duration;
     bool isAttacking = false;
@@ -41,6 +42,7 @@ public class PlayerAttackScript : MonoBehaviour
         playerMovementComponent = GetComponent<PlayerMovementComponent>();
         playerAnimationComponent = GetComponent<PlayerAnimationComponent>();
         player = GetComponent<PlayerHealthComponent>();
+        weapon = GetComponentInChildren<WeaponScript>();
         characterStats = GetStatsForClass(classType);
 
         attack1Duration = playerAnimationComponent.GetAttack1Duration();
@@ -89,6 +91,13 @@ public class PlayerAttackScript : MonoBehaviour
         playerAnimationComponent.ActivateFirstAttack();
         yield return new WaitForSeconds(beginingAnimationTime);
         playerMovementComponent.ResumeMovement();
+
+        if (weapon != null && weapon.isInPlayer) // If weapon is in player, deal damage
+        {
+            weapon.isInPlayer = false;
+            player.TakeDamage(characterStats.damage);
+        }
+
         yield return new WaitForSeconds(endAnimationTime);
         playerAnimationComponent.DeactivateFirstAttack();
         isAttacking = false;
@@ -104,6 +113,13 @@ public class PlayerAttackScript : MonoBehaviour
         playerAnimationComponent.ActivateSecondAttack();
         yield return new WaitForSeconds(beginingAnimationTime);
         playerMovementComponent.ResumeMovement();
+
+        if (weapon != null && weapon.isInPlayer) // If weapon is in player, deal damage
+        {
+            weapon.isInPlayer = false;
+            player.TakeDamage(characterStats.damage);
+        }
+
         yield return new WaitForSeconds(endAnimationTime);
         playerAnimationComponent.DeactivateSecondAttack();
 
@@ -140,11 +156,11 @@ public class PlayerAttackScript : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider collider)
-    {
-        if (collider.CompareTag("Player"))
-        {
-            player.TakeDamage(characterStats.damage);
-        }
-    }
+    //private void OnTriggerEnter(Collider collider)
+    //{
+    //    if (collider.CompareTag("Player"))
+    //    {
+    //        player.TakeDamage(characterStats.damage);
+    //    }
+    //}
 }

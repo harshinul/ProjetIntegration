@@ -91,7 +91,8 @@ public class PlayerMovementComponent : MonoBehaviour
             jumpCount++;
             wantsToJump = false;
         }
-        
+
+
     }
 
     void Falling()
