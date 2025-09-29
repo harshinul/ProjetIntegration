@@ -1,19 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
 using UnityEngine;
-using TMPro;
 
-public class LoadCharacter : MonoBehaviour
+namespace SCRIPTS_MARC
 {
-	public GameObject[] characterPrefabs;
-	public Transform spawnPoint;
-	public TMP_Text label;
-
-	void Start()
+	public class LoadCharacter : MonoBehaviour
 	{
-		int selectedCharacter = PlayerPrefs.GetInt("selectedCharacter");
-		GameObject prefab = characterPrefabs[selectedCharacter];
-		GameObject clone = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
-		label.text = prefab.name;
+		public GameObject[] characterPrefabs;
+		public Transform spawnPoint;
+		public TMP_Text label;
+
+		void Start()
+		{
+			int selectedCharacter = PlayerPrefs.GetInt("selectedCharacter");
+			GameObject prefab = characterPrefabs[selectedCharacter];
+			GameObject clone = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
+			label.text = prefab.name;
+		}
 	}
 }

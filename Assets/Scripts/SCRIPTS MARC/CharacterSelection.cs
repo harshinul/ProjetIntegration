@@ -1,32 +1,35 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class CharacterSelection : MonoBehaviour
+namespace SCRIPTS_MARC
 {
-	public GameObject[] characters;
-	public int selectedCharacter = 0;
-
-	public void NextCharacter()
+	public class CharacterSelection : MonoBehaviour
 	{
-		characters[selectedCharacter].SetActive(false);
-		selectedCharacter = (selectedCharacter + 1) % characters.Length;
-		characters[selectedCharacter].SetActive(true);
-	}
+		public GameObject[] characters;
+		public int selectedCharacter = 0;
 
-	public void PreviousCharacter()
-	{
-		characters[selectedCharacter].SetActive(false);
-		selectedCharacter--;
-		if (selectedCharacter < 0)
+		public void NextCharacter()
 		{
-			selectedCharacter += characters.Length;
+			characters[selectedCharacter].SetActive(false);
+			selectedCharacter = (selectedCharacter + 1) % characters.Length;
+			characters[selectedCharacter].SetActive(true);
 		}
-		characters[selectedCharacter].SetActive(true);
-	}
 
-	public void StartGame()
-	{
-		PlayerPrefs.SetInt("selectedCharacter", selectedCharacter);
-		SceneManager.LoadScene(1, LoadSceneMode.Single);
+		public void PreviousCharacter()
+		{
+			characters[selectedCharacter].SetActive(false);
+			selectedCharacter--;
+			if (selectedCharacter < 0)
+			{
+				selectedCharacter += characters.Length;
+			}
+			characters[selectedCharacter].SetActive(true);
+		}
+
+		public void StartGame()
+		{
+			PlayerPrefs.SetInt("selectedCharacter", selectedCharacter);
+			SceneManager.LoadScene("game", LoadSceneMode.Single);
+		}
 	}
 }
