@@ -14,12 +14,12 @@ public class PlayerAnimationComponent : MonoBehaviour
 
     public float GetAttack1Duration()
     {
-        return attack1 != null ? attack1.length : 0f;
+        return attack1 != null ? attack1.length/ animator.GetFloat("attack1Speed") : 0f;
     }
 
     public float GetAttack2Duration()
     {
-        return attack2 != null ? attack2.length : 0f;
+        return attack2 != null ? attack2.length/ animator.GetFloat("attack2Speed") : 0f;
     }
 
     public void ActivateIdle()

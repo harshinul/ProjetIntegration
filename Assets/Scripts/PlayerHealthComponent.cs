@@ -21,8 +21,13 @@ public class PlayerHealthComponent : MonoBehaviour
     private bool isDead;
     private float health;
 
+    //Character color
+    [SerializeField] Material defaultMaterial;
+    Material curentMaterial;
+
     void Start()
     {
+        curentMaterial = defaultMaterial;
         playerAnimationComponent = GetComponent<PlayerAnimationComponent>();
         health = maxHealth;
 
@@ -34,6 +39,7 @@ public class PlayerHealthComponent : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
+            Debug.Log("Player takes 3 damage");
             TakeDamage(3f);
         }
     }
@@ -46,10 +52,35 @@ public class PlayerHealthComponent : MonoBehaviour
         if (health <= 0)
         {
             isDead = true;
+            playerAnimationComponent.ActivateDeath();
 
         }
+        //playerAnimationComponent.ActivateTakingDamage();
+        StartCoroutine(DamageVisual());
         Debug.Log($"Player Health: {health}");
         UpdateHealthUI();
+    }
+
+    IEnumerator DamageVisual()
+    {
+        // Implement visual feedback for taking damage (e.g., flashing red)
+
+
+        Color originalColor = defaultMaterial.color;
+        Color flashColor = Color.red;
+
+        float flashDuration = 0.1f;
+        int flashCount = 3;
+
+        for (int i = 0; i < flashCount; i++)
+        {
+            curentMaterial.color = flashColor;
+            yield return new WaitForSeconds(flashDuration);
+            curentMaterial.color = originalColor;
+            yield return new WaitForSeconds(flashDuration);
+        }
+
+        curentMaterial.color = defaultMaterial.color;
     }
 
     private void UpdateHealthUI()

@@ -82,24 +82,31 @@ public class PlayerAttackScript : MonoBehaviour
 
     public IEnumerator CouroutineStartAttack1()
     {
+        float beginingAnimationTime = (attack1Duration / characterStats.attackSpeed) / 2f;
+        float endAnimationTime = beginingAnimationTime;
         isAttacking = true;
         playerMovementComponent.StopMovement();
         playerAnimationComponent.ActivateFirstAttack();
-        yield return new WaitForSeconds(attack1Duration / characterStats.attackSpeed - 0.4f);
-        playerAnimationComponent.DeactivateFirstAttack();
+        yield return new WaitForSeconds(beginingAnimationTime);
         playerMovementComponent.ResumeMovement();
+        yield return new WaitForSeconds(endAnimationTime);
+        playerAnimationComponent.DeactivateFirstAttack();
         isAttacking = false;
         wantsToAttack1 = false;
     }
 
     public IEnumerator CouroutineStartAttack2()
     {
+        float beginingAnimationTime = (attack1Duration / characterStats.attackSpeed) / 2f;
+        float endAnimationTime = beginingAnimationTime;
         isAttacking = true;
         playerMovementComponent.StopMovement();
         playerAnimationComponent.ActivateSecondAttack();
-        yield return new WaitForSeconds(attack2Duration / characterStats.attackSpeed - 0.4f);
-        playerAnimationComponent.DeactivateSecondAttack();
+        yield return new WaitForSeconds(beginingAnimationTime);
         playerMovementComponent.ResumeMovement();
+        yield return new WaitForSeconds(endAnimationTime);
+        playerAnimationComponent.DeactivateSecondAttack();
+
         isAttacking = false;
         wantsToAttack2 = false;
     }
