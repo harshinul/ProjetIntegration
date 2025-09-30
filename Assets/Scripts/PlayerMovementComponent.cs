@@ -31,7 +31,7 @@ public class PlayerMovementComponent : MonoBehaviour
     // Movement
     Vector3 direction = Vector3.zero;
     Vector3 jump = Vector3.zero;
-    public Vector2 move = Vector2.zero;
+    Vector2 move = Vector2.zero;
     Vector2 lastMove = Vector2.zero;
     bool canMove = true;
 
