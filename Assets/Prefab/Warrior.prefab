@@ -186,7 +186,6 @@ MonoBehaviour:
   jumpForce: 5
   maxJumpCount: 2
   dashPower: 20
-  move: {x: 0, y: 0}
 --- !u!143 &7882644716322585257
 CharacterController:
   m_ObjectHideFlags: 0
@@ -444,7 +443,7 @@ MonoBehaviour:
   maxHealth: 100
   frontHealthBar: {fileID: 0}
   backHealthBar: {fileID: 0}
-  chipSpeed: 4
+  chipSpeed: 1
   chipDelay: 0.5
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.1

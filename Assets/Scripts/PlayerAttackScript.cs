@@ -12,7 +12,8 @@ public enum ClassType
 public class CharacterStats
 {
     public float health;
-    public float damage;
+    public float lightDamage;
+    public float heavyDamage;
     public float attackSpeed;
     public float speed;
 }
@@ -57,7 +58,8 @@ public class PlayerAttackScript : MonoBehaviour
                 return new CharacterStats
                 {
                     health = 150f,
-                    damage = 7f,
+                    lightDamage = 5f,
+                    heavyDamage = 8f,
                     attackSpeed = 1f,
                     speed = 5f
                 };
@@ -65,15 +67,17 @@ public class PlayerAttackScript : MonoBehaviour
                 return new CharacterStats
                 {
                     health = 100f,
-                    damage = 13f,
+                    lightDamage = 8f,
+                    heavyDamage = 12f,
                     attackSpeed = 0.7f,
                     speed = 4f
                 };
             case ClassType.Assassin:
                 return new CharacterStats
                 {
-                    health = 100f,
-                    damage = 11f,
+                    health = 80f,
+                    lightDamage = 6f,
+                    heavyDamage = 10f,
                     attackSpeed = 1.5f,
                     speed = 6f
                 };
@@ -95,7 +99,7 @@ public class PlayerAttackScript : MonoBehaviour
         if (weapon != null && weapon.isInPlayer) // If weapon is in player, deal damage
         {
             weapon.isInPlayer = false;
-            player.TakeDamage(characterStats.damage);
+            player.TakeDamage(characterStats.lightDamage);
         }
 
         yield return new WaitForSeconds(endAnimationTime);
@@ -117,7 +121,7 @@ public class PlayerAttackScript : MonoBehaviour
         if (weapon != null && weapon.isInPlayer) // If weapon is in player, deal damage
         {
             weapon.isInPlayer = false;
-            player.TakeDamage(characterStats.damage);
+            player.TakeDamage(characterStats.heavyDamage);
         }
 
         yield return new WaitForSeconds(endAnimationTime);
@@ -155,12 +159,4 @@ public class PlayerAttackScript : MonoBehaviour
             wantsToAttack2 = true;
         }
     }
-
-    //private void OnTriggerEnter(Collider collider)
-    //{
-    //    if (collider.CompareTag("Player"))
-    //    {
-    //        player.TakeDamage(characterStats.damage);
-    //    }
-    //}
 }

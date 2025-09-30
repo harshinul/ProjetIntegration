@@ -276,6 +276,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1997717024}
     - target: {fileID: 1130802719554443878, guid: d83134acaa23894489d43bfc52b4f25f, type: 3}
+      propertyPath: flashDuration
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1130802719554443878, guid: d83134acaa23894489d43bfc52b4f25f, type: 3}
       propertyPath: frontHealthBar
       value: 
       objectReference: {fileID: 1871851856}
@@ -684,6 +688,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1130802719554443878, guid: d83134acaa23894489d43bfc52b4f25f, type: 3}
+      propertyPath: backHealthBar
+      value: 
+      objectReference: {fileID: 1997717024}
+    - target: {fileID: 1130802719554443878, guid: d83134acaa23894489d43bfc52b4f25f, type: 3}
+      propertyPath: frontHealthBar
+      value: 
+      objectReference: {fileID: 1961171325}
     - target: {fileID: 2428951891031354760, guid: d83134acaa23894489d43bfc52b4f25f, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -748,6 +760,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Warrior (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8823303940967276654, guid: d83134acaa23894489d43bfc52b4f25f, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -756,6 +772,17 @@ PrefabInstance:
 --- !u!114 &1871851856 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8664463486156030502, guid: 152d5da9db86f554b9fad9754f3de5c7, type: 3}
+  m_PrefabInstance: {fileID: 2023895847}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1961171325 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3819268083421308184, guid: 152d5da9db86f554b9fad9754f3de5c7, type: 3}
   m_PrefabInstance: {fileID: 2023895847}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
