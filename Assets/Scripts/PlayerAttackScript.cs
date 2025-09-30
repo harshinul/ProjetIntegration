@@ -12,8 +12,7 @@ public enum ClassType
 public class CharacterStats
 {
     public float health;
-    public float lightDamage;
-    public float heavyDamage;
+    public float damage;
     public float attackSpeed;
     public float speed;
 }
@@ -44,6 +43,7 @@ public class PlayerAttackScript : MonoBehaviour
         playerAnimationComponent = GetComponent<PlayerAnimationComponent>();
         player = GetComponent<PlayerHealthComponent>();
         weapon = GetComponentInChildren<WeaponScript>();
+        weapon.player = this.gameObject;
         characterStats = GetStatsForClass(classType);
 
         attack1Duration = playerAnimationComponent.GetAttack1Duration();
@@ -58,8 +58,7 @@ public class PlayerAttackScript : MonoBehaviour
                 return new CharacterStats
                 {
                     health = 150f,
-                    lightDamage = 5f,
-                    heavyDamage = 8f,
+                    damage = 7f,
                     attackSpeed = 1f,
                     speed = 5f
                 };
@@ -67,17 +66,15 @@ public class PlayerAttackScript : MonoBehaviour
                 return new CharacterStats
                 {
                     health = 100f,
-                    lightDamage = 8f,
-                    heavyDamage = 12f,
+                    damage = 13f,
                     attackSpeed = 0.7f,
                     speed = 4f
                 };
             case ClassType.Assassin:
                 return new CharacterStats
                 {
-                    health = 80f,
-                    lightDamage = 6f,
-                    heavyDamage = 10f,
+                    health = 100f,
+                    damage = 11f,
                     attackSpeed = 1.5f,
                     speed = 6f
                 };
@@ -93,17 +90,16 @@ public class PlayerAttackScript : MonoBehaviour
         isAttacking = true;
         playerMovementComponent.StopMovement();
         playerAnimationComponent.ActivateFirstAttack();
+
+        weapon.canDealDamage = true;
+        weapon.damage = characterStats.damage;
+
         yield return new WaitForSeconds(beginingAnimationTime);
         playerMovementComponent.ResumeMovement();
-
-        if (weapon != null && weapon.isInPlayer) // If weapon is in player, deal damage
-        {
-            weapon.isInPlayer = false;
-            player.TakeDamage(characterStats.lightDamage);
-        }
-
         yield return new WaitForSeconds(endAnimationTime);
         playerAnimationComponent.DeactivateFirstAttack();
+        weapon.canDealDamage = false;
+
         isAttacking = false;
         wantsToAttack1 = false;
     }
@@ -115,17 +111,15 @@ public class PlayerAttackScript : MonoBehaviour
         isAttacking = true;
         playerMovementComponent.StopMovement();
         playerAnimationComponent.ActivateSecondAttack();
+
+        weapon.canDealDamage = true;
+        weapon.damage = characterStats.damage * 1.5f;
+
         yield return new WaitForSeconds(beginingAnimationTime);
         playerMovementComponent.ResumeMovement();
-
-        if (weapon != null && weapon.isInPlayer) // If weapon is in player, deal damage
-        {
-            weapon.isInPlayer = false;
-            player.TakeDamage(characterStats.heavyDamage);
-        }
-
         yield return new WaitForSeconds(endAnimationTime);
         playerAnimationComponent.DeactivateSecondAttack();
+        weapon.canDealDamage = false;
 
         isAttacking = false;
         wantsToAttack2 = false;
@@ -159,4 +153,12 @@ public class PlayerAttackScript : MonoBehaviour
             wantsToAttack2 = true;
         }
     }
+
+    //private void OnTriggerEnter(Collider collider)
+    //{
+    //    if (collider.CompareTag("Player"))
+    //    {
+    //        player.TakeDamage(characterStats.damage);
+    //    }
+    //}
 }
