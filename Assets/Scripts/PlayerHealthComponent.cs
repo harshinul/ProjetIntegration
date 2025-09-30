@@ -61,7 +61,7 @@ public class PlayerHealthComponent : MonoBehaviour
             
             if (!isInvincible)
             {
-                TakeDamage(3f);
+                TakeDamage(100f);
                 Debug.Log("Player takes 3 damage");
             }
                 

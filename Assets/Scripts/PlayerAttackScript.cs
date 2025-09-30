@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,9 +13,51 @@ public enum ClassType
 public class CharacterStats
 {
     public float health;
-    public float damage;
+    public float lightDamage;
+    public float heavyDamage;
     public float attackSpeed;
     public float speed;
+    public float dashPower;
+
+    public static CharacterStats GetStatsForClass(ClassType type)
+    {
+        switch (type)
+        {
+            case ClassType.Warrior:
+                return new CharacterStats
+                {
+                    health = 150f,
+                    lightDamage = 6f,
+                    heavyDamage = 9f,
+                    attackSpeed = 1f,
+                    dashPower = 20f,
+                    speed = 5f
+                };
+            case ClassType.Mage:
+                return new CharacterStats
+                {
+                    health = 100f,
+                    lightDamage = 8f,
+                    heavyDamage = 13f,
+                    attackSpeed = 0.7f,
+                    dashPower = 15f,
+                    speed = 4f
+                };
+            case ClassType.Assassin:
+                return new CharacterStats
+                {
+                    health = 80f,
+                    lightDamage = 8f,
+                    heavyDamage = 10f,
+                    attackSpeed = 1.5f,
+                    dashPower = 25f,
+                    speed = 6f,
+
+                };
+            default:
+                return null;
+        }
+    }
 }
 public class PlayerAttackScript : MonoBehaviour
 {
@@ -44,44 +87,14 @@ public class PlayerAttackScript : MonoBehaviour
         player = GetComponent<PlayerHealthComponent>();
         weapon = GetComponentInChildren<WeaponScript>();
         weapon.player = this.gameObject;
-        characterStats = GetStatsForClass(classType);
+
+        characterStats = CharacterStats.GetStatsForClass(classType);
 
         attack1Duration = playerAnimationComponent.GetAttack1Duration();
         attack2Duration = playerAnimationComponent.GetAttack2Duration();
     }
 
-    public CharacterStats GetStatsForClass(ClassType type)
-    {
-        switch (type)
-        {
-            case ClassType.Warrior:
-                return new CharacterStats
-                {
-                    health = 150f,
-                    damage = 7f,
-                    attackSpeed = 1f,
-                    speed = 5f
-                };
-            case ClassType.Mage:
-                return new CharacterStats
-                {
-                    health = 100f,
-                    damage = 13f,
-                    attackSpeed = 0.7f,
-                    speed = 4f
-                };
-            case ClassType.Assassin:
-                return new CharacterStats
-                {
-                    health = 100f,
-                    damage = 11f,
-                    attackSpeed = 1.5f,
-                    speed = 6f
-                };
-            default:
-                return null;
-        }
-    }
+
 
     public IEnumerator CouroutineStartAttack1()
     {
@@ -92,7 +105,7 @@ public class PlayerAttackScript : MonoBehaviour
         playerAnimationComponent.ActivateFirstAttack();
 
         weapon.canDealDamage = true;
-        weapon.damage = characterStats.damage;
+        weapon.damage = characterStats.lightDamage;
 
         yield return new WaitForSeconds(beginingAnimationTime);
         playerMovementComponent.ResumeMovement();
@@ -113,7 +126,7 @@ public class PlayerAttackScript : MonoBehaviour
         playerAnimationComponent.ActivateSecondAttack();
 
         weapon.canDealDamage = true;
-        weapon.damage = characterStats.damage * 1.5f;
+        weapon.damage = characterStats.heavyDamage;
 
         yield return new WaitForSeconds(beginingAnimationTime);
         playerMovementComponent.ResumeMovement();
