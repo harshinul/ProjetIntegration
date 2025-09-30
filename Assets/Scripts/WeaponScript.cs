@@ -6,7 +6,10 @@ public class WeaponScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
-            Debug.Log("Trigger Entered");
+        if (other.CompareTag("Player"))
+        {
+            isInPlayer = true;
+        }
+           
     }
 }
