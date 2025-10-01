@@ -176,7 +176,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: d3e2c71bfa9f66846b9eed7e8701281b, type: 3}
+=======
+  m_Sprite: {fileID: 21300000, guid: 33001963fa5f0de4c9bfa4e8185b8100, type: 3}
+>>>>>>> 24e286b606733ccbda25341580b8d15168ba4aba
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -466,7 +470,11 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
+<<<<<<< HEAD
   m_IsActive: 1
+=======
+  m_IsActive: 0
+>>>>>>> 24e286b606733ccbda25341580b8d15168ba4aba
 --- !u!224 &209198083
 RectTransform:
   m_ObjectHideFlags: 0
@@ -482,10 +490,17 @@ RectTransform:
   - {fileID: 1578677271}
   m_Father: {fileID: 525238739}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
+=======
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 225, y: -340}
+  m_SizeDelta: {x: 450, y: 200}
+>>>>>>> 24e286b606733ccbda25341580b8d15168ba4aba
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &209198084
 MonoBehaviour:
@@ -599,7 +614,11 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
+<<<<<<< HEAD
   m_IsActive: 1
+=======
+  m_IsActive: 0
+>>>>>>> 24e286b606733ccbda25341580b8d15168ba4aba
 --- !u!224 &223254698
 RectTransform:
   m_ObjectHideFlags: 0
@@ -615,10 +634,17 @@ RectTransform:
   - {fileID: 627747303}
   m_Father: {fileID: 525238739}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
+=======
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 731, y: -340}
+  m_SizeDelta: {x: 450, y: 200}
+>>>>>>> 24e286b606733ccbda25341580b8d15168ba4aba
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &223254699
 MonoBehaviour:
@@ -1137,7 +1163,11 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
+<<<<<<< HEAD
   m_IsActive: 1
+=======
+  m_IsActive: 0
+>>>>>>> 24e286b606733ccbda25341580b8d15168ba4aba
 --- !u!224 &335367283
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1153,10 +1183,17 @@ RectTransform:
   - {fileID: 2085600075}
   m_Father: {fileID: 525238739}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
+=======
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1237, y: -340}
+  m_SizeDelta: {x: 450, y: 200}
+>>>>>>> 24e286b606733ccbda25341580b8d15168ba4aba
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &335367284
 MonoBehaviour:
@@ -1179,7 +1216,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
+<<<<<<< HEAD
     m_NormalColor: {r: 0.9150943, g: 0.876246, b: 0.876246, a: 1}
+=======
+    m_NormalColor: {r: 0, g: 0.6784314, b: 1, a: 1}
+>>>>>>> 24e286b606733ccbda25341580b8d15168ba4aba
     m_HighlightedColor: {r: 0, g: 0.5254902, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1246,7 +1287,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: d3e2c71bfa9f66846b9eed7e8701281b, type: 3}
+=======
+  m_Sprite: {fileID: 0}
+>>>>>>> 24e286b606733ccbda25341580b8d15168ba4aba
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1457,7 +1502,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: 043c42a114bc30949aba9b915c643896, type: 3}
+=======
+  m_Sprite: {fileID: 21300000, guid: 3333dbe4dfe93b342984a090b31d5a92, type: 3}
+>>>>>>> 24e286b606733ccbda25341580b8d15168ba4aba
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2424,7 +2473,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< HEAD
   m_text: Cathedrale Anthique
+=======
+  m_text: Salle D'entrainement
+>>>>>>> 24e286b606733ccbda25341580b8d15168ba4aba
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -3373,7 +3426,11 @@ GameObject:
   - component: {fileID: 1717820727}
   - component: {fileID: 1717820726}
   m_Layer: 5
+<<<<<<< HEAD
   m_Name: Cathedrale_Anthique
+=======
+  m_Name: TrainingRoom
+>>>>>>> 24e286b606733ccbda25341580b8d15168ba4aba
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3487,7 +3544,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: d3e2c71bfa9f66846b9eed7e8701281b, type: 3}
+=======
+  m_Sprite: {fileID: 21300000, guid: 33001963fa5f0de4c9bfa4e8185b8100, type: 3}
+>>>>>>> 24e286b606733ccbda25341580b8d15168ba4aba
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3790,7 +3851,10 @@ GameObject:
   - component: {fileID: 2059016637}
   - component: {fileID: 2059016636}
   - component: {fileID: 2059016640}
+<<<<<<< HEAD
   - component: {fileID: 2059016641}
+=======
+>>>>>>> 24e286b606733ccbda25341580b8d15168ba4aba
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -3893,19 +3957,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 2059016635}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< HEAD
   m_Script: {fileID: 11500000, guid: 52f5172dd36bd0b46b5479c3540e3fd1, type: 3}
+=======
+  m_Script: {fileID: 11500000, guid: 47243282ea9e5b249a72b7d8a92477dc, type: 3}
+>>>>>>> 24e286b606733ccbda25341580b8d15168ba4aba
   m_Name: 
   m_EditorClassIdentifier: 
   pairs:
   - button: {fileID: 1717820726}
     image: {fileID: 18481920}
+<<<<<<< HEAD
     title: {fileID: 0}
   - button: {fileID: 1717820726}
     image: {fileID: 18481920}
+=======
+>>>>>>> 24e286b606733ccbda25341580b8d15168ba4aba
     title: {fileID: 935007172}
   - button: {fileID: 250049980}
     image: {fileID: 1478573663}
     title: {fileID: 670108834}
+<<<<<<< HEAD
   - button: {fileID: 58943527}
     image: {fileID: 1667036017}
     title: {fileID: 0}
@@ -3922,6 +3994,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a6e5c0ed950a704d88cb7e945637719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+=======
+  ArenaConfirmation: {fileID: 1672352372}
+>>>>>>> 24e286b606733ccbda25341580b8d15168ba4aba
 --- !u!1 &2085600074
 GameObject:
   m_ObjectHideFlags: 0
@@ -4115,7 +4190,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< HEAD
   m_Sprite: {fileID: 21300000, guid: d3e2c71bfa9f66846b9eed7e8701281b, type: 3}
+=======
+  m_Sprite: {fileID: 0}
+>>>>>>> 24e286b606733ccbda25341580b8d15168ba4aba
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
