@@ -18,7 +18,7 @@ public class MapManager : MonoBehaviour
     public Button ArenaConfirmation;
     public Dictionary<int, string> ArenaName = new Dictionary<int, string>()
     {
-        {0,"SampleScene" },
+        {0,"FightHarsh" },
         {1,"Cathedrale_Anthique" }
     };
     private int selectedIndex = 0;

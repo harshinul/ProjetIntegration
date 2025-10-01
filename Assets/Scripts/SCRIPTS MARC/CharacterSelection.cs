@@ -5,10 +5,16 @@ namespace SCRIPTS_MARC
 {
 	public class CharacterSelection : MonoBehaviour
 	{
-		public GameObject[] characters;
+        CharacterSelectionManager manager;
+        public GameObject[] characters;
 		public int selectedCharacter = 0;
 
-		public void NextCharacter()
+        void Start()
+        {
+            manager = FindAnyObjectByType<CharacterSelectionManager>();
+        }
+
+        public void NextCharacter()
 		{
 			characters[selectedCharacter].SetActive(false);
 			selectedCharacter = (selectedCharacter + 1) % characters.Length;
@@ -26,14 +32,18 @@ namespace SCRIPTS_MARC
 			characters[selectedCharacter].SetActive(true);
 		}
 
-		public void StartGame()
+		public void SendInformation()
 		{
-            foreach (GameObject character in characters)
-            {
-                Debug.Log(character.name);
-            }
-            PlayerPrefs.SetInt("selectedCharacter", selectedCharacter);
-			SceneManager.LoadScene("AreneSelection", LoadSceneMode.Single);
-		}
+            
+			manager.AddPlayer(characters[selectedCharacter].name);
+
+        }
+
+		//public void StartGame()
+		//{
+  //          PlayerPrefs.SetString("classTypePlayer1", characters[selectedCharacter].name);
+  //          PlayerPrefs.SetInt("selectedCharacter", selectedCharacter);
+		//	SceneManager.LoadScene("AreneSelection", LoadSceneMode.Single);
+		//}
 	}
 }

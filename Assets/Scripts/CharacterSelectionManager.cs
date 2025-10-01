@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterSelectionManager : MonoBehaviour
 {
@@ -16,16 +17,23 @@ public class CharacterSelectionManager : MonoBehaviour
 
     }
 
-    void AddPlayer()
+
+    public void AddPlayer(string classPrefabName)
     {
-        PlayerPrefs.SetInt("numberOfPlayer", currentPlayers + 1);
+        currentPlayers++;
+        PlayerPrefs.SetString("classTypePlayer" + currentPlayers, classPrefabName);
+        PlayerPrefs.SetInt("numberOfPlayer", currentPlayers);
+        PlayerIsReady();
         
     }
 
-    void PlayerIsReady(GameObject characterPrefab)
+    void PlayerIsReady()
     {
         numberOfReadyPlayers++;
-
+        if(numberOfReadyPlayers == currentPlayers)
+        {
+            SceneManager.LoadScene("AreneSelection", LoadSceneMode.Single);
+        }
 
     }
     void PlayerIsNotReady()
