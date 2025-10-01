@@ -28,7 +28,11 @@ namespace SCRIPTS_MARC
 
 		public void StartGame()
 		{
-			PlayerPrefs.SetInt("selectedCharacter", selectedCharacter);
+            foreach (GameObject character in characters)
+            {
+                Debug.Log(character.name);
+            }
+            PlayerPrefs.SetInt("selectedCharacter", selectedCharacter);
 			SceneManager.LoadScene("AreneSelection", LoadSceneMode.Single);
 		}
 	}
