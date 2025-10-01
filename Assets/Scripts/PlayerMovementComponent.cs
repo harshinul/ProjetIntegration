@@ -2,9 +2,13 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class PlayerMovementComponent : MonoBehaviour
 {
+    //playerStats
+    private CharacterStats characterStats;
+    private ClassType classType;
     //Animation
     PlayerAnimationComponent playerAnimationComponent;
 
@@ -24,14 +28,14 @@ public class PlayerMovementComponent : MonoBehaviour
     //Dashing
     private bool canDash = true;
     private bool isDashing = false;
-    [SerializeField] float dashPower = 20f;
+    private float dashPower;
     private float dashTime = 0.2f;
     private float dashCooldown = 1f;
 
     // Movement
     Vector3 direction = Vector3.zero;
     Vector3 jump = Vector3.zero;
-    public Vector2 move = Vector2.zero;
+    Vector2 move = Vector2.zero;
     Vector2 lastMove = Vector2.zero;
     bool canMove = true;
 
@@ -45,6 +49,8 @@ public class PlayerMovementComponent : MonoBehaviour
     {
         playerAnimationComponent = GetComponent<PlayerAnimationComponent>();
         characterController = GetComponent<CharacterController>();
+
+        characterStats = CharacterStats.GetStatsForClass(classType);
 
         playerInput = GetComponent<PlayerInput>();
     }
@@ -91,7 +97,8 @@ public class PlayerMovementComponent : MonoBehaviour
             jumpCount++;
             wantsToJump = false;
         }
-        
+
+
     }
 
     void Falling()
@@ -165,7 +172,7 @@ public class PlayerMovementComponent : MonoBehaviour
             //act as a progress bar
             float t = elapsed / dashTime;
             //act as a decrease of speed over time based on t
-            float speedDash = Mathf.Lerp(dashPower, 0f, t);
+            float speedDash = Mathf.Lerp(characterStats.dashPower, 0f, t);
 
             characterController.Move(dashDir * speedDash * Time.deltaTime);
 

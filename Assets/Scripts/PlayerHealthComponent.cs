@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,14 +22,31 @@ public class PlayerHealthComponent : MonoBehaviour
     // Health
     private bool isDead;
     private float health;
+    private bool isInvincible = false;
 
     //Character color
-    [SerializeField] Material defaultMaterial;
-    Material curentMaterial;
+    SkinnedMeshRenderer[] meshRenderers;
+    Material[] materials;
+    Color[] originalColors;
+    [SerializeField] Color damageColor = Color.red;
+    [SerializeField] float flashDuration = 0.1f;
+    [SerializeField] int flashCount = 3;
 
     void Start()
     {
-        curentMaterial = defaultMaterial;
+        meshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+        List<Material> mats = new List<Material>();
+        foreach (var rend in meshRenderers)
+        {
+            mats.AddRange(rend.materials);
+        }
+        materials = mats.ToArray();
+        originalColors = new Color[materials.Length];
+        for (int i = 0; i < materials.Length; i++)
+        {
+            originalColors[i] = materials[i].color;
+        }
+
         playerAnimationComponent = GetComponent<PlayerAnimationComponent>();
         health = maxHealth;
 
@@ -39,8 +58,14 @@ public class PlayerHealthComponent : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("Player takes 3 damage");
-            TakeDamage(3f);
+            
+            if (!isInvincible)
+            {
+                TakeDamage(100f);
+                Debug.Log("Player takes 3 damage");
+            }
+                
+
         }
     }
     public void TakeDamage(float damage)
@@ -48,7 +73,7 @@ public class PlayerHealthComponent : MonoBehaviour
         if (isDead) return;
         health -= damage;
         health = Mathf.Clamp(health, 0f, maxHealth);
-
+        isInvincible = true;
         if (health <= 0)
         {
             isDead = true;
@@ -63,24 +88,25 @@ public class PlayerHealthComponent : MonoBehaviour
 
     IEnumerator DamageVisual()
     {
-        // Implement visual feedback for taking damage (e.g., flashing red)
-
-
-        Color originalColor = defaultMaterial.color;
-        Color flashColor = Color.red;
-
-        float flashDuration = 0.1f;
-        int flashCount = 3;
 
         for (int i = 0; i < flashCount; i++)
         {
-            curentMaterial.color = flashColor;
+            foreach (var curentMaterial in materials)
+            {
+                curentMaterial.color = damageColor;
+            }
             yield return new WaitForSeconds(flashDuration);
-            curentMaterial.color = originalColor;
+            for(int j = 0; j < materials.Length; j++)
+            {
+                materials[j].color = originalColors[j];
+            }
             yield return new WaitForSeconds(flashDuration);
         }
-
-        curentMaterial.color = defaultMaterial.color;
+        isInvincible = false;
+        for (int j = 0; j < materials.Length; j++)
+        {
+            materials[j].color = originalColors[j];
+        }
     }
 
     private void UpdateHealthUI()
