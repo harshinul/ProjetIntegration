@@ -185,7 +185,6 @@ MonoBehaviour:
   fallMultiplier: 5.4
   jumpForce: 5
   maxJumpCount: 2
-  dashPower: 20
 --- !u!143 &7882644716322585257
 CharacterController:
   m_ObjectHideFlags: 0
@@ -396,6 +395,50 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d9ef03c9-498a-4acf-a027-9a15a410c29d
     m_ActionName: 'Player/Attack2[/Mouse/rightButton,/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7618fe0b-7acd-4066-9977-ad8d6e85abb2
+    m_ActionName: 'Player1/Move[/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b14e15d3-0141-49f9-be91-cfb38a09ea28
+    m_ActionName: 'Player1/Look[/Mouse/delta]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0c1f2fd0-b4a2-401b-9682-fff48cb9b211
+    m_ActionName: 'Player1/Attack[/Mouse/leftButton,/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ba83b3e5-54d2-46be-89dd-54a35f6d4c63
+    m_ActionName: 'Player1/Interact[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d8fb7e0d-5537-4a26-bc0a-ec8609e6b142
+    m_ActionName: 'Player1/Crouch[/Keyboard/c]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 63e0cb49-7c4f-46c4-a166-2047516a9c62
+    m_ActionName: 'Player1/Jump[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cc1fad38-08d6-48b2-89f3-0cbb3be6074c
+    m_ActionName: 'Player1/Previous[/Keyboard/1]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5e7a7d31-7442-422f-9259-3e604a7bc8fc
+    m_ActionName: 'Player1/Next[/Keyboard/2]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bbe0e959-06b7-4cc8-96e9-e4aa970258b0
+    m_ActionName: 'Player1/Sprint[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 05d4eff5-76b2-478f-bee2-f7b90b70ef30
+    m_ActionName: 'Player1/FastFall[/Keyboard/s]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f41fde84-2770-4c02-98c3-1ba8a3e0fcf1
+    m_ActionName: 'Player1/Dash[/Keyboard/shift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -603,13 +646,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1426972235668224320, guid: 9ea7f0c6762517549930a808fa5d1dda, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5497876308296468569}
   m_SourcePrefab: {fileID: 100100000, guid: 9ea7f0c6762517549930a808fa5d1dda, type: 3}
 --- !u!4 &1819029160029250404 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6175418764319793917, guid: 9ea7f0c6762517549930a808fa5d1dda, type: 3}
   m_PrefabInstance: {fileID: 5516069274467090841}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6863657869281573081 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1426972235668224320, guid: 9ea7f0c6762517549930a808fa5d1dda, type: 3}
+  m_PrefabInstance: {fileID: 5516069274467090841}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5497876308296468569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6863657869281573081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 136181b623d142b4181f5f4b4ae8194e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8653675264636860924
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -728,4 +791,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02381ebbcf513d94ca1755d593dc4da0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isInPlayer: 0
+  player: {fileID: 0}
+  canDealDamage: 0
+  damage: 10
