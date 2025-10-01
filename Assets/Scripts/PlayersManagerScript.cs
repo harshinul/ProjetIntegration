@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayersManagerScript : MonoBehaviour
 {
 
-    [SerializeField] private Transform[] spawnPoints = new Transform[5];
+    [SerializeField] Transform[] spawnPoints = new Transform[5];
+    [SerializeField] Image[] backHealthBar = new Image[4];
+    [SerializeField] Image[] frontHealthBar = new Image[4];
 
     [SerializeField] GameObject warriorPrefab;
     [SerializeField] GameObject assassinPrefab;
@@ -11,61 +14,66 @@ public class PlayersManagerScript : MonoBehaviour
 
     private void Start()
     {
-        PlayerPrefs.SetInt("numberOfPlayer", 2);
-        PlayerPrefs.SetString("classTypePlayer1", "Warrior");
-        PlayerPrefs.SetString("classTypePlayer2", "Mage");
+        PlayerPrefs.SetInt("numberOfPlayer", 4);
+        PlayerPrefs.SetString("classTypePlayer1", warriorPrefab.name);
+        PlayerPrefs.SetString("classTypePlayer2", magePrefab.name);
+        PlayerPrefs.SetString("classTypePlayer3", assassinPrefab.name);
+        PlayerPrefs.SetString("classTypePlayer4", magePrefab.name);
         SpawnPlayers(PlayerPrefs.GetInt("numberOfPlayer"));
+
     }
 
-    GameObject AssignePlayerType(int playerNumber)
+    void SpawnPlayerType(int playerNumber, Vector3 position)
     {
+        GameObject player;
         string classTypeString = PlayerPrefs.GetString("classTypePlayer" + playerNumber);
-        switch
-            (classTypeString)
+
+        if(classTypeString == warriorPrefab.name)
         {
-            case "Warrior":
-                return warriorPrefab;
-            case "Assassin":
-                return assassinPrefab;
-            case "Mage":
-                return magePrefab;
-            default:
-                Debug.Log("Class type not recognized, defaulting to Warrior");
-                return magePrefab;
+            player = Instantiate(warriorPrefab, position, Quaternion.identity);
         }
+        else if(classTypeString == assassinPrefab.name)
+        {
+            player = Instantiate(assassinPrefab, position, Quaternion.identity);
+        }
+        else if (classTypeString == magePrefab.name)
+        {
+            player = Instantiate(magePrefab, position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.Log("Class type not recognized, defaulting to Warrior");
+            player = Instantiate(warriorPrefab, position, Quaternion.identity);
+        }
+
+        player.GetComponent<PlayerHealthComponent>().SetHealthBarUI(backHealthBar[playerNumber - 1], frontHealthBar[playerNumber - 1]);
     }
+
     void SpawnPlayers(int numberOfPlayer)
     {
-        switch
-            (numberOfPlayer)
+        switch (numberOfPlayer)
         {
             case 1:
-                Instantiate(AssignePlayerType(1), spawnPoints[0].position, Quaternion.identity);
+                SpawnPlayerType(1, spawnPoints[0].position);
                 break;
             case 2:
-                Instantiate(AssignePlayerType(1), spawnPoints[0].position, Quaternion.identity);
-                Instantiate(AssignePlayerType(2), spawnPoints[4].position, Quaternion.identity);
+                SpawnPlayerType(1, spawnPoints[0].position);
+                SpawnPlayerType(2, spawnPoints[4].position);
                 break;
             case 3:
-                Instantiate(AssignePlayerType(1), spawnPoints[0].position, Quaternion.identity);
-                Instantiate(AssignePlayerType(2), spawnPoints[2].position, Quaternion.identity);
-                Instantiate(AssignePlayerType(3), spawnPoints[4].position, Quaternion.identity);
+                SpawnPlayerType(1, spawnPoints[0].position);
+                SpawnPlayerType(2, spawnPoints[2].position);
+                SpawnPlayerType(3, spawnPoints[4].position);
                 break;
             case 4:
-                Instantiate(AssignePlayerType(1), spawnPoints[0].position, Quaternion.identity);
-                Instantiate(AssignePlayerType(2), spawnPoints[1].position, Quaternion.identity);
-                Instantiate(AssignePlayerType(3), spawnPoints[3].position, Quaternion.identity);
-                Instantiate(AssignePlayerType(4), spawnPoints[4].position, Quaternion.identity);
+                SpawnPlayerType(1, spawnPoints[0].position);
+                SpawnPlayerType(2, spawnPoints[1].position);
+                SpawnPlayerType(3, spawnPoints[3].position);
+                SpawnPlayerType(4, spawnPoints[4].position);
                 break;
             default:
                 Debug.Log("Number of players not supported");
                 break;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

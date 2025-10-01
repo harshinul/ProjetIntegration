@@ -94,6 +94,15 @@ public class PlayerAttackScript : MonoBehaviour
         attack2Duration = playerAnimationComponent.GetAttack2Duration();
     }
 
+    void CanDealDamage()
+    {
+        weapon.canDealDamage = true;
+    }
+
+    void CannotDealDamage()
+    {
+        weapon.canDealDamage = false;
+    }
 
 
     public IEnumerator CouroutineStartAttack1()
@@ -104,14 +113,12 @@ public class PlayerAttackScript : MonoBehaviour
         playerMovementComponent.StopMovement();
         playerAnimationComponent.ActivateFirstAttack();
 
-        weapon.canDealDamage = true;
         weapon.damage = characterStats.lightDamage;
 
         yield return new WaitForSeconds(beginingAnimationTime);
         playerMovementComponent.ResumeMovement();
         yield return new WaitForSeconds(endAnimationTime);
         playerAnimationComponent.DeactivateFirstAttack();
-        weapon.canDealDamage = false;
 
         isAttacking = false;
         wantsToAttack1 = false;
@@ -125,14 +132,12 @@ public class PlayerAttackScript : MonoBehaviour
         playerMovementComponent.StopMovement();
         playerAnimationComponent.ActivateSecondAttack();
 
-        weapon.canDealDamage = true;
         weapon.damage = characterStats.heavyDamage;
 
         yield return new WaitForSeconds(beginingAnimationTime);
         playerMovementComponent.ResumeMovement();
         yield return new WaitForSeconds(endAnimationTime);
         playerAnimationComponent.DeactivateSecondAttack();
-        weapon.canDealDamage = false;
 
         isAttacking = false;
         wantsToAttack2 = false;
