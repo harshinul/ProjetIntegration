@@ -29,7 +29,7 @@ namespace SCRIPTS_MARC
 		public void StartGame()
 		{
 			PlayerPrefs.SetInt("selectedCharacter", selectedCharacter);
-			SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+			SceneManager.LoadScene("AreneSelection", LoadSceneMode.Single);
 		}
 	}
 }
