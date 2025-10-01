@@ -86,6 +86,11 @@ public class PlayerHealthComponent : MonoBehaviour
         UpdateHealthUI();
     }
 
+    public bool PlayerIsDead()
+    {
+        return isDead;
+    }
+
     IEnumerator DamageVisual()
     {
 

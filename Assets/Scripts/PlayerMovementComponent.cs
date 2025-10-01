@@ -9,6 +9,7 @@ public class PlayerMovementComponent : MonoBehaviour
     //playerStats
     private CharacterStats characterStats;
     private ClassType classType;
+    private PlayerHealthComponent player;
     //Animation
     PlayerAnimationComponent playerAnimationComponent;
 
@@ -49,6 +50,7 @@ public class PlayerMovementComponent : MonoBehaviour
     {
         playerAnimationComponent = GetComponent<PlayerAnimationComponent>();
         characterController = GetComponent<CharacterController>();
+        player = GetComponent<PlayerHealthComponent>();
 
         characterStats = CharacterStats.GetStatsForClass(classType);
 
@@ -58,11 +60,15 @@ public class PlayerMovementComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canMove)
+        if (canMove && !player.PlayerIsDead())
         {
             Movement();
         }
-        
+        else if(player.PlayerIsDead())
+        {
+            characterController.enabled = false;
+        }
+
 
     }
     //Movement
