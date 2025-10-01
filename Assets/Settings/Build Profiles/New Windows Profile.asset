@@ -25,6 +25,8 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/selection.unity
   - m_enabled: 1
+    m_path: Assets/Scenes/AreneSelection.unity
+  - m_enabled: 1
     m_path: Assets/Scenes/SampleScene.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
