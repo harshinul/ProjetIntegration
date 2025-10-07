@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5022688414229774171, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
       propertyPath: m_Name
-      value: Warrior2
+      value: Statue
       objectReference: {fileID: 0}
     - target: {fileID: 5022688414229774171, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
       propertyPath: m_TagString
@@ -511,6 +511,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2244195609546808720, guid: 9d82d845404be7e4396e77f2de5fd79f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 947ecebfb3192164292c46e96c5647c5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
