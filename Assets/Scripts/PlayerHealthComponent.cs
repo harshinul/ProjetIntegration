@@ -9,6 +9,7 @@ public class PlayerHealthComponent : MonoBehaviour
 
     //Components
     PlayerAnimationComponent playerAnimationComponent;
+    PlayerMovementComponent playerMovementComponent;
 
     [SerializeField] float maxHealth = 100f;
 
@@ -48,6 +49,7 @@ public class PlayerHealthComponent : MonoBehaviour
         }
 
         playerAnimationComponent = GetComponent<PlayerAnimationComponent>();
+        playerMovementComponent = GetComponent<PlayerMovementComponent>();
         health = maxHealth;
 
         frontHealthBar.fillAmount = 1f;
@@ -77,6 +79,7 @@ public class PlayerHealthComponent : MonoBehaviour
         if (health <= 0)
         {
             isDead = true;
+            playerMovementComponent.StopMovement();
             playerAnimationComponent.ActivateDeath();
 
         }
