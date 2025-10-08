@@ -33,7 +33,7 @@ public class UltimateAbilityComponent : MonoBehaviour
         if(damageDealer == player)
         {
             Debug.Log("Ult charged by " + amount);
-            ultBar.fillAmount = Mathf.Clamp01(ultBar.fillAmount + (amount / 100));
+            ultBar.fillAmount = Mathf.Clamp01(ultBar.fillAmount + (amount * 1.5f / 100));
         }
 
     }
