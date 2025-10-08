@@ -7,6 +7,7 @@ public class PlayersManagerScript : MonoBehaviour
     [SerializeField] Transform[] spawnPoints = new Transform[5];
     [SerializeField] Image[] backHealthBar = new Image[4];
     [SerializeField] Image[] frontHealthBar = new Image[4];
+    [SerializeField] Image[] ultBar = new Image[4];
 
     [SerializeField] GameObject warriorPrefab;
     [SerializeField] GameObject assassinPrefab;
@@ -47,6 +48,7 @@ public class PlayersManagerScript : MonoBehaviour
         }
 
         player.GetComponent<PlayerHealthComponent>().SetHealthBarUI(backHealthBar[playerNumber - 1], frontHealthBar[playerNumber - 1]);
+        player.GetComponent<UltimateAbilityComponent>().SetUltBarUI(ultBar[playerNumber - 1]);
     }
 
     void SpawnPlayers(int numberOfPlayer)

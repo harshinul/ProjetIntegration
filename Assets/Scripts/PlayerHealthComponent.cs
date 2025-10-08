@@ -10,12 +10,16 @@ public class PlayerHealthComponent : MonoBehaviour
     //Components
     PlayerAnimationComponent playerAnimationComponent;
     PlayerMovementComponent playerMovementComponent;
+    UltimateAbilityComponent ultimateAbilityComponent;
+    PlayerAttackScript playerWeapon;
+    GameObject player;
 
     [SerializeField] float maxHealth = 100f;
 
     //UI Elements
     [SerializeField] Image frontHealthBar;
     [SerializeField] Image backHealthBar;
+    [SerializeField] Image ultBar;
     [SerializeField] float chipSpeed = 4f;
     [SerializeField] private float chipDelay = 0.5f;
     private Coroutine HealthBarCoroutine;
@@ -50,6 +54,13 @@ public class PlayerHealthComponent : MonoBehaviour
 
         playerAnimationComponent = GetComponent<PlayerAnimationComponent>();
         playerMovementComponent = GetComponent<PlayerMovementComponent>();
+        ultimateAbilityComponent = GetComponent<UltimateAbilityComponent>();
+
+        playerWeapon = GetComponent<PlayerAttackScript>();
+
+        if (playerWeapon != null)
+            player = playerWeapon.gameObject;
+
         health = maxHealth;
 
         frontHealthBar.fillAmount = 1f;
@@ -84,6 +95,7 @@ public class PlayerHealthComponent : MonoBehaviour
         health -= damage;
         health = Mathf.Clamp(health, 0f, maxHealth);
         isInvincible = true;
+        ultimateAbilityComponent.ChargeUltDamage(damage,player);
         if (health <= 0)
         {
             isDead = true;
