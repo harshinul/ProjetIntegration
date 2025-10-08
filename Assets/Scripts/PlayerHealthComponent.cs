@@ -90,7 +90,7 @@ public class PlayerHealthComponent : MonoBehaviour
         }
     }
     public void TakeDamage(float damage)
-    {
+{
         if (isDead) return;
         health -= damage;
         health = Mathf.Clamp(health, 0f, maxHealth);
@@ -98,6 +98,7 @@ public class PlayerHealthComponent : MonoBehaviour
         ultimateAbilityComponent.ChargeUltDamage(damage,player);
         if (health <= 0)
         {
+            Debug.Log("Player is dead");
             isDead = true;
             playerMovementComponent.StopMovement();
             playerAnimationComponent.ActivateDeath();
@@ -105,7 +106,6 @@ public class PlayerHealthComponent : MonoBehaviour
         }
         //playerAnimationComponent.ActivateTakingDamage();
         StartCoroutine(DamageVisual());
-        Debug.Log($"Player Health: {health}");
         UpdateHealthUI();
     }
 
