@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Warrior
       objectReference: {fileID: 0}
+    - target: {fileID: 5022688414229774171, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 5205961648017349227, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -402,11 +406,11 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: b14e15d3-0141-49f9-be91-cfb38a09ea28
-    m_ActionName: 'Player1/Look[/Mouse/delta]'
+    m_ActionName: 'Player1/Look[/Mouse/delta,/Touchscreen/delta]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 0c1f2fd0-b4a2-401b-9682-fff48cb9b211
-    m_ActionName: 'Player1/Attack[/Mouse/leftButton,/Keyboard/enter]'
+    m_ActionName: 'Player1/Attack[/Mouse/leftButton,/Touchscreen/primaryTouch/tap,/Keyboard/enter]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: ba83b3e5-54d2-46be-89dd-54a35f6d4c63
@@ -646,33 +650,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1426972235668224320, guid: 9ea7f0c6762517549930a808fa5d1dda, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5497876308296468569}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ea7f0c6762517549930a808fa5d1dda, type: 3}
 --- !u!4 &1819029160029250404 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6175418764319793917, guid: 9ea7f0c6762517549930a808fa5d1dda, type: 3}
   m_PrefabInstance: {fileID: 5516069274467090841}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6863657869281573081 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1426972235668224320, guid: 9ea7f0c6762517549930a808fa5d1dda, type: 3}
-  m_PrefabInstance: {fileID: 5516069274467090841}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5497876308296468569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6863657869281573081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 136181b623d142b4181f5f4b4ae8194e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8653675264636860924
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -737,6 +721,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2244195609546808720, guid: 9d82d845404be7e4396e77f2de5fd79f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 947ecebfb3192164292c46e96c5647c5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

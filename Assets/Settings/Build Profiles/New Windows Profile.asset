@@ -28,6 +28,8 @@ MonoBehaviour:
     m_path: Assets/Scenes/AreneSelection.unity
   - m_enabled: 1
     m_path: Assets/Scenes/SampleScene.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/FightHarsh.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
     m_Settings: []

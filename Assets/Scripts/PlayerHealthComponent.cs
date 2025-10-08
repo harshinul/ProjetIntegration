@@ -56,6 +56,14 @@ public class PlayerHealthComponent : MonoBehaviour
         backHealthBar.fillAmount = 1f;
     }
 
+    public void SetHealthBarUI(Image backHealth, Image frontHealth)
+    {
+        backHealthBar = backHealth;
+        frontHealthBar = frontHealth;
+        frontHealthBar.fillAmount = 1f;
+        backHealthBar.fillAmount = 1f;
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
