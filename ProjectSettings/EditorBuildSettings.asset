@@ -18,6 +18,12 @@ EditorBuildSettings:
     path: Assets/Scenes/game.unity
     guid: d4c867b60215b044b8de700122ca6db8
   - enabled: 1
+    path: Assets/Scenes/Temple.unity
+    guid: 6aace7f83eb10f44691ec341705cca69
+  - enabled: 1
+    path: Assets/Scenes/FightHarsh.unity
+    guid: 7c438ab9fbb9d51469031aabb19384b0
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 0
