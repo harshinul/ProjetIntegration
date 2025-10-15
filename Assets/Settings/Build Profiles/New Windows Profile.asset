@@ -30,6 +30,12 @@ MonoBehaviour:
     m_path: Assets/Scenes/SampleScene.unity
   - m_enabled: 1
     m_path: Assets/Scenes/FightHarsh.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/Temple.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/Cathedrale_Anthique.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/FightReal.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
     m_Settings: []
