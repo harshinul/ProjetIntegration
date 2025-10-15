@@ -12,7 +12,7 @@ namespace SCRIPTS_MARC
         [SerializeField] private string nextSceneName = "AreneSelection";
     
         private int readyPlayersCount = 0;
-
+        
         void Start()
         {
             for (int i = 0; i < panels.Length; i++)
