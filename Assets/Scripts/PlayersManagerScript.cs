@@ -14,13 +14,8 @@ public class PlayersManagerScript : MonoBehaviour
 
     private void Start()
     {
-        PlayerPrefs.SetInt("numberOfPlayer", 4);
-        PlayerPrefs.SetString("classTypePlayer1", warriorPrefab.name);
-        PlayerPrefs.SetString("classTypePlayer2", magePrefab.name);
-        PlayerPrefs.SetString("classTypePlayer3", assassinPrefab.name);
-        PlayerPrefs.SetString("classTypePlayer4", magePrefab.name);
-        SpawnPlayers(PlayerPrefs.GetInt("numberOfPlayer"));
-
+        int numberOfPlayer = PlayerPrefs.GetInt("numberOfPlayer", 1);
+        SpawnPlayers(numberOfPlayer);
     }
 
     void SpawnPlayerType(int playerNumber, Vector3 position)
@@ -42,7 +37,6 @@ public class PlayersManagerScript : MonoBehaviour
         }
         else
         {
-            Debug.Log("Class type not recognized, defaulting to Warrior");
             player = Instantiate(warriorPrefab, position, Quaternion.identity);
         }
 
@@ -72,7 +66,6 @@ public class PlayersManagerScript : MonoBehaviour
                 SpawnPlayerType(4, spawnPoints[4].position);
                 break;
             default:
-                Debug.Log("Number of players not supported");
                 break;
         }
     }
