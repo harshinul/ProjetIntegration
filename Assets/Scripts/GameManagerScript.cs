@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
@@ -49,9 +50,9 @@ public class GameManagerScript : MonoBehaviour
         }
 
 
-        if (CheckNumberOfPlayerAlive() == 1)
+        if (CheckNumberOfPlayerAlive() <= 1)
         {
-            GameOver();
+            StartCoroutine(GameOver());
         }
     }
 
@@ -146,10 +147,11 @@ public class GameManagerScript : MonoBehaviour
         return (false,0);
     }
 
-    void GameOver()
+    IEnumerator GameOver()
     {
         gameOverCanva.enabled = true;
         Debug.Log("Game Over");
+        yield return new WaitForSeconds(3f);
         Time.timeScale = 0f;
     }
 
