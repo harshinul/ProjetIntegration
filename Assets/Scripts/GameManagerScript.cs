@@ -9,6 +9,7 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] Transform[] spawnPoints = new Transform[5];
     [SerializeField] Image[] backHealthBar = new Image[4];
     [SerializeField] Image[] frontHealthBar = new Image[4];
+    [SerializeField] Image[] ultBar = new Image[4];
 
     [SerializeField] GameObject warriorPrefab;
     [SerializeField] GameObject assassinPrefab;
@@ -58,6 +59,7 @@ public class GameManagerScript : MonoBehaviour
     {
         GameObject player;
         PlayerHealthComponent pHC;
+        UltimateAbilityComponent uAC;
         string classTypeString = PlayerPrefs.GetString("classTypePlayer" + playerNumber);
 
         if (classTypeString == warriorPrefab.name)
@@ -79,6 +81,8 @@ public class GameManagerScript : MonoBehaviour
         }
 
         pHC = player.GetComponent<PlayerHealthComponent>();
+        uAC = player.GetComponent<UltimateAbilityComponent>();
+        uAC.SetUltBarUI(ultBar[playerNumber - 1]);
         pHC.SetHealthBarUI(backHealthBar[playerNumber - 1], frontHealthBar[playerNumber - 1]);
         playersHealthComponents.Add(pHC);
         playersPauseMenuComponents.Add(player.GetComponent<PlayerPauseMenuComponent>());
