@@ -4,15 +4,15 @@ using UnityEngine.UI;
 public class UltimateAbilityComponent : MonoBehaviour
 {
     [SerializeField] Image ultBar;
-    PlayerAttackScript playerWeapon;
+    WeaponScript playerWeapon;
     GameObject player;
     void Start()
     {
         ultBar.fillAmount = 0f;
-        playerWeapon = GetComponent<PlayerAttackScript>();
+        playerWeapon = GetComponent<WeaponScript>();
 
         if(playerWeapon != null)
-            player = playerWeapon.gameObject;
+            player = playerWeapon.player;
 
     }
 
