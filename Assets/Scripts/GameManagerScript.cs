@@ -22,11 +22,6 @@ public class GameManagerScript : MonoBehaviour
 
     private void Start()
     {
-        PlayerPrefs.SetInt("numberOfPlayer", 2);
-        PlayerPrefs.SetString("classTypePlayer1", warriorPrefab.name);
-        PlayerPrefs.SetString("classTypePlayer2", magePrefab.name);
-        //PlayerPrefs.SetString("classTypePlayer3", assassinPrefab.name);
-        //PlayerPrefs.SetString("classTypePlayer4", magePrefab.name);
         SpawnPlayers(PlayerPrefs.GetInt("numberOfPlayer"));
 
         gameOverCanva.enabled = false;
