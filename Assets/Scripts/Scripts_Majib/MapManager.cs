@@ -18,7 +18,7 @@ public class MapManager : MonoBehaviour
     public Button ArenaConfirmation;
     public Dictionary<int, string> ArenaName = new Dictionary<int, string>()
     {
-        {0,"FightHarsh" },
+        {0,"FightReal" },
         {1,"Temple" },
         {2,"Cathedrale_Anthique" },
         {3,"Cathedrale_Anthique" }
