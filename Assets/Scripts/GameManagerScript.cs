@@ -46,6 +46,8 @@ public class GameManagerScript : MonoBehaviour
             pauseMenuCanva.enabled = false;
             Time.timeScale = 1f;
         }
+
+
         if (CheckNumberOfPlayerAlive() == 1)
         {
             GameOver();
