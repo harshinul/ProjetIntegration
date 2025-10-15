@@ -19,19 +19,32 @@ public class MapManager : MonoBehaviour
     public Dictionary<int, string> ArenaName = new Dictionary<int, string>()
     {
         {0,"FightHarsh" },
-        {1,"Cathedrale_Anthique" }
+        {1,"Temple" },
+        {2,"Cathedrale_Anthique" },
+        {3,"Cathedrale_Anthique" }
     };
-    private int selectedIndex = 0;
+    private int selectedIndex = -1;
 
     private void Awake()
     {
         for (int i = 0; i < pairs.Count; i++)
         {
             int idx = i;
-            pairs[i].button.onClick.AddListener(() => ActivateOnly(idx));
+            pairs[i].button.onClick.AddListener(() => DoubleClick(idx));
         }
 
         ArenaConfirmation.onClick.AddListener(LevelSelected);
+    }
+    public void DoubleClick(int index)
+    {
+        if (selectedIndex == index)
+        {
+            LevelSelected();
+        }
+        else
+        {
+            ActivateOnly(index);
+        }
     }
 
     void ActivateOnly(int index)
