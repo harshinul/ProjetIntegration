@@ -60,13 +60,22 @@ public class PlayerMovementComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canMove && !player.PlayerIsDead())
+        if (canMove)
         {
             Movement();
         }
         else if(player.PlayerIsDead())
         {
-            characterController.enabled = false;
+
+            if (characterController.isGrounded)
+            {
+                characterController.enabled = false;
+            }
+            else
+            {
+                GravityMovement();
+            }
+
         }
 
 
@@ -74,7 +83,6 @@ public class PlayerMovementComponent : MonoBehaviour
     //Movement
     public void Movement()
     {
-
         direction = new Vector3(move.x, 0, 0).normalized;
         ChangeRotation();
         Jumping();
@@ -141,12 +149,16 @@ public class PlayerMovementComponent : MonoBehaviour
     
     public void Move(InputAction.CallbackContext ctx)
     {
-        move = ctx.ReadValue<Vector2>().normalized;
+        if (!player.PlayerIsDead())
+        {
+            move = ctx.ReadValue<Vector2>().normalized;
+        }
+
     }
     //Jump
     public void Jump(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (ctx.performed && !player.PlayerIsDead())
         {
             wantsToJump = true;
         }
@@ -158,43 +170,52 @@ public class PlayerMovementComponent : MonoBehaviour
     //Dash
     public void Dash(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && canDash && !isDashing && canMove)
+        if (ctx.performed && canDash && !isDashing && canMove && !player.PlayerIsDead())
             StartCoroutine(DashCoroutine());
     }
     public IEnumerator DashCoroutine()
     {
-        canDash = false;
-        isDashing = true;
-
-        float gravity = gravityValue;
-        gravityValue = 0;
-
-        float elapsed = 0f;
-        Vector3 dashDir = new Vector3(move.x, 0, 0).normalized;
-
-        while (elapsed < dashTime)
+        if (!player.PlayerIsDead())
         {
-            // Smoothly decrease dash speed over time
-            //act as a progress bar
-            float t = elapsed / dashTime;
-            //act as a decrease of speed over time based on t
-            float speedDash = Mathf.Lerp(characterStats.dashPower, 0f, t);
+            canDash = false;
+            isDashing = true;
 
-            characterController.Move(dashDir * speedDash * Time.deltaTime);
+            float gravity = gravityValue;
+            gravityValue = 0;
 
-            elapsed += Time.deltaTime;
-            yield return null;
+            float elapsed = 0f;
+            Vector3 dashDir = new Vector3(move.x, 0, 0).normalized;
+
+            while (elapsed < dashTime)
+            {
+                // Smoothly decrease dash speed over time
+                //act as a progress bar
+                float t = elapsed / dashTime;
+                //act as a decrease of speed over time based on t
+                float speedDash = Mathf.Lerp(characterStats.dashPower, 0f, t);
+
+                characterController.Move(dashDir * speedDash * Time.deltaTime);
+
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            isDashing = false;
+            gravityValue = gravity;
+            yield return new WaitForSeconds(dashCooldown);
+            canDash = true;
         }
-
-        isDashing = false;
-        gravityValue = gravity;
-        yield return new WaitForSeconds(dashCooldown);
-        canDash = true;
     }
     //FastFall
     public void FastFall(InputAction.CallbackContext ctx)
     {
-        fastFall = ctx.performed;
+        if(!player.PlayerIsDead())
+            fastFall = ctx.performed;
+    }
+
+    public void GravityMovement()
+    {
+        characterController.Move((speed * direction + Vector3.down) * Time.deltaTime);
     }
 
     public void StopMovement()

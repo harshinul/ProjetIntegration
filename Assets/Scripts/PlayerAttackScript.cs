@@ -80,7 +80,7 @@ public class PlayerAttackScript : MonoBehaviour
     //input
     bool wantsToAttack1 = false;
     bool wantsToAttack2 = false;
-    void Start()
+    void Awake()
     {
         playerMovementComponent = GetComponent<PlayerMovementComponent>();
         playerAnimationComponent = GetComponent<PlayerAnimationComponent>();
