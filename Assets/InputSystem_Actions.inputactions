@@ -566,6 +566,17 @@
                 },
                 {
                     "name": "",
+                    "id": "235d564c-e0ef-4eb9-81ba-cb1a0cac9f1d",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "e14963f5-84a3-424d-8e2e-63797579a97d",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
