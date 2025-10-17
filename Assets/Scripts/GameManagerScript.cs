@@ -18,6 +18,7 @@ public class GameManagerScript : MonoBehaviour
 
     [SerializeField] Canvas gameOverCanva;
     [SerializeField] Canvas pauseMenuCanva;
+    [SerializeField] Canvas afterGameMenu;
 
     List<PlayerHealthComponent> playersHealthComponents = new List<PlayerHealthComponent>();
     List<PlayerPauseMenuComponent> playersPauseMenuComponents = new List<PlayerPauseMenuComponent>();
@@ -33,6 +34,7 @@ public class GameManagerScript : MonoBehaviour
 
         gameOverCanva.enabled = false;
         pauseMenuCanva.enabled = false;
+        afterGameMenu.enabled = false;
     }
 
     private void Update()
@@ -151,8 +153,8 @@ public class GameManagerScript : MonoBehaviour
     {
         gameOverCanva.enabled = true;
         Debug.Log("Game Over");
-        yield return new WaitForSeconds(3f);
-        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(5f);
+        afterGameMenu.enabled = true;
     }
 
 }

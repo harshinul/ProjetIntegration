@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu 1.unity
     guid: 68b4c9f6e55fb4942b4643d316098e08
   - enabled: 1
@@ -19,13 +19,16 @@ EditorBuildSettings:
     guid: d4c867b60215b044b8de700122ca6db8
   - enabled: 1
     path: Assets/Scenes/Temple.unity
-    guid: 6aace7f83eb10f44691ec341705cca69
+    guid: f5c54496fbbcab9498119edfe79d9045
   - enabled: 1
     path: Assets/Scenes/FightHarsh.unity
     guid: 7c438ab9fbb9d51469031aabb19384b0
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Cathedrale_Anthique.unity
+    guid: 60708c3d5e7737443893a703674017d0
   - enabled: 0
     path: Assets/Scenes/TEstSelection.unity
     guid: d36f626584b56ba4eb6bfe266865ba56
