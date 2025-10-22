@@ -1,31 +1,46 @@
 using System.Collections.Generic;
-using NUnit.Framework;
+using System.Linq; // <-- NÉCESSAIRE
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem; // <-- NÉCESSAIRE
+using SCRIPTS_MARC; // <-- NÉCESSAIRE (pour PlayerInputHandler)
+//using NUnit.Framework; // <-- Vous pouvez probablement supprimer ceci
 
 public class GameManagerScript : MonoBehaviour
 {
-
+    [Header("Références de Spawning")]
     [SerializeField] Transform[] spawnPoints = new Transform[5];
-    [SerializeField] Image[] backHealthBar = new Image[4];
-    [SerializeField] Image[] frontHealthBar = new Image[4];
-
     [SerializeField] GameObject warriorPrefab;
     [SerializeField] GameObject assassinPrefab;
     [SerializeField] GameObject magePrefab;
 
+    [Header("Références UI")]
+    [SerializeField] Image[] backHealthBar = new Image[4];
+    [SerializeField] Image[] frontHealthBar = new Image[4];
     [SerializeField] Canvas gameOverCanva;
     [SerializeField] Canvas pauseMenuCanva;
 
+    // Listes pour suivre les joueurs
     List<PlayerHealthComponent> playersHealthComponents = new List<PlayerHealthComponent>();
     List<PlayerPauseMenuComponent> playersPauseMenuComponents = new List<PlayerPauseMenuComponent>();
 
+    // Liste privée pour trouver les prefabs par nom
+    private List<GameObject> characterPrefabsList = new List<GameObject>();
+
     private void Start()
     {
-        SpawnPlayers(PlayerPrefs.GetInt("numberOfPlayer"));
+        // On remplit la liste des prefabs
+        if (warriorPrefab) characterPrefabsList.Add(warriorPrefab);
+        if (assassinPrefab) characterPrefabsList.Add(assassinPrefab);
+        if (magePrefab) characterPrefabsList.Add(magePrefab);
 
+        // UI
         gameOverCanva.enabled = false;
         pauseMenuCanva.enabled = false;
+        Time.timeScale = 1f;
+
+        // On remplace votre ancienne logique de spawn par la nouvelle
+        SpawnPlayersFromHandlers();
     }
 
     private void Update()
@@ -42,73 +57,128 @@ public class GameManagerScript : MonoBehaviour
             Time.timeScale = 1f;
         }
 
-
-        if (CheckNumberOfPlayerAlive() == 1)
+        // On vérifie > 1 pour les modes à 1 joueur (ou test)
+        if (CheckNumberOfPlayerAlive() <= 1 && playersHealthComponents.Count > 1)
         {
             GameOver();
         }
     }
 
-    void SpawnPlayerType(int playerNumber, Vector3 position, Quaternion rotation)
+    /// <summary>
+    /// NOUVELLE MÉTHODE : Trouve tous les PlayerInputHandlers et instancie leurs personnages.
+    /// </summary>
+    void SpawnPlayersFromHandlers()
     {
-        GameObject player;
-        PlayerHealthComponent pHC;
-        string classTypeString = PlayerPrefs.GetString("classTypePlayer" + playerNumber);
+        // 1. Trouver tous les "handlers" de joueur qui ont persisté
+        var playerHandlers = FindObjectsOfType<PlayerInputHandler>();
 
-        if (classTypeString == warriorPrefab.name)
+        if (playerHandlers.Length == 0)
         {
-            player = Instantiate(warriorPrefab, position, rotation);
-        }
-        else if (classTypeString == assassinPrefab.name)
-        {
-            player = Instantiate(assassinPrefab, position, rotation);
-        }
-        else if (classTypeString == magePrefab.name)
-        {
-            player = Instantiate(magePrefab, position, rotation);
-        }
-        else
-        {
-            Debug.Log("Class type not recognized, defaulting to Warrior");
-            player = Instantiate(warriorPrefab, position, rotation);
+            Debug.LogWarning("Aucun PlayerInputHandler trouvé. Impossible d'instancier les joueurs.");
+            // Note : Vous pourriez vouloir instancier un joueur par défaut ici pour les tests
+            return;
         }
 
-        pHC = player.GetComponent<PlayerHealthComponent>();
-        pHC.SetHealthBarUI(backHealthBar[playerNumber - 1], frontHealthBar[playerNumber - 1]);
-        playersHealthComponents.Add(pHC);
-        playersPauseMenuComponents.Add(player.GetComponent<PlayerPauseMenuComponent>());
+        // 2. Trier les handlers par index pour s'assurer que P1 est P1, P2 est P2, etc.
+        var sortedHandlers = playerHandlers.OrderBy(h => h.GetComponent<PlayerInput>().playerIndex).ToArray();
+        
+        int totalPlayers = sortedHandlers.Length;
+        Debug.Log($"Instanciation de {totalPlayers} joueurs...");
+
+        foreach (PlayerInputHandler handler in sortedHandlers)
+        {
+            PlayerInput playerInput = handler.GetComponent<PlayerInput>();
+            int playerIndex = playerInput.playerIndex; // Index de 0 à 3
+            int playerNumber = playerIndex + 1; // Numéro de 1 à 4
+
+            // 3. Trouver le prefab du personnage choisi (logique de votre ancien SpawnPlayerType)
+            string classTypeString = PlayerPrefs.GetString("classTypePlayer" + playerNumber);
+            GameObject prefabToSpawn = characterPrefabsList.FirstOrDefault(p => p.name == classTypeString);
+
+            if (prefabToSpawn == null)
+            {
+                Debug.LogWarning($"Prefab '{classTypeString}' non trouvé pour Joueur {playerNumber}. Utilisation du Guerrier.");
+                prefabToSpawn = warriorPrefab;
+            }
+
+            // 4. Obtenir le point de spawn et la rotation (logique de votre ancien SpawnPlayers)
+            (Vector3 pos, Quaternion rot) spawnData = GetSpawnData(playerIndex, totalPlayers);
+
+            // 5. Instancier le personnage
+            GameObject playerCharacter = Instantiate(prefabToSpawn, spawnData.pos, spawnData.rot);
+
+            // --- LIAISON CRITIQUE ---
+            
+            // 6. Changer l'Action Map pour les contrôles de jeu ("PlayerMovement")
+            playerInput.SwitchCurrentActionMap("PlayerMovement");
+            
+            // 7. Parenter le Handler (qui contient PlayerInput) au personnage instancié
+            // Le personnage est maintenant contrôlé par ce PlayerInput
+            handler.transform.SetParent(playerCharacter.transform);
+
+            // --- LIAISON DE L'UI (Votre logique existante) ---
+            
+            // 8. Lier la barre de vie
+            PlayerHealthComponent pHC = playerCharacter.GetComponent<PlayerHealthComponent>();
+            if (pHC != null && playerIndex < backHealthBar.Length)
+            {
+                pHC.SetHealthBarUI(backHealthBar[playerIndex], frontHealthBar[playerIndex]);
+                playersHealthComponents.Add(pHC);
+            }
+            else
+            {
+                 Debug.LogWarning($"Pas de HealthBar ou de HealthComponent pour Joueur {playerNumber}");
+            }
+
+            // 9. Lier le composant de pause
+            PlayerPauseMenuComponent pPMC = playerCharacter.GetComponent<PlayerPauseMenuComponent>();
+            if (pPMC != null)
+            {
+                playersPauseMenuComponents.Add(pPMC);
+            }
+        }
     }
 
-    void SpawnPlayers(int numberOfPlayer)
+    /// <summary>
+    /// NOUVELLE MÉTHODE UTILITAIRE : Réplique votre ancienne logique de switch
+    /// pour déterminer où instancier chaque joueur.
+    /// </summary>
+    (Vector3, Quaternion) GetSpawnData(int playerIndex, int totalPlayers)
     {
         Quaternion rotationLeft = Quaternion.Euler(0f, -90f, 0f);
         Quaternion rotationRight = Quaternion.Euler(0f, 90f, 0f);
 
-        switch (numberOfPlayer)
+        // Logique basée sur votre switch(numberOfPlayer)
+        // Note : playerIndex est de 0 à 3
+        switch (totalPlayers)
         {
-            case 1:
-                SpawnPlayerType(1, spawnPoints[0].position, rotationRight);
+            case 1: // Index 0
+                return (spawnPoints[0].position, rotationRight);
+            case 2: // Index 0, 1
+                if (playerIndex == 0) return (spawnPoints[0].position, rotationRight);
+                if (playerIndex == 1) return (spawnPoints[4].position, rotationLeft);
                 break;
-            case 2:
-                SpawnPlayerType(1, spawnPoints[0].position, rotationRight);
-                SpawnPlayerType(2, spawnPoints[4].position, rotationLeft);
+            case 3: // Index 0, 1, 2
+                if (playerIndex == 0) return (spawnPoints[0].position, rotationRight);
+                if (playerIndex == 1) return (spawnPoints[2].position, rotationLeft);
+                if (playerIndex == 2) return (spawnPoints[4].position, rotationLeft);
                 break;
-            case 3:
-                SpawnPlayerType(1, spawnPoints[0].position, rotationRight);
-                SpawnPlayerType(2, spawnPoints[2].position, rotationLeft);
-                SpawnPlayerType(3, spawnPoints[4].position, rotationLeft);
-                break;
-            case 4:
-                SpawnPlayerType(1, spawnPoints[0].position, rotationRight);
-                SpawnPlayerType(2, spawnPoints[1].position, rotationLeft);
-                SpawnPlayerType(3, spawnPoints[3].position, rotationRight);
-                SpawnPlayerType(4, spawnPoints[4].position, rotationLeft);
-                break;
-            default:
-                Debug.Log("Number of players not supported");
+            case 4: // Index 0, 1, 2, 3
+                if (playerIndex == 0) return (spawnPoints[0].position, rotationRight);
+                if (playerIndex == 1) return (spawnPoints[1].position, rotationLeft);
+                if (playerIndex == 2) return (spawnPoints[3].position, rotationRight);
+                if (playerIndex == 3) return (spawnPoints[4].position, rotationLeft);
                 break;
         }
+        
+        // Fallback au cas où
+        Debug.LogWarning($"Cas de spawn non géré pour {playerIndex} / {totalPlayers}. Utilisation du point 0.");
+        return (spawnPoints[0].position, rotationRight);
     }
+
+    
+    // --- VOS ANCIENNES MÉTHODES RESTENT ICI ---
+    // (Elles sont parfaites)
 
     int CheckNumberOfPlayerAlive()
     {
@@ -123,18 +193,18 @@ public class GameManagerScript : MonoBehaviour
         return playerAlive;
     }
 
-    (bool,int) CheckIfPlayerPaused()
+    (bool, int) CheckIfPlayerPaused()
     {
         int index = 0;
         foreach (PlayerPauseMenuComponent player in playersPauseMenuComponents)
         {
             if (player.isPaused)
             {
-                return (true,index);
+                return (true, index);
             }
             index++;
         }
-        return (false,0);
+        return (false, 0);
     }
 
     void GameOver()
@@ -144,4 +214,6 @@ public class GameManagerScript : MonoBehaviour
         Time.timeScale = 0f;
     }
 
+    // --- LES ANCIENS "SpawnPlayerType" ET "SpawnPlayers" SONT SUPPRIMÉS ---
+    // Ils sont remplacés par SpawnPlayersFromHandlers et GetSpawnData
 }

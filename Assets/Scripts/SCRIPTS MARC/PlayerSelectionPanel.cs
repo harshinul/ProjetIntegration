@@ -66,11 +66,17 @@ namespace SCRIPTS_MARC
             if (isReady) return;
 
             isReady = true;
+            readyIndicator.SetActive(true); // Activez l'indicateur
     
-            
+            // Désactivez les boutons pour le feedback visuel
+            if (nextButton) nextButton.interactable = false;
+            if (previousButton) previousButton.interactable = false;
+            if (readyButton) readyButton.interactable = false;
+
             manager.PlayerIsReady(playerIndex, characters[selectedCharacter].name);
 
-            gameObject.SetActive(false);
+            // NE PAS DÉSactiver L'OBJET
+            // gameObject.SetActive(false); // <-- SUPPRIMEZ ou CommenteZ CETTE LIGNE
         }
     }
 }

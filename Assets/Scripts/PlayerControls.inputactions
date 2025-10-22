@@ -92,13 +92,31 @@
             ]
         },
         {
-            "name": "New action map1",
-            "id": "64aa03dc-75e9-4172-b462-8dadc4dcb9cf",
+            "name": "UI_Selection",
+            "id": "5997fb5e-f229-4df6-ac34-ebce6ccf5188",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Next",
                     "type": "Button",
-                    "id": "d71a1e6b-81fe-4295-a634-608683ed81c8",
+                    "id": "1eac8614-dc81-4cd3-8993-e349c718a274",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Previous",
+                    "type": "Button",
+                    "id": "5f001f8b-b2aa-4abb-af94-5782bc0e9c29",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "0a75a150-8200-4617-85ed-3a503c981978",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -108,12 +126,89 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "9b93dad8-b468-41a8-a94b-ceb7a6cc5b98",
-                    "path": "",
+                    "id": "578dafa1-5d2d-4b38-943b-5797b7cb55f5",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Next",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "561a3fc2-bc57-44c7-ae25-1773fd3c4373",
+                    "path": "<Gamepad>/dpad/right",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Next",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d97a8749-2d9d-443e-a0cf-2cc6fd911c8c",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Next",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8f40a406-f951-4370-97f8-2f1e9e8a70ec",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Previous",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9cd452c8-5a27-4d7c-bf61-90d702d2793f",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Previous",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "68c8e0dd-32f9-4479-a859-23547a33533b",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Previous",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "31bc9ab8-92c8-474f-a9fa-fca5e0fe5c4a",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c724c0e6-2348-4492-a146-3c2c4ec77294",
+                    "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -127,6 +222,32 @@
             "devices": [
                 {
                     "devicePath": "<DualSenseGamepadHID>",
+                    "isOptional": true,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "New Control Scheme1",
+            "bindingGroup": "New Control Scheme1",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Keyboard>",
                     "isOptional": false,
                     "isOR": false
                 }
