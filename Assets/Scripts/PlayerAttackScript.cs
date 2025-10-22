@@ -67,7 +67,7 @@ public class PlayerAttackScript : MonoBehaviour
     //Mouvement
     PlayerMovementComponent playerMovementComponent;
 
-    [SerializeField] ClassType classType;
+    public ClassType classType;
     private PlayerHealthComponent player;
     private CharacterStats characterStats;
 

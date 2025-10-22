@@ -11,10 +11,11 @@ public class PlayerHealthComponent : MonoBehaviour
     PlayerAnimationComponent playerAnimationComponent;
     PlayerMovementComponent playerMovementComponent;
     UltimateAbilityComponent ultimateAbilityComponent;
-    PlayerAttackScript playerWeapon;
+    PlayerAttackScript playerAttackScript;
+    CharacterStats characterStats;
     GameObject player;
 
-    [SerializeField] float maxHealth = 100f;
+    float maxHealth = 100f;
 
     //UI Elements
     [SerializeField] Image frontHealthBar;
@@ -25,7 +26,7 @@ public class PlayerHealthComponent : MonoBehaviour
 
     // Health
     private bool isDead;
-    private float health;
+    public float health;
     private bool isInvincible = false;
 
     //Character color
@@ -54,13 +55,14 @@ public class PlayerHealthComponent : MonoBehaviour
         playerAnimationComponent = GetComponent<PlayerAnimationComponent>();
         playerMovementComponent = GetComponent<PlayerMovementComponent>();
         ultimateAbilityComponent = GetComponent<UltimateAbilityComponent>();
+        playerAttackScript = GetComponent<PlayerAttackScript>();
 
-        playerWeapon = GetComponent<PlayerAttackScript>();
+        if (playerAttackScript != null)
+            player = playerAttackScript.gameObject;
 
-        if (playerWeapon != null)
-            player = playerWeapon.gameObject;
-
-        health = maxHealth;
+        characterStats = CharacterStats.GetStatsForClass(playerAttackScript.classType);
+        health = characterStats.health;
+        maxHealth = characterStats.health;
 
         frontHealthBar.fillAmount = 1f;
         backHealthBar.fillAmount = 1f;
