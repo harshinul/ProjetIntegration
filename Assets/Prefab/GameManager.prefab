@@ -73,7 +73,7 @@ MonoBehaviour:
   - {fileID: 6440969188629193448}
   - {fileID: 1250389594778881561}
   warriorPrefab: {fileID: 8823303940967276654, guid: d83134acaa23894489d43bfc52b4f25f, type: 3}
-  assassinPrefab: {fileID: 6207425082242127126, guid: cc3f313efbbefe84c95f62d436035892, type: 3}
+  assassinPrefab: {fileID: 3478190743868767865, guid: fda6035848dc5204a9542a4fb25ab190, type: 3}
   magePrefab: {fileID: 6207425082242127126, guid: cc3f313efbbefe84c95f62d436035892, type: 3}
   gameOverCanva: {fileID: 0}
   pauseMenuCanva: {fileID: 0}
