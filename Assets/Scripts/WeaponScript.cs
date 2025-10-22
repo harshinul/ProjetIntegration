@@ -5,7 +5,12 @@ public class WeaponScript : MonoBehaviour
     public GameObject player;
     public bool canDealDamage = false;
     public float damage = 10f;
-    public bool isInPlayerEnemie= false;
+    public bool isInPlayerEnemie = false;
+    private UltimateAbilityComponent ultCharge;
+    private void Start()
+    {
+        ultCharge = player.GetComponent<UltimateAbilityComponent>();
+    }
 
     //private void OnTriggerStay(Collider other)
     //{
@@ -18,21 +23,22 @@ public class WeaponScript : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-            if(other != player.GetComponent<Collider>() && other.CompareTag("Player"))
+        if (other != player.GetComponent<Collider>() && other.CompareTag("Player"))
+        {
+            Debug.Log("Weapon hit the player");
+            if (canDealDamage)
             {
-                Debug.Log("Weapon hit the player");
-                if (canDealDamage)
-              {
-                    PlayerHealthComponent playerHealth = other.GetComponent<PlayerHealthComponent>();
-                    if (playerHealth != null)
-                    {
-                        playerHealth.TakeDamage(damage);
-                        canDealDamage = false; // Prevent multiple damage instances in one swing
-                    }
+                ultCharge.ChargeUltDamage(damage, player);
+                PlayerHealthComponent playerHealth = other.GetComponent<PlayerHealthComponent>();
+                if (playerHealth != null)
+                {
+                    playerHealth.TakeDamage(damage);
+                    canDealDamage = false; // Prevent multiple damage instances in one swing
                 }
             }
+        }
 
-        
-           
+
+
     }
 }

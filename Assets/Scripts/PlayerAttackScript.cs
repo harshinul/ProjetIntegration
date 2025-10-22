@@ -70,6 +70,7 @@ public class PlayerAttackScript : MonoBehaviour
     [SerializeField] ClassType classType;
     private PlayerHealthComponent player;
     private CharacterStats characterStats;
+    private UltimateAbilityComponent ultimateAbilityComponent;
 
     //Attack
     WeaponScript weapon;
@@ -179,4 +180,5 @@ public class PlayerAttackScript : MonoBehaviour
     //        player.TakeDamage(characterStats.damage);
     //    }
     //}
+
 }
