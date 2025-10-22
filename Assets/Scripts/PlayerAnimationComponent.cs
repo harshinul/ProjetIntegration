@@ -55,6 +55,16 @@ public class PlayerAnimationComponent : MonoBehaviour
         animator.SetBool("isSecondAttacking", false);
     }
 
+    public void ActivateUltimate()
+    {
+        animator.SetBool("isUlting", true);
+    }
+
+    public void DeactivateUltimate()
+    {
+        animator.SetBool("isUlting", false);
+    }
+
     public void ActivateRunning()
     {
         animator.SetBool("isRunning", true);

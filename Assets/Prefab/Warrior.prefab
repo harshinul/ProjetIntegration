@@ -844,7 +844,19 @@ MonoBehaviour:
     m_ActionId: 54880138-cf00-437e-a077-e7bb90df4b5e
     m_ActionName: 'Player/Pause[/Keyboard/escape]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6816848975789460257}
+        m_TargetAssemblyTypeName: PlayerAttackScript, Assembly-CSharp
+        m_MethodName: UseUltimate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 0a75eddc-7938-491b-ac08-468ed65543c4
     m_ActionName: 'Player/Ultimate[/Keyboard/v]'
   m_NeverAutoSwitchControlSchemes: 0
@@ -866,7 +878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack1: {fileID: 7400000, guid: 9342068a51b51d642a73ff073a1e87e5, type: 2}
   attack2: {fileID: 7400000, guid: 2f00ef0973d4f644cb6ba78f1c70da55, type: 2}
-  ulti: {fileID: 0}
+  ulti: {fileID: 7400000, guid: 88df33425833fe245b844020ceff8587, type: 2}
 --- !u!114 &6816848975789460257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -926,6 +938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ultBar: {fileID: 0}
+  percentage: 0
 --- !u!1001 &8653675264636860924
 PrefabInstance:
   m_ObjectHideFlags: 0

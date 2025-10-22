@@ -15,6 +15,7 @@ public class CharacterStats
     public float health;
     public float lightDamage;
     public float heavyDamage;
+    public float ultDamage;
     public float attackSpeed;
     public float speed;
     public float dashPower;
@@ -29,6 +30,7 @@ public class CharacterStats
                     health = 150f,
                     lightDamage = 6f,
                     heavyDamage = 8f,
+                    ultDamage = 20f,
                     attackSpeed = 1f,
                     dashPower = 20f,
                     speed = 5f
@@ -39,6 +41,7 @@ public class CharacterStats
                     health = 100f,
                     lightDamage = 8f,
                     heavyDamage = 13f,
+                    ultDamage = 30f,
                     attackSpeed = 0.7f,
                     dashPower = 15f,
                     speed = 4f
@@ -49,6 +52,7 @@ public class CharacterStats
                     health = 80f,
                     lightDamage = 8f,
                     heavyDamage = 12f,
+                    ultDamage = 25f,
                     attackSpeed = 1.5f,
                     dashPower = 25f,
                     speed = 6f,
@@ -66,6 +70,7 @@ public class PlayerAttackScript : MonoBehaviour
 
     //Mouvement
     PlayerMovementComponent playerMovementComponent;
+    CharacterController characterController;
 
     public ClassType classType;
     private PlayerHealthComponent player;
@@ -76,17 +81,21 @@ public class PlayerAttackScript : MonoBehaviour
     WeaponScript weapon;
     float attack1Duration;
     float attack2Duration;
+    float ultDuration;
     bool isAttacking = false;
     public bool IsAttacking => isAttacking;
 
     //input
     bool wantsToAttack1 = false;
     bool wantsToAttack2 = false;
+    bool wantsToUltimate = false;
     void Awake()
     {
         playerMovementComponent = GetComponent<PlayerMovementComponent>();
         playerAnimationComponent = GetComponent<PlayerAnimationComponent>();
         player = GetComponent<PlayerHealthComponent>();
+        ultimateAbilityComponent = GetComponent<UltimateAbilityComponent>();
+        characterController = GetComponent<CharacterController>();
         weapon = GetComponentInChildren<WeaponScript>();
         weapon.player = this.gameObject;
 
@@ -94,6 +103,7 @@ public class PlayerAttackScript : MonoBehaviour
 
         attack1Duration = playerAnimationComponent.GetAttack1Duration();
         attack2Duration = playerAnimationComponent.GetAttack2Duration();
+        ultDuration = playerAnimationComponent.GetUltDuration();
     }
 
     void CanDealDamage()
@@ -122,13 +132,12 @@ public class PlayerAttackScript : MonoBehaviour
         yield return new WaitForSeconds(endAnimationTime);
         playerAnimationComponent.DeactivateFirstAttack();
 
-        isAttacking = false;
-        wantsToAttack1 = false;
+        ResetAttack();
     }
 
     public IEnumerator CouroutineStartAttack2()
     {
-        float beginingAnimationTime = (attack1Duration / characterStats.attackSpeed) / 2f;
+        float beginingAnimationTime = (attack2Duration / characterStats.attackSpeed) / 2f;
         float endAnimationTime = beginingAnimationTime;
         isAttacking = true;
         playerMovementComponent.StopMovement();
@@ -141,8 +150,26 @@ public class PlayerAttackScript : MonoBehaviour
         yield return new WaitForSeconds(endAnimationTime);
         playerAnimationComponent.DeactivateSecondAttack();
 
-        isAttacking = false;
-        wantsToAttack2 = false;
+        ResetAttack();
+    }
+
+    public IEnumerator CouroutineStartUltimate()
+    {
+        float beginingAnimationTime = ultDuration / 2f;
+        float endAnimationTime = beginingAnimationTime;
+        isAttacking = true;
+        playerMovementComponent.StopMovement();
+        playerAnimationComponent.ActivateUltimate();
+
+        weapon.damage = characterStats.ultDamage;
+
+        yield return new WaitForSeconds(beginingAnimationTime);
+        playerMovementComponent.ResumeMovement();
+        yield return new WaitForSeconds(endAnimationTime);
+        playerAnimationComponent.DeactivateUltimate();
+
+        ResetAttack();
+
     }
 
     void Update()
@@ -154,6 +181,14 @@ public class PlayerAttackScript : MonoBehaviour
         else if (wantsToAttack2 && !isAttacking)
         {
             StartCoroutine(CouroutineStartAttack2());
+        }
+        else if(wantsToUltimate && !isAttacking && ultimateAbilityComponent.IsUltReady() && characterController.isGrounded)
+        {
+            StartCoroutine(CouroutineStartUltimate());
+        }
+        else
+        {
+            ResetAttack();
         }
     }
 
@@ -174,6 +209,21 @@ public class PlayerAttackScript : MonoBehaviour
         }
     }
 
+    public void UseUltimate(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            wantsToUltimate = true;
+        }
+    }
+
+    void ResetAttack()
+    {
+        isAttacking = false;
+        wantsToAttack1 = false;
+        wantsToAttack2 = false;
+        wantsToUltimate = false;
+    }
     public void TriggerLightAttack()
     {
         if (!isAttacking) wantsToAttack1 = true;

@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class UltimateAbilityComponent : MonoBehaviour
 {
     [SerializeField] Image ultBar;
+    public float percentage;
     void Start()
     {
         ultBar.fillAmount = 0f;
@@ -12,6 +13,7 @@ public class UltimateAbilityComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        percentage = ultBar.fillAmount;
         ChargeUltOverTime();
     }
 
@@ -34,9 +36,14 @@ public class UltimateAbilityComponent : MonoBehaviour
         ultBar.fillAmount = Mathf.Clamp01(ultBar.fillAmount + Time.deltaTime * 0.01f);
     }
 
+    public bool IsUltReady()
+    {
+        return ultBar.fillAmount >= 1f;
+    }
+
     public void ActivateUltimate()
     {
-        if(ultBar.fillAmount >= 1f)
+        if(IsUltReady())
         {
             Debug.Log("Ultimate Activated!");
             ultBar.fillAmount = 0f;
