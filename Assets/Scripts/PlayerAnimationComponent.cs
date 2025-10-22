@@ -6,12 +6,17 @@ public class PlayerAnimationComponent : MonoBehaviour
     Animator animator;
     [SerializeField] AnimationClip attack1;
     [SerializeField] AnimationClip attack2;
+    [SerializeField] AnimationClip ulti;
 
     void Awake()
     {
         animator = GetComponentInChildren<Animator>();
     }
 
+    public float GetUltDuration()
+    {
+        return ulti != null ? ulti.length / animator.GetFloat("ultiSpeed") : 0f;
+    }
     public float GetAttack1Duration()
     {
         return attack1 != null ? attack1.length/ animator.GetFloat("attack1Speed") : 0f;

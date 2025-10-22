@@ -28,7 +28,7 @@ public class CharacterStats
                 {
                     health = 150f,
                     lightDamage = 6f,
-                    heavyDamage = 9f,
+                    heavyDamage = 8f,
                     attackSpeed = 1f,
                     dashPower = 20f,
                     speed = 5f
@@ -48,7 +48,7 @@ public class CharacterStats
                 {
                     health = 80f,
                     lightDamage = 8f,
-                    heavyDamage = 10f,
+                    heavyDamage = 12f,
                     attackSpeed = 1.5f,
                     dashPower = 25f,
                     speed = 6f,
@@ -70,12 +70,14 @@ public class PlayerAttackScript : MonoBehaviour
     [SerializeField] ClassType classType;
     private PlayerHealthComponent player;
     private CharacterStats characterStats;
+    private UltimateAbilityComponent ultimateAbilityComponent;
 
     //Attack
     WeaponScript weapon;
     float attack1Duration;
     float attack2Duration;
     bool isAttacking = false;
+    public bool IsAttacking => isAttacking;
 
     //input
     bool wantsToAttack1 = false;
@@ -172,6 +174,15 @@ public class PlayerAttackScript : MonoBehaviour
         }
     }
 
+    public void TriggerLightAttack()
+    {
+        if (!isAttacking) wantsToAttack1 = true;
+    }
+
+    public void TriggerHeavyAttack()
+    {
+        if (!isAttacking) wantsToAttack2 = true;
+    }
     //private void OnTriggerEnter(Collider collider)
     //{
     //    if (collider.CompareTag("Player"))
@@ -179,4 +190,5 @@ public class PlayerAttackScript : MonoBehaviour
     //        player.TakeDamage(characterStats.damage);
     //    }
     //}
+
 }
