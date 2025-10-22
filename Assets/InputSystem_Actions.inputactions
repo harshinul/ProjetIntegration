@@ -1191,7 +1191,7 @@
                     "id": "0db964e3-df61-4b9d-990b-d1d22f2c5ad3",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Tap",
                     "initialStateCheck": false
                 },
                 {

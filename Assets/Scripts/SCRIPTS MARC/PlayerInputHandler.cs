@@ -9,7 +9,6 @@ namespace SCRIPTS_MARC
         private PlayerInput playerInput;
         private PlayerSelectionPanel myPanel;
         private CharacterSelectionManager manager;
-
         void Awake()
         {
             DontDestroyOnLoad(this.gameObject);

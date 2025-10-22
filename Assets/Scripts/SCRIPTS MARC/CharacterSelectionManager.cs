@@ -34,7 +34,15 @@ namespace SCRIPTS_MARC
             {
                 if (panel != null)
                 {
-                    panel.gameObject.SetActive(false); 
+                    panel.gameObject.SetActive(false);
+                }
+            }
+            
+            foreach (var socle in socles)
+            {
+                if (socle != null)
+                {
+                    socle.SetActive(false);
                 }
             }
         }
@@ -52,9 +60,10 @@ namespace SCRIPTS_MARC
             {
                 PlayerSelectionPanel panel = panels[playerIndex];
                 GameObject socle = socles[playerIndex];
-                
+
                 // On active le panneau et on l'initialise
                 panel.gameObject.SetActive(true); 
+                socle.SetActive(true);
                 panel.Initialize(playerIndex, this, socle);
                 
                 return panel; // On retourne le panneau au PlayerInputHandler
