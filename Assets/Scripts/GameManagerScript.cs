@@ -13,6 +13,7 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] Image[] ultBar = new Image[4];
 
     [SerializeField] GameObject warriorPrefab;
+    [SerializeField] GameObject warriorAI;
     [SerializeField] GameObject assassinPrefab;
     [SerializeField] GameObject magePrefab;
 
@@ -21,12 +22,14 @@ public class GameManagerScript : MonoBehaviour
 
     List<PlayerHealthComponent> playersHealthComponents = new List<PlayerHealthComponent>();
     List<PlayerPauseMenuComponent> playersPauseMenuComponents = new List<PlayerPauseMenuComponent>();
+    AIBeginner AIBeginner;
+    private readonly List<GameObject> spawnedPlayers = new List<GameObject>();
 
     private void Start()
     {
         PlayerPrefs.SetInt("numberOfPlayer", 2);
         PlayerPrefs.SetString("classTypePlayer1", assassinPrefab.name); //hardcoded for testing
-        PlayerPrefs.SetString("classTypePlayer2", warriorPrefab.name); 
+        PlayerPrefs.SetString("classTypePlayer2", warriorAI.name); 
         //PlayerPrefs.SetString("classTypePlayer3", assassinPrefab.name);
         //PlayerPrefs.SetString("classTypePlayer4", magePrefab.name);
         SpawnPlayers(PlayerPrefs.GetInt("numberOfPlayer"));
@@ -75,6 +78,13 @@ public class GameManagerScript : MonoBehaviour
         {
             player = Instantiate(magePrefab, position, rotation);
         }
+        else if (classTypeString == warriorAI.name)
+        {
+            player = Instantiate(warriorAI, position, rotation);
+            AIBeginner = player.GetComponent<AIBeginner>();
+            AIBeginner.SetTarget(player.transform);
+
+        }
         else
         {
             Debug.Log("Class type not recognized, defaulting to Warrior");
@@ -87,6 +97,29 @@ public class GameManagerScript : MonoBehaviour
         pHC.SetHealthBarUI(backHealthBar[playerNumber - 1], frontHealthBar[playerNumber - 1]);
         playersHealthComponents.Add(pHC);
         playersPauseMenuComponents.Add(player.GetComponent<PlayerPauseMenuComponent>());
+
+        spawnedPlayers.Add(player);
+
+        var ai = player.GetComponent<AIBeginner>();
+
+        if (ai != null)
+        {
+            Transform target = null;
+            foreach (var p in spawnedPlayers)
+            {
+                if (p != player)
+                {
+                    if (p.GetComponent<AIBeginner>() == null)
+                    {
+                        target = p.transform;
+                        break;
+                    }
+                }
+
+            }
+            if (target != null)
+                ai.SetTarget(target);
+        }
     }
 
     void SpawnPlayers(int numberOfPlayer)

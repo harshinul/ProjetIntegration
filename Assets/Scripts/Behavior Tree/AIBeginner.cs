@@ -3,18 +3,35 @@ using UnityEngine.AI;
 
 public class AIBeginner : BehaviorTree
 {
-    GameObject target;
-    Transform self;
+    [SerializeField] private Transform target;
+
+    public void SetTarget(Transform newTarget)
+    {
+        target = newTarget;
+        RebuildTree();
+    }
 
     protected override void InitializeTree()
     {
-        NavMeshAgent navMeshAgent = GetComponent<NavMeshAgent>();
-
-
-        Moveto moveto = new Moveto(navMeshAgent, target.transform, 1, null, this);
-        AttackNode attackNode = new AttackNode(this.GetComponent<PlayerAttackScript>(), new Conditions[] { new WithinRange(target, self, 2, false) }, this);
-
-        root = new Sequence(new Node[] { moveto, attackNode },null, this);
+        RebuildTree();
     }
 
+    private void RebuildTree()
+    {
+        if (target != null)
+        {
+
+            var agent = GetComponent<NavMeshAgent>();
+            var self = transform;
+
+            var moveTo = new Moveto(agent, target, 1f, null, this);
+            var attack = new AttackNode(
+                GetComponent<PlayerAttackScript>(),
+                new Conditions[] { new WithinRange(target.gameObject, self, 2f,false) },
+                this
+            );
+
+            root = new Sequence(new Node[] { moveTo, attack }, null, this);
+        }
+    }
 }

@@ -1,7 +1,10 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class AttackNode : Node
 {
+    private Transform target;
+
     private PlayerAttackScript attackScript;
 
     public AttackNode(PlayerAttackScript attackScript, Conditions[] conditions, BehaviorTree BT) : base(conditions, BT)
@@ -26,4 +29,5 @@ public class AttackNode : Node
     {
         base.FinishAction(result);
     }
+
 }
