@@ -1067,13 +1067,17 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: f9c0a8e7c193d17448a84b3654f57380, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: fa196abc4fa92324191c336caaa8badf, type: 2}
+    - target: {fileID: 5866666021909216657, guid: f9c0a8e7c193d17448a84b3654f57380, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: f9c0a8e7c193d17448a84b3654f57380, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 124aa5dc57f5e534e87adbc46d8838ba, type: 2}
+      objectReference: {fileID: 9100000, guid: 04dd56c50b19baf43bd41cbcffa991be, type: 2}
     - target: {fileID: 5866666021909216657, guid: f9c0a8e7c193d17448a84b3654f57380, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
@@ -1374,6 +1378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   classType: 2
+  isAttacking: 0
 --- !u!114 &4858236528764770343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1400,8 +1405,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8604a65dbb0d0754ca3ed17e3a7c286b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontHealthBar: {fileID: 0}
-  backHealthBar: {fileID: 0}
   chipSpeed: 1
   chipDelay: 0.5
   health: 0

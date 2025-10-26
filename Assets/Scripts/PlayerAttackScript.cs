@@ -82,7 +82,7 @@ public class PlayerAttackScript : MonoBehaviour
     float attack1Duration;
     float attack2Duration;
     float ultDuration;
-    bool isAttacking = false;
+    public bool isAttacking = false;
     public bool IsAttacking => isAttacking;
 
     //input
@@ -106,12 +106,12 @@ public class PlayerAttackScript : MonoBehaviour
         ultDuration = playerAnimationComponent.GetUltDuration();
     }
 
-    void CanDealDamage()
+    void CanDealDamage() //animation event
     {
         weapon.canDealDamage = true;
     }
 
-    void CannotDealDamage()
+    void CannotDealDamage() //animation event
     {
         weapon.canDealDamage = false;
     }
@@ -120,7 +120,7 @@ public class PlayerAttackScript : MonoBehaviour
     public IEnumerator CouroutineStartAttack1()
     {
         float beginingAnimationTime = (attack1Duration / characterStats.attackSpeed) / 2f;
-        float endAnimationTime = beginingAnimationTime;
+        float endAnimationTime = attack1Duration - beginingAnimationTime;
         isAttacking = true;
         playerMovementComponent.StopMovement();
         playerAnimationComponent.ActivateFirstAttack();
@@ -138,7 +138,7 @@ public class PlayerAttackScript : MonoBehaviour
     public IEnumerator CouroutineStartAttack2()
     {
         float beginingAnimationTime = (attack2Duration / characterStats.attackSpeed) / 2f;
-        float endAnimationTime = beginingAnimationTime;
+        float endAnimationTime = attack2Duration - beginingAnimationTime;
         isAttacking = true;
         playerMovementComponent.StopMovement();
         playerAnimationComponent.ActivateSecondAttack();
@@ -185,10 +185,6 @@ public class PlayerAttackScript : MonoBehaviour
         else if(wantsToUltimate && !isAttacking && ultimateAbilityComponent.IsUltReady() && characterController.isGrounded)
         {
             StartCoroutine(CouroutineStartUltimate());
-        }
-        else
-        {
-            ResetAttack();
         }
     }
 
