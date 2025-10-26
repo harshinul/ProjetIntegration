@@ -101,24 +101,22 @@ public class GameManagerScript : MonoBehaviour
                 prefabToSpawn = warriorPrefab;
             }
 
-            // 4. Obtenir le point de spawn et la rotation (logique de votre ancien SpawnPlayers)
             (Vector3 pos, Quaternion rot) spawnData = GetSpawnData(playerIndex, totalPlayers);
 
-            // 5. Instancier le personnage
+            // 5. Instancier le personnage (DÉSACTIVÉ temporairement)
             GameObject playerCharacter = Instantiate(prefabToSpawn, spawnData.pos, spawnData.rot);
+            playerCharacter.SetActive(false); // ← IMPORTANT
 
-            // --- LIAISON CRITIQUE ---
-            
-            // 6. Changer l'Action Map pour les contrôles de jeu ("PlayerMovement")
-            playerInput.SwitchCurrentActionMap("PlayerMovement");
-            
-            // 7. Parenter le Handler (qui contient PlayerInput) au personnage instancié
-            // Le personnage est maintenant contrôlé par ce PlayerInput
+            // 6. Changer l'Action Map pour les contrôles de jeu
+            playerInput.SwitchCurrentActionMap("Player"); 
+
+            // 7. Parenter le Handler au personnage
             handler.transform.SetParent(playerCharacter.transform);
 
-            // --- LIAISON DE L'UI (Votre logique existante) ---
-            
-            // 8. Lier la barre de vie
+            // 8. RÉACTIVER le personnage
+            playerCharacter.SetActive(true); // ← IMPORTANT
+
+            // 9. Configuration de la Health Bar (reste identique)
             PlayerHealthComponent pHC = playerCharacter.GetComponent<PlayerHealthComponent>();
             if (pHC != null && playerIndex < backHealthBar.Length)
             {
@@ -127,10 +125,9 @@ public class GameManagerScript : MonoBehaviour
             }
             else
             {
-                 Debug.LogWarning($"Pas de HealthBar ou de HealthComponent pour Joueur {playerNumber}");
+                Debug.LogWarning($"Pas de HealthBar ou de HealthComponent pour Joueur {playerNumber}");
             }
 
-            // 9. Lier le composant de pause
             PlayerPauseMenuComponent pPMC = playerCharacter.GetComponent<PlayerPauseMenuComponent>();
             if (pPMC != null)
             {
@@ -139,16 +136,11 @@ public class GameManagerScript : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// NOUVELLE MÉTHODE UTILITAIRE : Réplique votre ancienne logique de switch
-    /// pour déterminer où instancier chaque joueur.
-    /// </summary>
     (Vector3, Quaternion) GetSpawnData(int playerIndex, int totalPlayers)
     {
         Quaternion rotationLeft = Quaternion.Euler(0f, -90f, 0f);
         Quaternion rotationRight = Quaternion.Euler(0f, 90f, 0f);
 
-        // Logique basée sur votre switch(numberOfPlayer)
         // Note : playerIndex est de 0 à 3
         switch (totalPlayers)
         {
@@ -171,15 +163,10 @@ public class GameManagerScript : MonoBehaviour
                 break;
         }
         
-        // Fallback au cas où
         Debug.LogWarning($"Cas de spawn non géré pour {playerIndex} / {totalPlayers}. Utilisation du point 0.");
         return (spawnPoints[0].position, rotationRight);
     }
-
     
-    // --- VOS ANCIENNES MÉTHODES RESTENT ICI ---
-    // (Elles sont parfaites)
-
     int CheckNumberOfPlayerAlive()
     {
         int playerAlive = 0;
@@ -214,6 +201,4 @@ public class GameManagerScript : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    // --- LES ANCIENS "SpawnPlayerType" ET "SpawnPlayers" SONT SUPPRIMÉS ---
-    // Ils sont remplacés par SpawnPlayersFromHandlers et GetSpawnData
 }

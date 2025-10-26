@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.TextCore.Text;
 
 public enum ClassType
 {
@@ -80,6 +81,8 @@ public class PlayerAttackScript : MonoBehaviour
     //input
     bool wantsToAttack1 = false;
     bool wantsToAttack2 = false;
+
+    private PlayerInput playerInput;
     void Awake()
     {
         playerMovementComponent = GetComponent<PlayerMovementComponent>();
@@ -93,7 +96,43 @@ public class PlayerAttackScript : MonoBehaviour
         attack1Duration = playerAnimationComponent.GetAttack1Duration();
         attack2Duration = playerAnimationComponent.GetAttack2Duration();
     }
+    void Start()
+    {
+        playerInput = GetComponentInChildren<PlayerInput>();
 
+        if (playerInput == null)
+        {
+            Debug.LogError("PlayerInput non trouvé dans les enfants de " + gameObject.name);
+            this.enabled = false;
+            return;
+        }
+
+        Debug.Log($"PlayerInput trouvé pour {gameObject.name}");
+
+        playerInput.actions.FindAction("Player/Attack").performed += Attack1;
+        playerInput.actions.FindAction("Player/Attack2").performed += Attack2;
+    }
+
+
+    void OnEnable() { }
+
+    void OnDisable()
+    {
+        if (playerInput == null) return;
+        playerInput.actions.FindAction("Player/Attack").performed -= Attack1;
+        playerInput.actions.FindAction("Player/Attack2").performed -= Attack2;
+
+    }
+
+    public CharacterStats GetCharacterStats()
+    {
+        if (characterStats != null)
+        {
+            characterStats = CharacterStats.GetStatsForClass(classType);
+        }
+        return characterStats;
+    }
+    
     void CanDealDamage()
     {
         weapon.canDealDamage = true;

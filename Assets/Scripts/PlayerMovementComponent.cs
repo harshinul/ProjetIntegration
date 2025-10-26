@@ -46,15 +46,65 @@ public class PlayerMovementComponent : MonoBehaviour
     // Components
     PlayerInput playerInput;
     CharacterController characterController;
-    void Start()
+    void Awake()
     {
         playerAnimationComponent = GetComponent<PlayerAnimationComponent>();
         characterController = GetComponent<CharacterController>();
         player = GetComponent<PlayerHealthComponent>();
+    }
+    void Start()
+    {
+    // CHERCHER le PlayerInput ICI au lieu de Awake()
+    playerInput = GetComponentInChildren<PlayerInput>();
 
-        characterStats = CharacterStats.GetStatsForClass(classType);
+    if (playerInput == null)
+    {
+        Debug.LogError("PlayerInput non trouvé dans les enfants de " + gameObject.name);
+        this.enabled = false;
+        return;
+    }
+    
+    Debug.Log($"✓ PlayerInput trouvé pour {gameObject.name} - Player {playerInput.playerIndex}");
+    Debug.Log($"✓ Action Map active : {playerInput.currentActionMap?.name}");
+    
+    // S'abonner aux actions
+    playerInput.actions.FindAction("Player/Move").performed += Move;
+    playerInput.actions.FindAction("Player/Move").canceled += Move;
+    playerInput.actions.FindAction("Player/Jump").performed += Jump;
+    playerInput.actions.FindAction("Player/Jump").canceled += Jump;
+    playerInput.actions.FindAction("Player/Dash").performed += Dash;
+    playerInput.actions.FindAction("Player/FastFall").performed += FastFall;
+    playerInput.actions.FindAction("Player/FastFall").canceled += FastFall;
 
-        playerInput = GetComponent<PlayerInput>();
+    // Initialisez vos stats ici
+    if (characterStats == null)
+    {
+        characterStats = GetComponent<PlayerAttackScript>().GetCharacterStats();
+        if (characterStats != null)
+        {
+            speed = characterStats.speed;
+            dashPower = characterStats.dashPower;
+        }
+    }
+}
+    void OnEnable()
+    {
+        
+    }
+    
+    void OnDisable()
+    {
+        if (playerInput == null) return;
+
+        playerInput.actions.FindAction("Player/Move").performed -= Move;
+        playerInput.actions.FindAction("Player/Move").canceled -= Move;
+        
+        playerInput.actions.FindAction("Player/Jump").performed -= Jump;
+        playerInput.actions.FindAction("Player/Jump").canceled -= Jump;
+        
+        playerInput.actions.FindAction("Player/Dash").performed -= Dash;
+        playerInput.actions.FindAction("Player/FastFall").performed -= FastFall;
+        playerInput.actions.FindAction("Player/FastFall").canceled -= FastFall;
     }
 
     // Update is called once per frame

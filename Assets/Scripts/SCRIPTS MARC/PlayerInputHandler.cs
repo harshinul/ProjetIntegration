@@ -11,6 +11,7 @@ namespace SCRIPTS_MARC
         private CharacterSelectionManager manager;
         void Awake()
         {
+            Debug.Log("--- PlayerInputHandler: AWAKE() ---");
             DontDestroyOnLoad(this.gameObject);
             playerInput = GetComponent<PlayerInput>();
             manager = FindObjectOfType<CharacterSelectionManager>(); 

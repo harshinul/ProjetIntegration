@@ -95,7 +95,7 @@ public class PlayerHealthComponent : MonoBehaviour
         health -= damage;
         health = Mathf.Clamp(health, 0f, maxHealth);
         isInvincible = true;
-        ultimateAbilityComponent.ChargeUltDamage(damage,player);
+        //ultimateAbilityComponent.ChargeUltDamage(damage,player);
         if (health <= 0)
         {
             Debug.Log("Player is dead");
