@@ -25,7 +25,7 @@ public class GameManagerScript : MonoBehaviour
     private void Start()
     {
         PlayerPrefs.SetInt("numberOfPlayer", 2);
-        PlayerPrefs.SetString("classTypePlayer1", assassinPrefab.name); //hardcoded for testing
+        PlayerPrefs.SetString("classTypePlayer1", warriorPrefab.name); //hardcoded for testing
         PlayerPrefs.SetString("classTypePlayer2", warriorPrefab.name); 
         //PlayerPrefs.SetString("classTypePlayer3", assassinPrefab.name);
         //PlayerPrefs.SetString("classTypePlayer4", magePrefab.name);

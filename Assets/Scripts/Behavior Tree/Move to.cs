@@ -28,7 +28,7 @@ public class Moveto : Node
         }
         else
         {
-            if (agent.SetDestination(target.position))
+            if (!agent.SetDestination(target.position))
             {
                 FinishAction(false);
             }
