@@ -122,7 +122,7 @@ public class PlayerAttackScript : MonoBehaviour
         float beginingAnimationTime = (attack1Duration / characterStats.attackSpeed) / 2f;
         float endAnimationTime = attack1Duration - beginingAnimationTime;
         isAttacking = true;
-        playerMovementComponent.StopMovement();
+       // playerMovementComponent.StopMovement();
         playerAnimationComponent.ActivateFirstAttack();
 
         weapon.damage = characterStats.lightDamage;
@@ -140,7 +140,7 @@ public class PlayerAttackScript : MonoBehaviour
         float beginingAnimationTime = (attack2Duration / characterStats.attackSpeed) / 2f;
         float endAnimationTime = attack2Duration - beginingAnimationTime;
         isAttacking = true;
-        playerMovementComponent.StopMovement();
+        //playerMovementComponent.StopMovement();
         playerAnimationComponent.ActivateSecondAttack();
 
         weapon.damage = characterStats.heavyDamage;
@@ -167,7 +167,7 @@ public class PlayerAttackScript : MonoBehaviour
         playerMovementComponent.ResumeMovement();
         yield return new WaitForSeconds(endAnimationTime);
         playerAnimationComponent.DeactivateUltimate();
-
+        ultimateAbilityComponent.ActivateUltimate();
         ResetAttack();
 
     }

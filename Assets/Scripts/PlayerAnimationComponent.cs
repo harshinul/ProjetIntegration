@@ -35,6 +35,7 @@ public class PlayerAnimationComponent : MonoBehaviour
     {
         animator.SetBool("isIdle", false);
     }
+
     public void ActivateFirstAttack()
     {
         animator.SetBool("isFirstAttacking", true);
