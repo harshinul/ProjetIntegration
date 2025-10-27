@@ -521,9 +521,6 @@ PrefabInstance:
       addedObject: {fileID: 4296873894846917585}
     - targetCorrespondingSourceObject: {fileID: 5022688414229774171, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7882644716322585257}
-    - targetCorrespondingSourceObject: {fileID: 5022688414229774171, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 6844629220630526535}
     - targetCorrespondingSourceObject: {fileID: 5022688414229774171, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
       insertIndex: -1
@@ -543,6 +540,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5022688414229774171, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
       insertIndex: -1
       addedObject: {fileID: -1007930578399604928}
+    - targetCorrespondingSourceObject: {fileID: 5022688414229774171, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3644339405330678469}
   m_SourcePrefab: {fileID: 100100000, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
 --- !u!4 &917248487135417511 stripped
 Transform:
@@ -576,31 +576,6 @@ MonoBehaviour:
   fallMultiplier: 5.4
   jumpForce: 5
   maxJumpCount: 2
---- !u!143 &7882644716322585257
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8823303940967276654}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 64
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.008
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &6844629220630526535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,6 +685,29 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &3644339405330678469
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8823303940967276654}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2.0041943
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.0016809, z: 0}
 --- !u!1001 &8653675264636860924
 PrefabInstance:
   m_ObjectHideFlags: 0
