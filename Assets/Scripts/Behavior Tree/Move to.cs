@@ -6,6 +6,7 @@ public class Moveto : Node
     private Transform target;
     private float stoppingDistance;
     private NavMeshAgent agent;
+    private const float EPS = 0.05f;
 
     public Moveto(NavMeshAgent agent, Transform target, float stoppingDistance, Conditions[] conditions, BehaviorTree BT) : base(conditions, BT)
     {
@@ -17,21 +18,33 @@ public class Moveto : Node
     public override void ExecuteAction()
     {
         base.ExecuteAction();
-        agent.SetDestination(target.position);
+        if (agent && target)
+        {
+            agent.isStopped = false;
+            agent.SetDestination(target.position);
+        }
     }
 
     public override void Tick(float deltaTime)
     {
-        if ((agent.transform.position - target.position).magnitude < stoppingDistance)
+        if (!agent || !target)
         {
-            FinishAction(true);
+            FinishAction(false);
+            return;
         }
-        else
+        agent.isStopped = false;
+        agent.SetDestination(target.position);
+
+        bool arrived =
+            !agent.pathPending &&
+            agent.remainingDistance <= (Mathf.Max(stoppingDistance, agent.stoppingDistance) + EPS) &&
+            (!agent.hasPath || agent.velocity.sqrMagnitude <= 0.01f);
+
+        if (arrived)
         {
-            if (agent.SetDestination(target.position))
-            {
-                FinishAction(false);
-            }
+            agent.ResetPath();
+            FinishAction(true);
+            return;
         }
     }
 

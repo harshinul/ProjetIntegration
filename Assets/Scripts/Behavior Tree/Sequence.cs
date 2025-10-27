@@ -15,7 +15,8 @@ public class Sequence : Node
     public override void ExecuteAction()
     {
         base.ExecuteAction();
-        SequenceContinue(0);
+        index = 0;
+        SequenceContinue(index);
     }
     public void SequenceContinue(int index)
     {
@@ -25,10 +26,12 @@ public class Sequence : Node
     {
         if (!result)
         {
+            index = 0;
             base.FinishAction(false);
         }
         else if (index == children.Length - 1)
         {
+            index = 0;
             base.FinishAction(true);
         }
         else

@@ -1,33 +1,43 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class AttackNode : Node
 {
-    private Transform target;
+    private readonly Transform self;
+    private readonly Transform target;
+    private readonly PlayerAttackScript attackScript;
 
-    private PlayerAttackScript attackScript;
+    private float nextAttackTime = 0f;
+    private readonly float cooldown = 0.3f;
+    private readonly float attackRange;
 
-    public AttackNode(PlayerAttackScript attackScript, Conditions[] conditions, BehaviorTree BT) : base(conditions, BT)
+    public AttackNode(PlayerAttackScript attackScript, Transform self, Transform target, float attackRange,Conditions[] conditions, BehaviorTree bt): base(conditions, bt)
     {
         this.attackScript = attackScript;
+        this.self = self;
+        this.target = target;
+        this.attackRange = attackRange;
     }
 
-    public override void ExecuteAction()
+    public override void Tick(float dt)
     {
-        base.ExecuteAction();
-        attackScript.TriggerLightAttack();
-    }
-
-    public override void Tick(float deltaTime)
-    {
-        if (!attackScript.IsAttacking)
+        if (!attackScript || !self || !target)
         {
-            FinishAction(true);
+            FinishAction(false);
+            return;
         }
-    }
-    public override void FinishAction(bool result)
-    {
-        base.FinishAction(result);
-    }
 
+        float d = Vector3.Distance(self.position, target.position);
+        if (d > attackRange + 0.1f)
+        {
+            FinishAction(false);
+            return;
+        }
+
+        if (!attackScript.IsAttacking && Time.time >= nextAttackTime)
+        {
+            attackScript.TriggerLightAttack();
+            nextAttackTime = Time.time + cooldown;
+        }
+
+    }
 }

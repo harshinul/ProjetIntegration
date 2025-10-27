@@ -24,14 +24,10 @@ public class AIBeginner : BehaviorTree
             var agent = GetComponent<NavMeshAgent>();
             var self = transform;
 
-            var moveTo = new Moveto(agent, target, 1f, null, this);
-            var attack = new AttackNode(
-                GetComponent<PlayerAttackScript>(),
-                new Conditions[] { new WithinRange(target.gameObject, self, 2f,false) },
-                this
-            );
+            var moveTo = new Moveto(agent, target, 2f, null, this);
+            var attack = new AttackNode(GetComponent<PlayerAttackScript>(),self,target,2f,null,this);
 
-            root = new Sequence(new Node[] { moveTo, attack }, null, this);
+            root = new Sequence(new Node[] {moveTo,attack}, null, this);
         }
     }
 }
