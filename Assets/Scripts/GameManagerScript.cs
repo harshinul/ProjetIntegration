@@ -17,7 +17,7 @@ public class GameManagerScript : MonoBehaviour
     [Header("Références UI")]
     [SerializeField] Image[] backHealthBar = new Image[4];
     [SerializeField] Image[] frontHealthBar = new Image[4];
-    [SerializeField] Canvas gameOverCanva;
+    [SerializeField] Canvas gameOverCanva; // <-- AJOUTÉ
     [SerializeField] Canvas pauseMenuCanva;
 
     // Listes pour suivre les joueurs
@@ -27,6 +27,7 @@ public class GameManagerScript : MonoBehaviour
     // Liste privée pour trouver les prefabs par nom
     private List<GameObject> characterPrefabsList = new List<GameObject>();
 
+    private bool isGameOver = false;
     private void Start()
     {
         // On remplit la liste des prefabs
@@ -35,16 +36,18 @@ public class GameManagerScript : MonoBehaviour
         if (magePrefab) characterPrefabsList.Add(magePrefab);
 
         // UI
-        gameOverCanva.enabled = false;
+        gameOverCanva.enabled = true;
         pauseMenuCanva.enabled = false;
         Time.timeScale = 1f;
 
-        // On remplace votre ancienne logique de spawn par la nouvelle
         SpawnPlayersFromHandlers();
     }
 
     private void Update()
     {
+        if (isGameOver) return; 
+
+
         (bool isPaused, int playerIndex) = CheckIfPlayerPaused();
         if (isPaused)
         {
@@ -75,7 +78,6 @@ public class GameManagerScript : MonoBehaviour
         if (playerHandlers.Length == 0)
         {
             Debug.LogWarning("Aucun PlayerInputHandler trouvé. Impossible d'instancier les joueurs.");
-            // Note : Vous pourriez vouloir instancier un joueur par défaut ici pour les tests
             return;
         }
 
@@ -196,7 +198,9 @@ public class GameManagerScript : MonoBehaviour
 
     void GameOver()
     {
-        gameOverCanva.enabled = true;
+        isGameOver = true; // ▼ AJOUTEZ CETTE LIGNE ▼
+        
+        gameOverCanva.gameObject.SetActive(true); // Ceci active maintenant AfterGameLocal
         Debug.Log("Game Over");
         Time.timeScale = 0f;
     }

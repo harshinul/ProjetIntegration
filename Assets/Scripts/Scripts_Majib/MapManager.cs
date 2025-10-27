@@ -9,10 +9,6 @@ using UnityEngine.UI;
 public class MapManager : MonoBehaviour
 {
     [System.Serializable]
-    /// <summary>
-    /// PairButton groups a UI button with its preview image and title text.
-    /// Used to represent one selectable arena entry in the UI.
-    /// </summary>
     public struct PairButton
     {
         public Button button;
@@ -21,7 +17,6 @@ public class MapManager : MonoBehaviour
     }
 
     public List<PairButton> pairs;
-    //public Button ArenaConfirmation;
     public TMP_Text ArenaSelected;
     public Dictionary<int, string> ArenaName = new Dictionary<int, string>()
     {
@@ -30,64 +25,65 @@ public class MapManager : MonoBehaviour
         {2,"Cathedrale_Anthique" },
         {3,"Cathedrale_Anthique" }
     };
+
     private Dictionary<int, int> PlayerSelection = new Dictionary<int, int>();
     private int selectedIndex = -1;
     private int numberOfPlayers;
-    private int currentSelection = 0;
+    private int currentSelection = 0; // Tour du joueur actuel (0 = J1, 1 = J2...)
     private int playersWhoSelected = 0;
 
-    /// <summary>
-    /// Unity Start: initialize player selections using saved player count.
-    /// Populates the PlayerSelection dictionary with -1 (no selection) for each player.
-    /// </summary>
+    // AJOUTÉ : Indice de l'arène actuellement en surbrillance
+    private int previewIndex = 0;
+
+    // AJOUTÉ : Propriété publique pour que les Handlers sachent qui joue
+    public int CurrentPlayerIndex => currentSelection;
+
     private void Start()
     {
-        this.numberOfPlayers = 4;//PlayerPrefs.GetInt("numberOfPlayer", 1);
+        this.numberOfPlayers = PlayerPrefs.GetInt("numberOfPlayer", 4); // J'ai remis votre PlayerPrefs
         for (int i = 0; i < numberOfPlayers; i++)
         {
             PlayerSelection[i] = -1;
         }
+
+        // AJOUTÉ : Affiche la première arène par défaut
+        ActivatePreview(previewIndex);
     }
 
-    /// <summary>
-    /// Unity Awake: wire up UI button callbacks for preview and confirmation.
-    /// Each arena button receives a DoubleClick callback with its index.
-    /// The confirmation button triggers ValidateAll().
-    /// </summary>
     private void Awake()
     {
+        // SUPPRIMÉ : Nous n'utilisons plus les clics de souris, 
+        // mais les fonctions publiques appelées par les manettes.
+        // Vous pouvez les laisser si vous voulez un support souris ET manette,
+        // mais cela complique la logique de qui clique.
+        /*
         for (int i = 0; i < pairs.Count; i++)
         {
             int idx = i;
             pairs[i].button.onClick.AddListener(() => DoubleClick(idx));
         }
-
-        //ArenaConfirmation.onClick.AddListener(ValidateAll);
+        */
     }
 
-    /// <summary>
-    /// Register the current player's arena choice.
-    /// Advances turn to the next player when relevant and updates internal counters.
-    /// </summary>
-    /// <param name="arenaIndex">Index of the arena selected by the current player.</param>
+    // ... (SelectArena, ValidateAll, DetermineArena restent identiques) ...
+    // ...
     public void SelectArena(int arenaIndex)
     {
         PlayerSelection[currentSelection] = arenaIndex;
-        selectedIndex = arenaIndex;  
+        selectedIndex = arenaIndex;
         playersWhoSelected++;
 
         Debug.Log($"Joueur {currentSelection + 1} a sélectionné l'arène {arenaIndex}");
-        if (numberOfPlayers > 1)
+        if (numberOfPlayers > 1 && playersWhoSelected < numberOfPlayers) // Modifié pour ne pas boucler après le dernier vote
         {
             currentSelection = (currentSelection + 1) % numberOfPlayers;
             Debug.Log($"C'est au tour du joueur {currentSelection + 1} de sélectionner une arène.");
+
+            // Met à jour la prévisualisation pour le nouveau joueur
+            ActivatePreview(previewIndex); 
         }
     }
-
-    /// <summary>
-    /// ValidateAll ensures every player has chosen an arena (logs if someone hasn't),
-    /// determines the final arena via DetermineArena() and loads it.
-    /// </summary>
+    
     public void ValidateAll()
     {
         foreach (var selection in PlayerSelection.Values)
@@ -95,20 +91,13 @@ public class MapManager : MonoBehaviour
             if (selection == -1)
             {
                 Debug.Log("Tous les joueurs doivent sélectionner une arène avant de valider.");
+                return; // AJOUTÉ : Arrête la validation si quelqu'un n'a pas voté
             }
-            
         }
         int finalArena = DetermineArena();
         LoadArena(finalArena);
     }
 
-    /// <summary>
-    /// Determine the arena to use based on player votes.
-    /// - If all players selected the same arena => return that arena.
-    /// - If a majority (>=2) selected the same arena => return the majority arena.
-    /// - Otherwise pick randomly among selected arenas.
-    /// </summary>
-    /// <returns>Index of the chosen arena.</returns>
     private int DetermineArena()
     {
         //Count votes for each arena
@@ -149,14 +138,14 @@ public class MapManager : MonoBehaviour
         Debug.Log($"Arène choisie aléatoirement : {selectedArena}");
         return selectedArena;
     }
+    // ...
 
     /// <summary>
-    /// Handle a button click: if the same item is clicked twice in a row, confirm selection;
-    /// otherwise show the preview for that index.
+    /// Logique de double-clic, maintenant appelée par PlayerSubmit
     /// </summary>
-    /// <param name="index">Index of the clicked arena button.</param>
     public void DoubleClick(int index)
     {
+        // Si c'est le 2e clic (ou une confirmation)
         if (selectedIndex == index)
         {
             SelectArena(index);
@@ -165,34 +154,55 @@ public class MapManager : MonoBehaviour
                 ValidateAll();
             }
         }
-        else
+        else // Si c'est le 1er clic (prévisualisation)
         {
             ActivatePreview(index);
         }
     }
 
+    // AJOUTÉ : Fonction publique pour la navigation par manette
+    public void PlayerNavigate(int playerIndex, int direction)
+    {
+        // On vérifie si c'est bien le tour de ce joueur
+        if (playerIndex != currentSelection) return;
+
+        previewIndex += direction; // direction est 1 ou -1
+
+        // Boucle la sélection
+        if (previewIndex < 0) previewIndex = pairs.Count - 1;
+        if (previewIndex >= pairs.Count) previewIndex = 0;
+
+        // Met à jour l'aperçu
+        ActivatePreview(previewIndex);
+    }
+
+    // AJOUTÉ : Fonction publique pour la sélection par manette
+    public void PlayerSubmit(int playerIndex)
+    {
+        // On vérifie si c'est bien le tour de ce joueur
+        if (playerIndex != currentSelection) return;
+
+        // On appelle votre logique existante avec l'index en surbrillance
+        DoubleClick(previewIndex);
+    }
+
     /// <summary>
-    /// Activate preview for the given arena index: show the preview image and title
-    /// for the selected index and hide others.
+    /// Active preview pour l'index donné.
     /// </summary>
-    /// <param name="index">Index of the arena to preview.</param>
     void ActivatePreview(int index)
     {
-        selectedIndex = index;
+        selectedIndex = index; // Important pour votre logique DoubleClick
+        previewIndex = index;  // Garde l'index en surbrillance à jour
 
         for (int i = 0; i < pairs.Count; i++)
         {
             if (pairs[i].image) pairs[i].image.SetActive(i == index);
             if (pairs[i].title) pairs[i].title.gameObject.SetActive(i == index);
         }
-
-        
     }
-
-    /// <summary>
-    /// Load the scene associated with the given arena index and persist that choice to PlayerPrefs.
-    /// </summary>
-    /// <param name="arenaIndex">Index of the arena to load.</param>
+    
+    // ... (LoadArena et RandomArena restent identiques) ...
+    // ...
     void LoadArena(int arenaIndex)
     {
         if (ArenaName.TryGetValue(arenaIndex, out string name))
@@ -208,4 +218,5 @@ public class MapManager : MonoBehaviour
         int randomIndex = UnityEngine.Random.Range(0, pairs.Count);
         LoadArena(randomIndex);
     }
+    // ...
 }
