@@ -18,6 +18,7 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] Image[] backHealthBar = new Image[4];
     [SerializeField] Image[] frontHealthBar = new Image[4];
     [SerializeField] Canvas gameOverCanva; // <-- AJOUTÉ
+    [SerializeField] Canvas afterGameLocal; // <-- AJOUTÉ
     [SerializeField] Canvas pauseMenuCanva;
 
     // Listes pour suivre les joueurs
@@ -36,8 +37,9 @@ public class GameManagerScript : MonoBehaviour
         if (magePrefab) characterPrefabsList.Add(magePrefab);
 
         // UI
-        gameOverCanva.enabled = true;
+        gameOverCanva.enabled = false;
         pauseMenuCanva.enabled = false;
+        afterGameLocal.enabled = false;
         Time.timeScale = 1f;
 
         SpawnPlayersFromHandlers();
@@ -200,7 +202,7 @@ public class GameManagerScript : MonoBehaviour
     {
         isGameOver = true; // ▼ AJOUTEZ CETTE LIGNE ▼
         
-        gameOverCanva.gameObject.SetActive(true); // Ceci active maintenant AfterGameLocal
+        afterGameLocal.enabled = true; // Ceci active maintenant AfterGameLocal
         Debug.Log("Game Over");
         Time.timeScale = 0f;
     }
