@@ -22,11 +22,11 @@ abstract public class BehaviorTree : MonoBehaviour
     }
     public void EvaluateTree()
     {
-        root.ExecuteAction();
+        root.EvaluateAction();
     }
-    public void Interupt()
-    {
-        activeNode.Interrupt();
-        EvaluateTree();
-    }
+    //public void Interupt()
+    //{
+    //    activeNode.Interrupt();
+    //    EvaluateTree();
+    //}
 }

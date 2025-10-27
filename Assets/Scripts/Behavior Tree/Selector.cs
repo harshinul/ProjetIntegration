@@ -13,10 +13,10 @@ public class Selector : Node
             child.SetParent(this);
         }
     }
-    public override void ExecuteAction()
+    public override void EvaluateAction()
     {
-        base.ExecuteAction();
-        children[index].ExecuteAction();
+        base.EvaluateAction();
+        children[index].EvaluateAction();
     }
     public override void FinishAction(bool result)
     {
@@ -32,7 +32,7 @@ public class Selector : Node
         else
         {
             index++;
-            children[index].ExecuteAction();
+            children[index].EvaluateAction();
         }
     }
 }

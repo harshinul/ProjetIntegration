@@ -15,9 +15,9 @@ public class Moveto : Node
         this.stoppingDistance = stoppingDistance;
     }
 
-    public override void ExecuteAction()
+    public override void EvaluateAction()
     {
-        base.ExecuteAction();
+        base.EvaluateAction();
         if (agent && target)
         {
             agent.isStopped = false;

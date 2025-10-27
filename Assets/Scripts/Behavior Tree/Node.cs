@@ -5,23 +5,25 @@ public abstract class Node
 {
     protected Node parent;
     protected BehaviorTree BT;
-
     protected Conditions[] conditions;
-    protected bool interrupted;
+    protected bool interupted = false;
 
     public Node(Conditions[] conditions, BehaviorTree BT)
     {
         this.BT = BT;
         this.conditions = conditions;
     }
+
     public Node()
     {
     }
+
     public void SetParent(Node parent)
     {
         this.parent = parent;
     }
-    public bool EvaluateCondition()
+
+    public bool EvaluateConditions()
     {
         if (conditions == null)
             return true;
@@ -33,12 +35,14 @@ public abstract class Node
         }
         return true;
     }
-    virtual public void ExecuteAction()
+
+    virtual public void EvaluateAction()
     {
-        if (EvaluateCondition())
+        if (!EvaluateConditions())
         {
             FinishAction(false);
         }
+
         BT.activeNode = this;
     }
 
@@ -46,16 +50,19 @@ public abstract class Node
     {
 
     }
+
     virtual public void FinishAction(bool result)
     {
-        if (!interrupted && parent != null)
+        if (parent != null)
             parent.FinishAction(result);
+        else
+            BT.EvaluateTree();
     }
-    virtual public void Interrupt()
-    {
-        interrupted = true;
-        FinishAction(false);
-    }
+    //virtual public void Interrupt()
+    //{
+    //    interrupted = true;
+    //    FinishAction(false);
+    //}
 
 
 }
