@@ -28,7 +28,7 @@ public class MapManager : MonoBehaviour
         {0,"FightReal" },
         {1,"Temple" },
         {2,"Cathedrale_Anthique" },
-        {3,"Cathedrale_Anthique" }
+        {3,"Hell" }
     };
     private Dictionary<int, int> PlayerSelection = new Dictionary<int, int>();
     private int selectedIndex = -1;

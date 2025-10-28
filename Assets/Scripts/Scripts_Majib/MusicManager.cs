@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Threading;
 
 public class MusicManager : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class MusicManager : MonoBehaviour
     {
         musicSource.loop = true;
         musicSource.volume = 0f;
+        Thread.Sleep(1000);
         StartFight();
     }
 
