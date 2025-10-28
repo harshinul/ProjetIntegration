@@ -1079,6 +1079,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9100000, guid: 2129cb884bc4ab144bab665dd3d38011, type: 2}
     - target: {fileID: 5866666021909216657, guid: f9c0a8e7c193d17448a84b3654f57380, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
+        'mixamorig:LeftHandIndex1'\n\tTransform 'mixamorig:LeftHandPinky2'\n\tTransform
+        'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform 'mixamorig:RightArm'\n\tTransform
+        'mixamorig:LeftLeg'\n\tTransform 'mixamorig:LeftShoulder'\n\tTransform 'mixamorig:LeftHandRing1'\n\tand
+        more ...\n\tFrom animation clip 'AssassinUltimate'"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: f9c0a8e7c193d17448a84b3654f57380, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
@@ -1364,7 +1374,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack1: {fileID: 7400000, guid: da05a6b16f06d4b49a952ffca494b8e8, type: 2}
   attack2: {fileID: 7400000, guid: 2f00ef0973d4f644cb6ba78f1c70da55, type: 2}
-  ulti: {fileID: 0}
+  ulti: {fileID: 7400000, guid: 07595cca45175444fbe6591bb291c312, type: 2}
 --- !u!114 &4333463403478860494
 MonoBehaviour:
   m_ObjectHideFlags: 0

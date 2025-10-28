@@ -113601,14 +113601,14 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 2.35
+  - time: 2.3
     functionName: CanDealDamage
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 2.4333334
+  - time: 2.5
     functionName: CannotDealDamage
     data: 
     objectReferenceParameter: {fileID: 0}

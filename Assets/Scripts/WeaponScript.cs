@@ -10,6 +10,10 @@ public class WeaponScript : MonoBehaviour
     private void Start()
     {
         ultCharge = player.GetComponent<UltimateAbilityComponent>();
+        Collider weaponCollider = GetComponent<Collider>();
+        Collider playerCollider = player.GetComponent<Collider>();
+        if (weaponCollider != null && playerCollider != null)
+            Physics.IgnoreCollision(weaponCollider, playerCollider);
     }
 
     //private void OnTriggerStay(Collider other)
@@ -22,23 +26,19 @@ public class WeaponScript : MonoBehaviour
     //}
     private void OnTriggerEnter(Collider other)
     {
-
-        if (other != player.GetComponent<Collider>() && other.CompareTag("Player"))
+       if (canDealDamage)
         {
-            Debug.Log("Weapon hit the player");
-            if (canDealDamage)
+            ultCharge.ChargeUltDamage(damage, player);
+            PlayerHealthComponent playerHealth = other.GetComponent<PlayerHealthComponent>();
+            if (playerHealth != null)
             {
-                ultCharge.ChargeUltDamage(damage, player);
-                PlayerHealthComponent playerHealth = other.GetComponent<PlayerHealthComponent>();
-                if (playerHealth != null)
-                {
-                    playerHealth.TakeDamage(damage);
-                    canDealDamage = false; // Prevent multiple damage instances in one swing
-                }
+                playerHealth.TakeDamage(damage);
+                canDealDamage = false; // Prevent multiple damage instances in one swing
             }
         }
-
-
-
     }
+
+
+
 }
+
