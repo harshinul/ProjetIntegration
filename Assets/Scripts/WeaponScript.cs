@@ -25,7 +25,7 @@ public class WeaponScript : MonoBehaviour
     //    }
     //}
     private void OnTriggerEnter(Collider other)
-    {
+   {
        if (canDealDamage)
         {
             ultCharge.ChargeUltDamage(damage, player);

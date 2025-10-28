@@ -752,7 +752,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 95f7b99bb23055d46ad8bf4851f53c4b, type: 2}
     - target: {fileID: 919132149155446097, guid: f9c0a8e7c193d17448a84b3654f57380, type: 3}
       propertyPath: m_Name
-      value: Assassin_frl
+      value: Assassin
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f9c0a8e7c193d17448a84b3654f57380, type: 3}
       propertyPath: m_Layer
@@ -1342,7 +1342,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.0035, z: 0}
+  m_Center: {x: 0, y: 0.0035, z: 0.0003}
 --- !u!114 &6661369824171525367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1374,7 +1374,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack1: {fileID: 7400000, guid: da05a6b16f06d4b49a952ffca494b8e8, type: 2}
   attack2: {fileID: 7400000, guid: 2f00ef0973d4f644cb6ba78f1c70da55, type: 2}
-  ulti: {fileID: 7400000, guid: 07595cca45175444fbe6591bb291c312, type: 2}
+  ulti: {fileID: 7400000, guid: e8c05103a34a28c4298a2ae2628f82ff, type: 2}
 --- !u!114 &4333463403478860494
 MonoBehaviour:
   m_ObjectHideFlags: 0
