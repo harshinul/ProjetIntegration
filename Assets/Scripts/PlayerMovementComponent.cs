@@ -107,14 +107,6 @@ public class PlayerMovementComponent : MonoBehaviour
         dashAction.performed += Dash;
         fastFallAction.performed += FastFall;
         fastFallAction.canceled += FastFall;
-        // S'abonner aux actions
-        // playerInput.actions.FindAction("Player/Move").performed += Move;
-        // playerInput.actions.FindAction("Player/Move").canceled += Move;
-        // playerInput.actions.FindAction("Player/Jump").performed += Jump;
-        // playerInput.actions.FindAction("Player/Jump").canceled += Jump;
-        // playerInput.actions.FindAction("Player/Dash").performed += Dash;
-        // playerInput.actions.FindAction("Player/FastFall").performed += FastFall;
-        // playerInput.actions.FindAction("Player/FastFall").canceled += FastFall;
     }
 
     void OnEnable() { }

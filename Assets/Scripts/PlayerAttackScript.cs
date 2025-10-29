@@ -139,6 +139,7 @@ public class PlayerAttackScript : MonoBehaviour
         
         playerInput.actions.FindAction("Player/Attack").performed += Attack1;
         playerInput.actions.FindAction("Player/Attack2").performed += Attack2;
+        playerInput.actions.FindAction("Player/Ultimate").performed += UseUltimate;
     }
 
     void OnEnable() { }
@@ -148,6 +149,7 @@ public class PlayerAttackScript : MonoBehaviour
         if (playerInput == null) return;
         playerInput.actions.FindAction("Player/Attack").performed -= Attack1;
         playerInput.actions.FindAction("Player/Attack2").performed -= Attack2;
+        playerInput.actions.FindAction("Player/Ultimate").performed -= UseUltimate;
     }
 
     public CharacterStats GetCharacterStats()
