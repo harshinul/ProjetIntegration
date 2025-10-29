@@ -21,7 +21,7 @@ MonoBehaviour:
   m_OverrideGlobalSceneList: 1
   m_Scenes:
   - m_enabled: 1
-    m_path: Assets/Scenes/MainMenu.unity
+    m_path: Assets/Scenes/MainMenu 2.unity
   - m_enabled: 1
     m_path: Assets/Scenes/selection.unity
   - m_enabled: 1
