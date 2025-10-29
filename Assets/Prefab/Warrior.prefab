@@ -175,13 +175,17 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2194341877839688381, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: ba8e21cc193ca22408469ca869a01557, type: 3}
+    - target: {fileID: 2194341877839688381, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2194341877839688381, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: bebe7b0f454985a4cbe744d437b01597, type: 2}
+      objectReference: {fileID: 9100000, guid: 9153add12984dd04c8d2164861750a58, type: 2}
     - target: {fileID: 2194341877839688381, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
       propertyPath: m_AnimatePhysics
       value: 0
@@ -597,7 +601,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.008
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 1, z: 0.16}
 --- !u!114 &5193359021002612531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -844,7 +848,19 @@ MonoBehaviour:
     m_ActionId: 54880138-cf00-437e-a077-e7bb90df4b5e
     m_ActionName: 'Player/Pause[/Keyboard/escape]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6816848975789460257}
+        m_TargetAssemblyTypeName: PlayerAttackScript, Assembly-CSharp
+        m_MethodName: UseUltimate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 0a75eddc-7938-491b-ac08-468ed65543c4
     m_ActionName: 'Player/Ultimate[/Keyboard/v]'
   m_NeverAutoSwitchControlSchemes: 0
@@ -866,7 +882,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack1: {fileID: 7400000, guid: 9342068a51b51d642a73ff073a1e87e5, type: 2}
   attack2: {fileID: 7400000, guid: 2f00ef0973d4f644cb6ba78f1c70da55, type: 2}
-  ulti: {fileID: 0}
+  ulti: {fileID: 7400000, guid: 88df33425833fe245b844020ceff8587, type: 2}
 --- !u!114 &6816848975789460257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -880,6 +896,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   classType: 0
+  isAttacking: 0
 --- !u!114 &1130802719554443878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -892,8 +909,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8604a65dbb0d0754ca3ed17e3a7c286b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontHealthBar: {fileID: 0}
-  backHealthBar: {fileID: 0}
   chipSpeed: 1
   chipDelay: 0.5
   health: 0
@@ -926,6 +941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ultBar: {fileID: 0}
+  percentage: 0
 --- !u!1001 &8653675264636860924
 PrefabInstance:
   m_ObjectHideFlags: 0

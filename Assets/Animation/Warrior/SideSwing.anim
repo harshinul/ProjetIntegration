@@ -135340,7 +135340,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.6333333
+  - time: 0.73333335
     functionName: CannotDealDamage
     data: 
     objectReferenceParameter: {fileID: 0}

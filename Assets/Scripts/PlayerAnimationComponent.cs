@@ -35,6 +35,7 @@ public class PlayerAnimationComponent : MonoBehaviour
     {
         animator.SetBool("isIdle", false);
     }
+
     public void ActivateFirstAttack()
     {
         animator.SetBool("isFirstAttacking", true);
@@ -53,6 +54,16 @@ public class PlayerAnimationComponent : MonoBehaviour
     public void DeactivateSecondAttack()
     {
         animator.SetBool("isSecondAttacking", false);
+    }
+
+    public void ActivateUltimate()
+    {
+        animator.SetBool("isUlting", true);
+    }
+
+    public void DeactivateUltimate()
+    {
+        animator.SetBool("isUlting", false);
     }
 
     public void ActivateRunning()
