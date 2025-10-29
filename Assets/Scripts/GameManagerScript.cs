@@ -1,34 +1,32 @@
 using System.Collections.Generic;
-using System.Linq; // <-- NÉCESSAIRE
+using System.Linq; 
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.InputSystem; // <-- NÉCESSAIRE
-using SCRIPTS_MARC; // <-- NÉCESSAIRE (pour PlayerInputHandler)
-//using NUnit.Framework; // <-- Vous pouvez probablement supprimer ceci
+using UnityEngine.InputSystem;
+using SCRIPTS_MARC;
 
 public class GameManagerScript : MonoBehaviour
 {
-    [Header("Références de Spawning")]
     [SerializeField] Transform[] spawnPoints = new Transform[5];
     [SerializeField] GameObject warriorPrefab;
     [SerializeField] GameObject assassinPrefab;
     [SerializeField] GameObject magePrefab;
 
-    [Header("Références UI")]
     [SerializeField] Image[] backHealthBar = new Image[4];
     [SerializeField] Image[] frontHealthBar = new Image[4];
-    [SerializeField] Canvas gameOverCanva; // <-- AJOUTÉ
-    [SerializeField] Canvas afterGameLocal; // <-- AJOUTÉ
+    [SerializeField] Canvas gameOverCanva;
+    [SerializeField] Canvas afterGameLocal;
     [SerializeField] Canvas pauseMenuCanva;
 
     // Listes pour suivre les joueurs
     List<PlayerHealthComponent> playersHealthComponents = new List<PlayerHealthComponent>();
     List<PlayerPauseMenuComponent> playersPauseMenuComponents = new List<PlayerPauseMenuComponent>();
 
-    // Liste privée pour trouver les prefabs par nom
+    // Liste pour trouver les prefabs par nom
     private List<GameObject> characterPrefabsList = new List<GameObject>();
 
     private bool isGameOver = false;
+
     private void Start()
     {
         // On remplit la liste des prefabs
@@ -47,8 +45,7 @@ public class GameManagerScript : MonoBehaviour
 
     private void Update()
     {
-        if (isGameOver) return; 
-
+        if (isGameOver) return;
 
         (bool isPaused, int playerIndex) = CheckIfPlayerPaused();
         if (isPaused)
@@ -69,9 +66,6 @@ public class GameManagerScript : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// NOUVELLE MÉTHODE : Trouve tous les PlayerInputHandlers et instancie leurs personnages.
-    /// </summary>
     void SpawnPlayersFromHandlers()
     {
         // 1. Trouver tous les "handlers" de joueur qui ont persisté
@@ -79,15 +73,13 @@ public class GameManagerScript : MonoBehaviour
 
         if (playerHandlers.Length == 0)
         {
-            Debug.LogWarning("Aucun PlayerInputHandler trouvé. Impossible d'instancier les joueurs.");
             return;
         }
 
         // 2. Trier les handlers par index pour s'assurer que P1 est P1, P2 est P2, etc.
         var sortedHandlers = playerHandlers.OrderBy(h => h.GetComponent<PlayerInput>().playerIndex).ToArray();
-        
+
         int totalPlayers = sortedHandlers.Length;
-        Debug.Log($"Instanciation de {totalPlayers} joueurs...");
 
         foreach (PlayerInputHandler handler in sortedHandlers)
         {
@@ -95,32 +87,50 @@ public class GameManagerScript : MonoBehaviour
             int playerIndex = playerInput.playerIndex; // Index de 0 à 3
             int playerNumber = playerIndex + 1; // Numéro de 1 à 4
 
-            // 3. Trouver le prefab du personnage choisi (logique de votre ancien SpawnPlayerType)
+            // 3. Trouver le prefab du personnage choisi
             string classTypeString = PlayerPrefs.GetString("classTypePlayer" + playerNumber);
             GameObject prefabToSpawn = characterPrefabsList.FirstOrDefault(p => p.name == classTypeString);
 
             if (prefabToSpawn == null)
             {
-                Debug.LogWarning($"Prefab '{classTypeString}' non trouvé pour Joueur {playerNumber}. Utilisation du Guerrier.");
                 prefabToSpawn = warriorPrefab;
             }
 
+            // 4. Obtenir la position et rotation de spawn
             (Vector3 pos, Quaternion rot) spawnData = GetSpawnData(playerIndex, totalPlayers);
 
             // 5. Instancier le personnage (DÉSACTIVÉ temporairement)
             GameObject playerCharacter = Instantiate(prefabToSpawn, spawnData.pos, spawnData.rot);
-            playerCharacter.SetActive(false); // ← IMPORTANT
+            playerCharacter.SetActive(false);
 
             // 6. Changer l'Action Map pour les contrôles de jeu
-            playerInput.SwitchCurrentActionMap("Player"); 
+            playerInput.SwitchCurrentActionMap("Player");
 
-            // 7. Parenter le Handler au personnage
-            handler.transform.SetParent(playerCharacter.transform);
+            // 7. Assigner le movementComponent au personnage
+            PlayerMovementComponent movementComponent = playerCharacter.GetComponent<PlayerMovementComponent>();
+            if (movementComponent != null)
+            {
+                movementComponent.SetPlayerInput(playerInput);
+            }
+            else
+            {
+                Debug.LogWarning($"PlayerMovementComponent non trouvé sur {playerCharacter.name}");
+            }
+            // 8. Assigner le movementComponent au personnage
+            PlayerAttackScript attackComponent = playerCharacter.GetComponent<PlayerAttackScript>();
+            if (attackComponent != null)
+            {
+                attackComponent.SetPlayerInput(playerInput);
+            }
+            else
+            {
+                Debug.LogWarning($"PlayerAttackScript non trouvé sur {playerCharacter.name}");
+            }
 
-            // 8. RÉACTIVER le personnage
-            playerCharacter.SetActive(true); // ← IMPORTANT
+            // 9. RÉACTIVER le personnage
+            playerCharacter.SetActive(true);
 
-            // 9. Configuration de la Health Bar (reste identique)
+            // 9. Configuration de la Health Bar
             PlayerHealthComponent pHC = playerCharacter.GetComponent<PlayerHealthComponent>();
             if (pHC != null && playerIndex < backHealthBar.Length)
             {
@@ -132,6 +142,7 @@ public class GameManagerScript : MonoBehaviour
                 Debug.LogWarning($"Pas de HealthBar ou de HealthComponent pour Joueur {playerNumber}");
             }
 
+            // 10. Configuration du menu pause
             PlayerPauseMenuComponent pPMC = playerCharacter.GetComponent<PlayerPauseMenuComponent>();
             if (pPMC != null)
             {
@@ -166,11 +177,9 @@ public class GameManagerScript : MonoBehaviour
                 if (playerIndex == 3) return (spawnPoints[4].position, rotationLeft);
                 break;
         }
-        
-        Debug.LogWarning($"Cas de spawn non géré pour {playerIndex} / {totalPlayers}. Utilisation du point 0.");
         return (spawnPoints[0].position, rotationRight);
     }
-    
+
     int CheckNumberOfPlayerAlive()
     {
         int playerAlive = 0;
@@ -200,11 +209,10 @@ public class GameManagerScript : MonoBehaviour
 
     void GameOver()
     {
-        isGameOver = true; // ▼ AJOUTEZ CETTE LIGNE ▼
-        
-        afterGameLocal.enabled = true; // Ceci active maintenant AfterGameLocal
-        Debug.Log("Game Over");
+        isGameOver = true;
+
+        afterGameLocal.enabled = true;
+        gameOverCanva.enabled = true;
         Time.timeScale = 0f;
     }
-
 }

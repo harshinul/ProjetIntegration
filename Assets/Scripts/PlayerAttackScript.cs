@@ -53,13 +53,13 @@ public class CharacterStats
                     attackSpeed = 1.5f,
                     dashPower = 25f,
                     speed = 6f,
-
                 };
             default:
                 return null;
         }
     }
 }
+
 public class PlayerAttackScript : MonoBehaviour
 {
     //Animation
@@ -83,6 +83,7 @@ public class PlayerAttackScript : MonoBehaviour
     bool wantsToAttack2 = false;
 
     private PlayerInput playerInput;
+
     void Awake()
     {
         playerMovementComponent = GetComponent<PlayerMovementComponent>();
@@ -96,23 +97,37 @@ public class PlayerAttackScript : MonoBehaviour
         attack1Duration = playerAnimationComponent.GetAttack1Duration();
         attack2Duration = playerAnimationComponent.GetAttack2Duration();
     }
+
     void Start()
     {
-        playerInput = GetComponentInChildren<PlayerInput>();
-
         if (playerInput == null)
         {
-            Debug.LogError("PlayerInput non trouvé dans les enfants de " + gameObject.name);
-            this.enabled = false;
+            Debug.LogWarning($"PlayerInput pas encore assigné pour {gameObject.name}. En attente...");
+        }
+        else
+        {
+            InitializePlayerInput();
+        }
+    }
+
+   
+    public void SetPlayerInput(PlayerInput input)
+    {
+        playerInput = input;
+        InitializePlayerInput();
+    }
+
+ 
+    private void InitializePlayerInput()
+    {
+        if (playerInput == null)
+        {
             return;
         }
-
-        Debug.Log($"PlayerInput trouvé pour {gameObject.name}");
-
+        
         playerInput.actions.FindAction("Player/Attack").performed += Attack1;
         playerInput.actions.FindAction("Player/Attack2").performed += Attack2;
     }
-
 
     void OnEnable() { }
 
@@ -121,7 +136,6 @@ public class PlayerAttackScript : MonoBehaviour
         if (playerInput == null) return;
         playerInput.actions.FindAction("Player/Attack").performed -= Attack1;
         playerInput.actions.FindAction("Player/Attack2").performed -= Attack2;
-
     }
 
     public CharacterStats GetCharacterStats()
@@ -142,7 +156,6 @@ public class PlayerAttackScript : MonoBehaviour
     {
         weapon.canDealDamage = false;
     }
-
 
     public IEnumerator CouroutineStartAttack1()
     {
@@ -200,7 +213,6 @@ public class PlayerAttackScript : MonoBehaviour
         {
             wantsToAttack1 = true;
         }
-
     }
 
     public void Attack2(InputAction.CallbackContext ctx)
@@ -210,12 +222,4 @@ public class PlayerAttackScript : MonoBehaviour
             wantsToAttack2 = true;
         }
     }
-
-    //private void OnTriggerEnter(Collider collider)
-    //{
-    //    if (collider.CompareTag("Player"))
-    //    {
-    //        player.TakeDamage(characterStats.damage);
-    //    }
-    //}
 }

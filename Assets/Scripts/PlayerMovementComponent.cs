@@ -46,51 +46,62 @@ public class PlayerMovementComponent : MonoBehaviour
     // Components
     PlayerInput playerInput;
     CharacterController characterController;
+
     void Awake()
     {
         playerAnimationComponent = GetComponent<PlayerAnimationComponent>();
         characterController = GetComponent<CharacterController>();
         player = GetComponent<PlayerHealthComponent>();
     }
+
     void Start()
     {
-    // CHERCHER le PlayerInput ICI au lieu de Awake()
-    playerInput = GetComponentInChildren<PlayerInput>();
-
-    if (playerInput == null)
-    {
-        Debug.LogError("PlayerInput non trouvé dans les enfants de " + gameObject.name);
-        this.enabled = false;
-        return;
-    }
-    
-    Debug.Log($"✓ PlayerInput trouvé pour {gameObject.name} - Player {playerInput.playerIndex}");
-    Debug.Log($"✓ Action Map active : {playerInput.currentActionMap?.name}");
-    
-    // S'abonner aux actions
-    playerInput.actions.FindAction("Player/Move").performed += Move;
-    playerInput.actions.FindAction("Player/Move").canceled += Move;
-    playerInput.actions.FindAction("Player/Jump").performed += Jump;
-    playerInput.actions.FindAction("Player/Jump").canceled += Jump;
-    playerInput.actions.FindAction("Player/Dash").performed += Dash;
-    playerInput.actions.FindAction("Player/FastFall").performed += FastFall;
-    playerInput.actions.FindAction("Player/FastFall").canceled += FastFall;
-
-    // Initialisez vos stats ici
-    if (characterStats == null)
-    {
-        characterStats = GetComponent<PlayerAttackScript>().GetCharacterStats();
-        if (characterStats != null)
+        if (playerInput == null)
         {
-            speed = characterStats.speed;
-            dashPower = characterStats.dashPower;
+            Debug.LogWarning($"PlayerInput pas encore assigné pour {gameObject.name}. En attente...");
+        }
+        else
+        {
+            InitializePlayerInput();
+        }
+
+        // Initialisez vos stats ici
+        if (characterStats == null)
+        {
+            characterStats = GetComponent<PlayerAttackScript>().GetCharacterStats();
+            if (characterStats != null)
+            {
+                speed = characterStats.speed;
+                dashPower = characterStats.dashPower;
+            }
         }
     }
-}
-    void OnEnable()
+
+    
+    public void SetPlayerInput(PlayerInput input)
     {
-        
+        playerInput = input;
+        InitializePlayerInput();
     }
+
+    private void InitializePlayerInput()
+    {
+        if (playerInput == null)
+        {
+            return;
+        }
+
+        // S'abonner aux actions
+        playerInput.actions.FindAction("Player/Move").performed += Move;
+        playerInput.actions.FindAction("Player/Move").canceled += Move;
+        playerInput.actions.FindAction("Player/Jump").performed += Jump;
+        playerInput.actions.FindAction("Player/Jump").canceled += Jump;
+        playerInput.actions.FindAction("Player/Dash").performed += Dash;
+        playerInput.actions.FindAction("Player/FastFall").performed += FastFall;
+        playerInput.actions.FindAction("Player/FastFall").canceled += FastFall;
+    }
+
+    void OnEnable() { }
     
     void OnDisable()
     {
@@ -116,7 +127,6 @@ public class PlayerMovementComponent : MonoBehaviour
         }
         else if(player.PlayerIsDead())
         {
-
             if (characterController.isGrounded)
             {
                 characterController.enabled = false;
@@ -125,11 +135,9 @@ public class PlayerMovementComponent : MonoBehaviour
             {
                 GravityMovement();
             }
-
         }
-
-
     }
+
     //Movement
     public void Movement()
     {
@@ -147,7 +155,6 @@ public class PlayerMovementComponent : MonoBehaviour
         }
 
         characterController.Move((speed * direction + jump) * Time.deltaTime);
-
     }
 
     public void Jumping()
@@ -161,8 +168,6 @@ public class PlayerMovementComponent : MonoBehaviour
             jumpCount++;
             wantsToJump = false;
         }
-
-
     }
 
     void Falling()
@@ -181,12 +186,10 @@ public class PlayerMovementComponent : MonoBehaviour
             playerAnimationComponent.ActivateFalling();
             playerAnimationComponent.DeactivateRunning();
         }
-        else //(characterController.isGrounded)
+        else
         {
-            //dplayerAnimationComponent.DeactivateJumping();
             playerAnimationComponent.DeactivateFalling();
         }
-
     }
 
     void ChangeRotation()
@@ -203,8 +206,8 @@ public class PlayerMovementComponent : MonoBehaviour
         {
             move = ctx.ReadValue<Vector2>().normalized;
         }
-
     }
+
     //Jump
     public void Jump(InputAction.CallbackContext ctx)
     {
@@ -217,12 +220,14 @@ public class PlayerMovementComponent : MonoBehaviour
             wantsToJump = false;
         }
     }
+
     //Dash
     public void Dash(InputAction.CallbackContext ctx)
     {
         if (ctx.performed && canDash && !isDashing && canMove && !player.PlayerIsDead())
             StartCoroutine(DashCoroutine());
     }
+
     public IEnumerator DashCoroutine()
     {
         if (!player.PlayerIsDead())
@@ -238,10 +243,7 @@ public class PlayerMovementComponent : MonoBehaviour
 
             while (elapsed < dashTime)
             {
-                // Smoothly decrease dash speed over time
-                //act as a progress bar
                 float t = elapsed / dashTime;
-                //act as a decrease of speed over time based on t
                 float speedDash = Mathf.Lerp(characterStats.dashPower, 0f, t);
 
                 characterController.Move(dashDir * speedDash * Time.deltaTime);
@@ -256,6 +258,7 @@ public class PlayerMovementComponent : MonoBehaviour
             canDash = true;
         }
     }
+
     //FastFall
     public void FastFall(InputAction.CallbackContext ctx)
     {
@@ -271,9 +274,6 @@ public class PlayerMovementComponent : MonoBehaviour
     public void StopMovement()
     {
         canMove = false;
-        //lastMove = move;
-        //move = Vector2.zero;
-        //direction = Vector3.zero;
         playerAnimationComponent.DeactivateRunning();
         playerAnimationComponent.DeactivateJumping();
         playerAnimationComponent.DeactivateFalling();
@@ -285,5 +285,4 @@ public class PlayerMovementComponent : MonoBehaviour
             move = lastMove;
         canMove = true;
     }
-
 }
