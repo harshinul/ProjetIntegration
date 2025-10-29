@@ -6,29 +6,23 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenu 2.unity
-    guid: dc73478dfe6d6b14c843265758ea8fea
+    path: Assets/Scenes/new scenes/MainMenu.unity
+    guid: a5114b2f88d22204f94dc4bb2b8762b5
   - enabled: 1
-    path: Assets/Scenes/selection.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/new scenes/selection.unity
+    guid: def7fdab9df17614c9ab7f5d15f90241
   - enabled: 1
-    path: Assets/Scenes/AreneSelectionFRL.unity
-    guid: fcf9414af8abe8d4abcd6f043d0806cc
-  - enabled: 0
-    path: Assets/Scenes/AreneSelection.unity
-    guid: 1a635604d17a7cc41b4f16f2002cf779
+    path: Assets/Scenes/new scenes/AreneSelection.unity
+    guid: 55a9870311af3b94494ec0e84f04f041
   - enabled: 1
-    path: Assets/Scenes/FightReal.unity
-    guid: 0686e665774e5344496b6a73a50b99e5
+    path: Assets/Scenes/new scenes/Temple.unity
+    guid: bd1742f8c53eda348a8caf45e92dee1f
   - enabled: 1
-    path: Assets/Scenes/Cathedrale_Anthique.unity
-    guid: 60708c3d5e7737443893a703674017d0
+    path: Assets/Scenes/new scenes/Hell.unity
+    guid: b748d63cab2f1bc4cb0b6e6f96b6d145
   - enabled: 1
-    path: Assets/Scenes/Temple.unity
-    guid: f5c54496fbbcab9498119edfe79d9045
-  - enabled: 1
-    path: Assets/Scenes/Hell.unity
-    guid: 8f147e7b5862232499760e9e58060286
+    path: Assets/Scenes/new scenes/Cathedrale_Anthique.unity
+    guid: 6511a9892aca46f46abdda7b682bfe95
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

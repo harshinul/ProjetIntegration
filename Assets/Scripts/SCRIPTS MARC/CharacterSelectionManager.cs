@@ -10,7 +10,7 @@ namespace SCRIPTS_MARC
     {
         [SerializeField] private PlayerSelectionPanel[] panels;
         [SerializeField] private GameObject[] socles;
-        [SerializeField] private string nextSceneName = "AreneSelection";
+        [SerializeField] private string nextSceneName = "AreneSelectionFRL 1";
     
         private int readyPlayersCount = 0;
         private PlayerInputManager playerInputManager;
