@@ -6,19 +6,19 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/new scenes/MainMenu.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: a5114b2f88d22204f94dc4bb2b8762b5
   - enabled: 1
-    path: Assets/Scenes/new scenes/selection.unity
+    path: Assets/Scenes/selection.unity
     guid: def7fdab9df17614c9ab7f5d15f90241
   - enabled: 1
-    path: Assets/Scenes/new scenes/AreneSelection.unity
+    path: Assets/Scenes/AreneSelection.unity
     guid: 55a9870311af3b94494ec0e84f04f041
   - enabled: 1
-    path: Assets/Scenes/new scenes/Temple.unity
+    path: Assets/Scenes/Temple.unity
     guid: bd1742f8c53eda348a8caf45e92dee1f
   - enabled: 1
-    path: Assets/Scenes/new scenes/Hell.unity
+    path: Assets/Scenes/Hell.unity
     guid: b748d63cab2f1bc4cb0b6e6f96b6d145
   - enabled: 1
     path: Assets/Scenes/new scenes/Cathedrale_Anthique.unity
