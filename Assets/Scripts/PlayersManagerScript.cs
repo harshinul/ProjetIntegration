@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayersManagerScript : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class PlayersManagerScript : MonoBehaviour
     [SerializeField] GameObject warriorPrefab;
     [SerializeField] GameObject assassinPrefab;
     [SerializeField] GameObject magePrefab;
+
+    private readonly List<GameObject> spawnedPlayers = new List<GameObject>();
 
     private void Start()
     {
@@ -41,6 +45,29 @@ public class PlayersManagerScript : MonoBehaviour
         }
 
         player.GetComponent<PlayerHealthComponent>().SetHealthBarUI(backHealthBar[playerNumber - 1], frontHealthBar[playerNumber - 1]);
+
+        spawnedPlayers.Add(player);
+
+        var ai = player.GetComponent<AIBeginner>();
+
+        if(ai != null)
+        {
+            Transform target = null;
+            foreach (var p in spawnedPlayers)
+            {
+                if (p != player)
+                {
+                    if (p.GetComponent<AIBeginner>() == null)
+                    {
+                        target = p.transform;
+                        break;
+                    }
+                }
+
+            }
+            if (target != null)
+                ai.SetTarget(target);
+        }
     }
 
     void SpawnPlayers(int numberOfPlayer)

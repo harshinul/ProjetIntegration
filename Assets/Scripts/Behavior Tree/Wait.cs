@@ -10,10 +10,10 @@ public class Wait : Node
         this.secondsToWait = secondsToWait;
     }
 
-    public override void ExecuteAction()
+    public override void EvaluateAction()
     {
         timer = 0;
-        base.ExecuteAction();
+        base.EvaluateAction();
     }
     public override void Tick(float deltaTime)
     {

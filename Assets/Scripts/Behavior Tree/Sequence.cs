@@ -12,23 +12,26 @@ public class Sequence : Node
             n.SetParent(this);
         }
     }
-    public override void ExecuteAction()
+    public override void EvaluateAction()
     {
-        base.ExecuteAction();
-        SequenceContinue(0);
+        base.EvaluateAction();
+        index = 0;
+        SequenceContinue(index);
     }
     public void SequenceContinue(int index)
     {
-        children[index].ExecuteAction();
+        children[index].EvaluateAction();
     }
     public override void FinishAction(bool result)
     {
         if (!result)
         {
+            index = 0;
             base.FinishAction(false);
         }
         else if (index == children.Length - 1)
         {
+            index = 0;
             base.FinishAction(true);
         }
         else
