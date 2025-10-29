@@ -18,8 +18,8 @@ public class PlayerHealthComponent : MonoBehaviour
     float maxHealth = 100f;
 
     //UI Elements
-    Image frontHealthBar;
-    Image backHealthBar;
+    [SerializeField] Image frontHealthBar;
+    [SerializeField] Image backHealthBar;
     [SerializeField] float chipSpeed = 4f;
     [SerializeField] private float chipDelay = 0.5f;
     private Coroutine HealthBarCoroutine;
