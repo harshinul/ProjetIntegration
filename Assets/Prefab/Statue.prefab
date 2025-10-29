@@ -722,6 +722,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 54880138-cf00-437e-a077-e7bb90df4b5e
     m_ActionName: 'Player/Pause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0a75eddc-7938-491b-ac08-468ed65543c4
+    m_ActionName: 'Player/Ultimate[/Keyboard/v]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -741,6 +745,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack1: {fileID: 0}
   attack2: {fileID: 0}
+  ulti: {fileID: 0}
 --- !u!114 &1658222427377913131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -753,11 +758,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8604a65dbb0d0754ca3ed17e3a7c286b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
   frontHealthBar: {fileID: 0}
   backHealthBar: {fileID: 0}
   chipSpeed: 1
   chipDelay: 0.5
+  health: 1509
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.1
   flashCount: 3
