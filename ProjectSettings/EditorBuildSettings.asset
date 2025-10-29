@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/selection.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
+    path: Assets/Scenes/AreneSelectionFRL.unity
+    guid: fcf9414af8abe8d4abcd6f043d0806cc
+  - enabled: 0
     path: Assets/Scenes/AreneSelection.unity
     guid: 1a635604d17a7cc41b4f16f2002cf779
   - enabled: 1
