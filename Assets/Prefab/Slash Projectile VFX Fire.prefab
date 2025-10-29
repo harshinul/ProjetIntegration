@@ -19422,6 +19422,7 @@ GameObject:
   - component: {fileID: 6882116249847192009}
   - component: {fileID: 6882116249847192010}
   - component: {fileID: 8053625835666601119}
+  - component: {fileID: 7094706252101137935}
   m_Layer: 0
   m_Name: Slash Projectile VFX Fire
   m_TagString: Untagged
@@ -24325,6 +24326,27 @@ MonoBehaviour:
   SpawnWhenFinish: {fileID: 6882116249847192011}
   speed: 20
   distance: 30
+--- !u!65 &7094706252101137935
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6882116249847192011}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.7032433, y: 0.61820227, z: 2.3641806}
+  m_Center: {x: 0.069568634, y: -0.06850204, z: 0.13712883}
 --- !u!1 &6882116249880209706
 GameObject:
   m_ObjectHideFlags: 0

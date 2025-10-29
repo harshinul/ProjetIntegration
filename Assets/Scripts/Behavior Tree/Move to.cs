@@ -14,11 +14,11 @@ public class Moveto : Node
         this.stoppingDistance = stoppingDistance;
     }
 
-    public override void ExecuteAction()
-    {
-        base.ExecuteAction();
-        agent.SetDestination(target.position);
-    }
+    //public override void ExecuteAction()
+    //{
+    //    base.ExecuteAction();
+    //    agent.SetDestination(target.position);
+    //}
 
     public override void Tick(float deltaTime)
     {

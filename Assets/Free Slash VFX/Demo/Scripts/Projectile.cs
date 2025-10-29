@@ -11,6 +11,7 @@ namespace MaykerStudio.Demo
 
         public float speed = 10;
         public float distance = 30;
+        public float damage;
         private ParticleSystem mainParticle;
 
         private Vector3 initPosition;
@@ -35,9 +36,19 @@ namespace MaykerStudio.Demo
                     mainParticle.Stop(true, ParticleSystemStopBehavior.StopEmitting);
                     if (SpawnWhenFinish != null)
                     {
-                        Instantiate(SpawnWhenFinish, transform.position, Quaternion.identity);
                         mainParticle = null;
                     }
+                    Destroy(this);
+                }
+            }
+        }
+        private void OnTriggerEnter(Collider other)
+        {
+            {
+                PlayerHealthComponent playerHealth = other.GetComponent<PlayerHealthComponent>();
+                if (playerHealth != null)
+                {
+                    playerHealth.TakeDamage(damage);
                 }
             }
         }

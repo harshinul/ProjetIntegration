@@ -15,7 +15,7 @@ public class PlayerHealthComponent : MonoBehaviour
     CharacterStats characterStats;
     GameObject player;
 
-    float maxHealth = 100f;
+    float maxHealth = 15000f;
 
     //UI Elements
     Image frontHealthBar;

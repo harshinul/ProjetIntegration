@@ -758,11 +758,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8604a65dbb0d0754ca3ed17e3a7c286b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontHealthBar: {fileID: 0}
-  backHealthBar: {fileID: 0}
   chipSpeed: 1
   chipDelay: 0.5
-  health: 0
+  health: 150
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   flashDuration: 0.1
   flashCount: 3
@@ -792,6 +790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ultBar: {fileID: 0}
+  percentage: 0
 --- !u!1001 &6346497063561358675
 PrefabInstance:
   m_ObjectHideFlags: 0
