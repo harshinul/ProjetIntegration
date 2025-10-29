@@ -16,7 +16,7 @@ namespace SCRIPTS_MARC
         private int playerIndex;
         private bool isReady = false;
         private int selectedCharacter = 0;
-        private List<GameObject> characters = new List<GameObject>();
+        public List<GameObject> characters = new List<GameObject>();
         private CharacterSelectionManager manager;
 
         public void Initialize(int index, CharacterSelectionManager managerRef, GameObject assignedSocle)
