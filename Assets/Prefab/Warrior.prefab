@@ -640,7 +640,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8823303940967276654}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -894,6 +894,18 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 0a75eddc-7938-491b-ac08-468ed65543c4
     m_ActionName: 'Player/Ultimate[/Keyboard/v]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0db964e3-df61-4b9d-990b-d1d22f2c5ad3
+    m_ActionName: 'UI/Next[/Keyboard/rightArrow,/DualSenseGamepadHID/dpad/right,/DualSenseGamepadHID/rightShoulder]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c1cb4344-cb3a-46fc-b601-2f3a3d302771
+    m_ActionName: 'UI/Previous[/Keyboard/leftArrow,/DualSenseGamepadHID/dpad/left,/DualSenseGamepadHID/leftShoulder]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7316c25e-4a67-4cc2-848a-12941b6f943e
+    m_ActionName: 'UI/Select[/DualSenseGamepadHID/buttonSouth,/Keyboard/enter]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

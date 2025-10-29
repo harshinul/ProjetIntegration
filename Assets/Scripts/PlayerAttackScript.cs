@@ -1,8 +1,8 @@
-using MaykerStudio.Demo;
 using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.TextCore.Text;
 
 public enum ClassType
 {
@@ -57,13 +57,13 @@ public class CharacterStats
                     attackSpeed = 1.5f,
                     dashPower = 25f,
                     speed = 6f,
-
                 };
             default:
                 return null;
         }
     }
 }
+
 public class PlayerAttackScript : MonoBehaviour
 {
     //Animation
@@ -79,7 +79,6 @@ public class PlayerAttackScript : MonoBehaviour
     private UltimateAbilityComponent ultimateAbilityComponent;
 
     //Attack
-    [SerializeField] GameObject projectile;
     WeaponScript weapon;
     float attack1Duration;
     float attack2Duration;
@@ -92,7 +91,8 @@ public class PlayerAttackScript : MonoBehaviour
     bool wantsToAttack2 = false;
     bool wantsToUltimate = false;
 
-    [SerializeField]Transform firePoint;
+    private PlayerInput playerInput;
+
     void Awake()
     {
         playerMovementComponent = GetComponent<PlayerMovementComponent>();
@@ -110,6 +110,57 @@ public class PlayerAttackScript : MonoBehaviour
         ultDuration = playerAnimationComponent.GetUltDuration();
     }
 
+    void Start()
+    {
+        if (playerInput == null)
+        {
+            Debug.LogWarning($"PlayerInput pas encore assigné pour {gameObject.name}. En attente...");
+        }
+        else
+        {
+            InitializePlayerInput();
+        }
+    }
+
+   
+    public void SetPlayerInput(PlayerInput input)
+    {
+        playerInput = input;
+        InitializePlayerInput();
+    }
+
+ 
+    private void InitializePlayerInput()
+    {
+        if (playerInput == null)
+        {
+            return;
+        }
+        
+        playerInput.actions.FindAction("Player/Attack").performed += Attack1;
+        playerInput.actions.FindAction("Player/Attack2").performed += Attack2;
+        playerInput.actions.FindAction("Player/Ultimate").performed += UseUltimate;
+    }
+
+    void OnEnable() { }
+
+    void OnDisable()
+    {
+        if (playerInput == null) return;
+        playerInput.actions.FindAction("Player/Attack").performed -= Attack1;
+        playerInput.actions.FindAction("Player/Attack2").performed -= Attack2;
+        playerInput.actions.FindAction("Player/Ultimate").performed -= UseUltimate;
+    }
+
+    public CharacterStats GetCharacterStats()
+    {
+        if (characterStats != null)
+        {
+            characterStats = CharacterStats.GetStatsForClass(classType);
+        }
+        return characterStats;
+    }
+    
     void CanDealDamage() //animation event
     {
         weapon.canDealDamage = true;
@@ -119,7 +170,6 @@ public class PlayerAttackScript : MonoBehaviour
     {
         weapon.canDealDamage = false;
     }
-
 
     public IEnumerator CouroutineStartAttack1()
     {
@@ -168,12 +218,6 @@ public class PlayerAttackScript : MonoBehaviour
         weapon.damage = characterStats.ultDamage;
 
         yield return new WaitForSeconds(beginingAnimationTime);
-        if (classType.Equals(ClassType.Warrior))
-        {
-            var obj = Instantiate(projectile, firePoint.position, Quaternion.Euler(0, 90, 90));
-            obj.GetComponent<Projectile>().damage = characterStats.ultDamage;
-            obj.GetComponent<Projectile>().Fire();
-        }
         playerMovementComponent.ResumeMovement();
         yield return new WaitForSeconds(endAnimationTime);
         playerAnimationComponent.DeactivateUltimate();
@@ -204,7 +248,6 @@ public class PlayerAttackScript : MonoBehaviour
         {
             wantsToAttack1 = true;
         }
-
     }
 
     public void Attack2(InputAction.CallbackContext ctx)

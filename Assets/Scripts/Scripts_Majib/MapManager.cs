@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,59 +17,206 @@ public class MapManager : MonoBehaviour
     }
 
     public List<PairButton> pairs;
-    public Button ArenaConfirmation;
+    public TMP_Text ArenaSelected;
     public Dictionary<int, string> ArenaName = new Dictionary<int, string>()
     {
         {0,"FightReal" },
         {1,"Temple" },
         {2,"Cathedrale_Anthique" },
-        {3,"Cathedrale_Anthique" }
+        {3,"Hell" }
     };
+
+    private Dictionary<int, int> PlayerSelection = new Dictionary<int, int>();
     private int selectedIndex = -1;
+    private int numberOfPlayers;
+    private int currentSelection = 0; // Tour du joueur actuel (0 = J1, 1 = J2...)
+    private int playersWhoSelected = 0;
+
+    // AJOUTÉ : Indice de l'arène actuellement en surbrillance
+    private int previewIndex = 0;
+
+    // AJOUTÉ : Propriété publique pour que les Handlers sachent qui joue
+    public int CurrentPlayerIndex => currentSelection;
+
+    private void Start()
+    {
+        this.numberOfPlayers = PlayerPrefs.GetInt("numberOfPlayer", 4); // J'ai remis votre PlayerPrefs
+        for (int i = 0; i < numberOfPlayers; i++)
+        {
+            PlayerSelection[i] = -1;
+        }
+
+        // AJOUTÉ : Affiche la première arène par défaut
+        ActivatePreview(previewIndex);
+    }
 
     private void Awake()
     {
+        // SUPPRIMÉ : Nous n'utilisons plus les clics de souris, 
+        // mais les fonctions publiques appelées par les manettes.
+        // Vous pouvez les laisser si vous voulez un support souris ET manette,
+        // mais cela complique la logique de qui clique.
+        /*
         for (int i = 0; i < pairs.Count; i++)
         {
             int idx = i;
             pairs[i].button.onClick.AddListener(() => DoubleClick(idx));
         }
-
-        ArenaConfirmation.onClick.AddListener(LevelSelected);
+        */
     }
+
+    // ... (SelectArena, ValidateAll, DetermineArena restent identiques) ...
+    // ...
+    public void SelectArena(int arenaIndex)
+    {
+        PlayerSelection[currentSelection] = arenaIndex;
+        selectedIndex = arenaIndex;
+        playersWhoSelected++;
+
+        Debug.Log($"Joueur {currentSelection + 1} a sélectionné l'arène {arenaIndex}");
+        if (numberOfPlayers > 1 && playersWhoSelected < numberOfPlayers) // Modifié pour ne pas boucler après le dernier vote
+        {
+            currentSelection = (currentSelection + 1) % numberOfPlayers;
+            Debug.Log($"C'est au tour du joueur {currentSelection + 1} de sélectionner une arène.");
+
+            // Met à jour la prévisualisation pour le nouveau joueur
+            ActivatePreview(previewIndex); 
+        }
+    }
+    
+    public void ValidateAll()
+    {
+        foreach (var selection in PlayerSelection.Values)
+        {
+            if (selection == -1)
+            {
+                Debug.Log("Tous les joueurs doivent sélectionner une arène avant de valider.");
+                return; // AJOUTÉ : Arrête la validation si quelqu'un n'a pas voté
+            }
+        }
+        int finalArena = DetermineArena();
+        LoadArena(finalArena);
+    }
+
+    private int DetermineArena()
+    {
+        //Count votes for each arena
+        Dictionary<int, int> voteCount = new Dictionary<int, int>();
+
+        foreach (var selection in PlayerSelection.Values)
+        {
+            if (voteCount.ContainsKey(selection))
+                voteCount[selection]++;
+            else
+                voteCount[selection] = 1;
+        }
+
+        // Trouver le nombre maximum de votes
+        int maxVotes = voteCount.Values.Max();
+
+        // Si tous les joueurs ont sélectionné la même arène
+        if (maxVotes == numberOfPlayers)
+        {
+            int arena = voteCount.First(x => x.Value == maxVotes).Key;
+            Debug.Log($"Tous les joueurs ont sélectionné la même arène : {arena}");
+            return arena;
+        }
+
+        // Si 2 ou plus ont sélectionné la même arène
+        if (maxVotes >= 2)
+        {
+            int arena = voteCount.First(x => x.Value == maxVotes).Key;
+            Debug.Log($"{maxVotes} joueurs ont sélectionné l'arène {arena} - Majorité atteinte!");
+            return arena;
+        }
+
+        // Sinon, choix aléatoire parmi toutes les sélections
+        Debug.Log("Aucune majorité - Choix aléatoire parmi les sélections");
+        List<int> allSelections = new List<int>(PlayerSelection.Values);
+        int randomIndex = UnityEngine.Random.Range(0, allSelections.Count);
+        int selectedArena = allSelections[randomIndex];
+        Debug.Log($"Arène choisie aléatoirement : {selectedArena}");
+        return selectedArena;
+    }
+    // ...
+
+    /// <summary>
+    /// Logique de double-clic, maintenant appelée par PlayerSubmit
+    /// </summary>
     public void DoubleClick(int index)
     {
+        // Si c'est le 2e clic (ou une confirmation)
         if (selectedIndex == index)
         {
-            LevelSelected();
+            SelectArena(index);
+            if (playersWhoSelected >= numberOfPlayers)
+            {
+                ValidateAll();
+            }
         }
-        else
+        else // Si c'est le 1er clic (prévisualisation)
         {
-            ActivateOnly(index);
+            ActivatePreview(index);
         }
     }
 
-    void ActivateOnly(int index)
+    // AJOUTÉ : Fonction publique pour la navigation par manette
+    public void PlayerNavigate(int playerIndex, int direction)
     {
-        selectedIndex = index;
+        // On vérifie si c'est bien le tour de ce joueur
+        if (playerIndex != currentSelection) return;
+
+        previewIndex += direction; // direction est 1 ou -1
+
+        // Boucle la sélection
+        if (previewIndex < 0) previewIndex = pairs.Count - 1;
+        if (previewIndex >= pairs.Count) previewIndex = 0;
+
+        // Met à jour l'aperçu
+        ActivatePreview(previewIndex);
+    }
+
+    // AJOUTÉ : Fonction publique pour la sélection par manette
+    public void PlayerSubmit(int playerIndex)
+    {
+        // On vérifie si c'est bien le tour de ce joueur
+        if (playerIndex != currentSelection) return;
+
+        // On appelle votre logique existante avec l'index en surbrillance
+        DoubleClick(previewIndex);
+    }
+
+    /// <summary>
+    /// Active preview pour l'index donné.
+    /// </summary>
+    void ActivatePreview(int index)
+    {
+        selectedIndex = index; // Important pour votre logique DoubleClick
+        previewIndex = index;  // Garde l'index en surbrillance à jour
 
         for (int i = 0; i < pairs.Count; i++)
         {
             if (pairs[i].image) pairs[i].image.SetActive(i == index);
             if (pairs[i].title) pairs[i].title.gameObject.SetActive(i == index);
         }
-
-        PlayerPrefs.SetInt("ArenaIndex", index);
-        PlayerPrefs.Save();
-        Debug.Log("Selected Arena : " + index);
     }
-
-    void LevelSelected()
+    
+    // ... (LoadArena et RandomArena restent identiques) ...
+    // ...
+    void LoadArena(int arenaIndex)
     {
-        if (ArenaName.TryGetValue(selectedIndex, out string name))
+        if (ArenaName.TryGetValue(arenaIndex, out string name))
         {
+            PlayerPrefs.SetInt("ArenaIndex", arenaIndex);
+            PlayerPrefs.Save();
             Debug.Log("Chargement Scene " + name);
             SceneManager.LoadScene(name);
         }
     }
+    public void RandomArena()
+    {
+        int randomIndex = UnityEngine.Random.Range(0, pairs.Count);
+        LoadArena(randomIndex);
+    }
+    // ...
 }

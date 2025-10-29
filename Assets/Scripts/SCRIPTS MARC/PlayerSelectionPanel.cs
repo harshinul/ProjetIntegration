@@ -16,7 +16,7 @@ namespace SCRIPTS_MARC
         private int playerIndex;
         private bool isReady = false;
         private int selectedCharacter = 0;
-        private List<GameObject> characters = new List<GameObject>();
+        public List<GameObject> characters = new List<GameObject>();
         private CharacterSelectionManager manager;
 
         public void Initialize(int index, CharacterSelectionManager managerRef, GameObject assignedSocle)
@@ -66,11 +66,13 @@ namespace SCRIPTS_MARC
             if (isReady) return;
 
             isReady = true;
+            readyIndicator.SetActive(true); 
     
-            
-            manager.PlayerIsReady(playerIndex, characters[selectedCharacter].name);
+            if (nextButton) nextButton.interactable = false;
+            if (previousButton) previousButton.interactable = false;
+            if (readyButton) readyButton.interactable = false;
 
-            gameObject.SetActive(false);
+            manager.PlayerIsReady(playerIndex, characters[selectedCharacter].name);
         }
     }
 }

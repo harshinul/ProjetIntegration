@@ -114,13 +114,31 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""New action map1"",
-            ""id"": ""64aa03dc-75e9-4172-b462-8dadc4dcb9cf"",
+            ""name"": ""UI_Selection"",
+            ""id"": ""5997fb5e-f229-4df6-ac34-ebce6ccf5188"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""Next"",
                     ""type"": ""Button"",
-                    ""id"": ""d71a1e6b-81fe-4295-a634-608683ed81c8"",
+                    ""id"": ""1eac8614-dc81-4cd3-8993-e349c718a274"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Previous"",
+                    ""type"": ""Button"",
+                    ""id"": ""5f001f8b-b2aa-4abb-af94-5782bc0e9c29"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select"",
+                    ""type"": ""Button"",
+                    ""id"": ""0a75a150-8200-4617-85ed-3a503c981978"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -130,12 +148,89 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""9b93dad8-b468-41a8-a94b-ceb7a6cc5b98"",
-                    ""path"": """",
+                    ""id"": ""578dafa1-5d2d-4b38-943b-5797b7cb55f5"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Next"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""561a3fc2-bc57-44c7-ae25-1773fd3c4373"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Next"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d97a8749-2d9d-443e-a0cf-2cc6fd911c8c"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Next"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8f40a406-f951-4370-97f8-2f1e9e8a70ec"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Previous"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9cd452c8-5a27-4d7c-bf61-90d702d2793f"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Previous"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""68c8e0dd-32f9-4479-a859-23547a33533b"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Previous"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""31bc9ab8-92c8-474f-a9fa-fca5e0fe5c4a"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c724c0e6-2348-4492-a146-3c2c4ec77294"",
+                    ""path"": ""<Keyboard>/enter"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -149,6 +244,32 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             ""devices"": [
                 {
                     ""devicePath"": ""<DualSenseGamepadHID>"",
+                    ""isOptional"": true,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""New Control Scheme1"",
+            ""bindingGroup"": ""New Control Scheme1"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Keyboard>"",
                     ""isOptional"": false,
                     ""isOR"": false
                 }
@@ -161,15 +282,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_PlayerMovement_Movement = m_PlayerMovement.FindAction("Movement", throwIfNotFound: true);
         m_PlayerMovement_WASD = m_PlayerMovement.FindAction("WASD", throwIfNotFound: true);
         m_PlayerMovement_Select = m_PlayerMovement.FindAction("Select", throwIfNotFound: true);
-        // New action map1
-        m_Newactionmap1 = asset.FindActionMap("New action map1", throwIfNotFound: true);
-        m_Newactionmap1_Newaction = m_Newactionmap1.FindAction("New action", throwIfNotFound: true);
+        // UI_Selection
+        m_UI_Selection = asset.FindActionMap("UI_Selection", throwIfNotFound: true);
+        m_UI_Selection_Next = m_UI_Selection.FindAction("Next", throwIfNotFound: true);
+        m_UI_Selection_Previous = m_UI_Selection.FindAction("Previous", throwIfNotFound: true);
+        m_UI_Selection_Select = m_UI_Selection.FindAction("Select", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
     {
         UnityEngine.Debug.Assert(!m_PlayerMovement.enabled, "This will cause a leak and performance issues, PlayerControls.PlayerMovement.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_Newactionmap1.enabled, "This will cause a leak and performance issues, PlayerControls.Newactionmap1.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_UI_Selection.enabled, "This will cause a leak and performance issues, PlayerControls.UI_Selection.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -290,51 +413,67 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     }
     public PlayerMovementActions @PlayerMovement => new PlayerMovementActions(this);
 
-    // New action map1
-    private readonly InputActionMap m_Newactionmap1;
-    private List<INewactionmap1Actions> m_Newactionmap1ActionsCallbackInterfaces = new List<INewactionmap1Actions>();
-    private readonly InputAction m_Newactionmap1_Newaction;
-    public struct Newactionmap1Actions
+    // UI_Selection
+    private readonly InputActionMap m_UI_Selection;
+    private List<IUI_SelectionActions> m_UI_SelectionActionsCallbackInterfaces = new List<IUI_SelectionActions>();
+    private readonly InputAction m_UI_Selection_Next;
+    private readonly InputAction m_UI_Selection_Previous;
+    private readonly InputAction m_UI_Selection_Select;
+    public struct UI_SelectionActions
     {
         private @PlayerControls m_Wrapper;
-        public Newactionmap1Actions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_Newactionmap1_Newaction;
-        public InputActionMap Get() { return m_Wrapper.m_Newactionmap1; }
+        public UI_SelectionActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Next => m_Wrapper.m_UI_Selection_Next;
+        public InputAction @Previous => m_Wrapper.m_UI_Selection_Previous;
+        public InputAction @Select => m_Wrapper.m_UI_Selection_Select;
+        public InputActionMap Get() { return m_Wrapper.m_UI_Selection; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(Newactionmap1Actions set) { return set.Get(); }
-        public void AddCallbacks(INewactionmap1Actions instance)
+        public static implicit operator InputActionMap(UI_SelectionActions set) { return set.Get(); }
+        public void AddCallbacks(IUI_SelectionActions instance)
         {
-            if (instance == null || m_Wrapper.m_Newactionmap1ActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_Newactionmap1ActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
+            if (instance == null || m_Wrapper.m_UI_SelectionActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UI_SelectionActionsCallbackInterfaces.Add(instance);
+            @Next.started += instance.OnNext;
+            @Next.performed += instance.OnNext;
+            @Next.canceled += instance.OnNext;
+            @Previous.started += instance.OnPrevious;
+            @Previous.performed += instance.OnPrevious;
+            @Previous.canceled += instance.OnPrevious;
+            @Select.started += instance.OnSelect;
+            @Select.performed += instance.OnSelect;
+            @Select.canceled += instance.OnSelect;
         }
 
-        private void UnregisterCallbacks(INewactionmap1Actions instance)
+        private void UnregisterCallbacks(IUI_SelectionActions instance)
         {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
+            @Next.started -= instance.OnNext;
+            @Next.performed -= instance.OnNext;
+            @Next.canceled -= instance.OnNext;
+            @Previous.started -= instance.OnPrevious;
+            @Previous.performed -= instance.OnPrevious;
+            @Previous.canceled -= instance.OnPrevious;
+            @Select.started -= instance.OnSelect;
+            @Select.performed -= instance.OnSelect;
+            @Select.canceled -= instance.OnSelect;
         }
 
-        public void RemoveCallbacks(INewactionmap1Actions instance)
+        public void RemoveCallbacks(IUI_SelectionActions instance)
         {
-            if (m_Wrapper.m_Newactionmap1ActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_UI_SelectionActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(INewactionmap1Actions instance)
+        public void SetCallbacks(IUI_SelectionActions instance)
         {
-            foreach (var item in m_Wrapper.m_Newactionmap1ActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_UI_SelectionActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_Newactionmap1ActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_UI_SelectionActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public Newactionmap1Actions @Newactionmap1 => new Newactionmap1Actions(this);
+    public UI_SelectionActions @UI_Selection => new UI_SelectionActions(this);
     private int m_NewControlSchemeSchemeIndex = -1;
     public InputControlScheme NewControlSchemeScheme
     {
@@ -344,14 +483,25 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             return asset.controlSchemes[m_NewControlSchemeSchemeIndex];
         }
     }
+    private int m_NewControlScheme1SchemeIndex = -1;
+    public InputControlScheme NewControlScheme1Scheme
+    {
+        get
+        {
+            if (m_NewControlScheme1SchemeIndex == -1) m_NewControlScheme1SchemeIndex = asset.FindControlSchemeIndex("New Control Scheme1");
+            return asset.controlSchemes[m_NewControlScheme1SchemeIndex];
+        }
+    }
     public interface IPlayerMovementActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnWASD(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);
     }
-    public interface INewactionmap1Actions
+    public interface IUI_SelectionActions
     {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnNext(InputAction.CallbackContext context);
+        void OnPrevious(InputAction.CallbackContext context);
+        void OnSelect(InputAction.CallbackContext context);
     }
 }
