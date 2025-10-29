@@ -11,9 +11,9 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] GameObject warriorPrefab;
     [SerializeField] GameObject assassinPrefab;
     [SerializeField] GameObject magePrefab;
-
     [SerializeField] Image[] backHealthBar = new Image[4];
     [SerializeField] Image[] frontHealthBar = new Image[4];
+    [SerializeField] Image[] ultBar = new Image[4];
     [SerializeField] Canvas gameOverCanva;
     [SerializeField] Canvas afterGameLocal;
     [SerializeField] Canvas pauseMenuCanva;
@@ -116,7 +116,7 @@ public class GameManagerScript : MonoBehaviour
             {
                 Debug.LogWarning($"PlayerMovementComponent non trouvé sur {playerCharacter.name}");
             }
-            // 8. Assigner le movementComponent au personnage
+            // 8. Assigner le attackComponent au personnage
             PlayerAttackScript attackComponent = playerCharacter.GetComponent<PlayerAttackScript>();
             if (attackComponent != null)
             {
@@ -148,6 +148,9 @@ public class GameManagerScript : MonoBehaviour
             {
                 playersPauseMenuComponents.Add(pPMC);
             }
+            UltimateAbilityComponent uAC;
+            uAC = playerCharacter.GetComponent<UltimateAbilityComponent>();
+            uAC.SetUltBarUI(ultBar[playerNumber - 1]);
         }
     }
 

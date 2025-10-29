@@ -47,6 +47,11 @@ public class PlayerMovementComponent : MonoBehaviour
     PlayerInput playerInput;
     CharacterController characterController;
 
+    private InputAction moveAction;
+    private InputAction jumpAction;
+    private InputAction dashAction;
+    private InputAction fastFallAction;
+
     void Awake()
     {
         playerAnimationComponent = GetComponent<PlayerAnimationComponent>();
@@ -90,15 +95,26 @@ public class PlayerMovementComponent : MonoBehaviour
         {
             return;
         }
+        moveAction = playerInput.actions["Move"];
+        jumpAction = playerInput.actions["Jump"];
+        dashAction = playerInput.actions["Dash"];
+        fastFallAction = playerInput.actions["FastFall"];
 
+        moveAction.performed += Move;
+        moveAction.canceled += Move;
+        jumpAction.performed += Jump;
+        jumpAction.canceled += Jump;
+        dashAction.performed += Dash;
+        fastFallAction.performed += FastFall;
+        fastFallAction.canceled += FastFall;
         // S'abonner aux actions
-        playerInput.actions.FindAction("Player/Move").performed += Move;
-        playerInput.actions.FindAction("Player/Move").canceled += Move;
-        playerInput.actions.FindAction("Player/Jump").performed += Jump;
-        playerInput.actions.FindAction("Player/Jump").canceled += Jump;
-        playerInput.actions.FindAction("Player/Dash").performed += Dash;
-        playerInput.actions.FindAction("Player/FastFall").performed += FastFall;
-        playerInput.actions.FindAction("Player/FastFall").canceled += FastFall;
+        // playerInput.actions.FindAction("Player/Move").performed += Move;
+        // playerInput.actions.FindAction("Player/Move").canceled += Move;
+        // playerInput.actions.FindAction("Player/Jump").performed += Jump;
+        // playerInput.actions.FindAction("Player/Jump").canceled += Jump;
+        // playerInput.actions.FindAction("Player/Dash").performed += Dash;
+        // playerInput.actions.FindAction("Player/FastFall").performed += FastFall;
+        // playerInput.actions.FindAction("Player/FastFall").canceled += FastFall;
     }
 
     void OnEnable() { }
