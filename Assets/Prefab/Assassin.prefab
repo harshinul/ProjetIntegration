@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &800407818270727883
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6782303646848908707}
+  m_Layer: 0
+  m_Name: fire point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6782303646848908707
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 800407818270727883}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.532, z: -0.002}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9114179315820848254}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1721809515483132816
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78,7 +109,10 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 947ecebfb3192164292c46e96c5647c5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7609123412529944558, guid: 90e49dcb8d4095d499a8c16d9fd770a4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6782303646848908707}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7120993385342881108, guid: 90e49dcb8d4095d499a8c16d9fd770a4, type: 3}
       insertIndex: -1
@@ -1080,13 +1114,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 2129cb884bc4ab144bab665dd3d38011, type: 2}
     - target: {fileID: 5866666021909216657, guid: f9c0a8e7c193d17448a84b3654f57380, type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
-        'mixamorig:LeftHandIndex1'\n\tTransform 'mixamorig:LeftHandPinky2'\n\tTransform
-        'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform 'mixamorig:RightArm'\n\tTransform
-        'mixamorig:LeftLeg'\n\tTransform 'mixamorig:LeftShoulder'\n\tTransform 'mixamorig:LeftHandRing1'\n\tand
-        more ...\n\tFrom animation clip 'AssassinUltimate'"
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: f9c0a8e7c193d17448a84b3654f57380, type: 3}
       propertyPath: m_ApplyRootMotion
@@ -1388,7 +1416,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   classType: 2
+  projectile: {fileID: 2183146480622160771, guid: 131ad0e894ecda14eac32155d82d6c3d, type: 3}
   isAttacking: 0
+  firePoint: {fileID: 6782303646848908707}
 --- !u!114 &4858236528764770343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1695,6 +1725,18 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 0a75eddc-7938-491b-ac08-468ed65543c4
     m_ActionName: 'Player/Ultimate[/Keyboard/v]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0db964e3-df61-4b9d-990b-d1d22f2c5ad3
+    m_ActionName: 'UI/Next[/Keyboard/rightArrow,/DualSenseGamepadHID4/dpad/right,/DualSenseGamepadHID4/rightShoulder]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c1cb4344-cb3a-46fc-b601-2f3a3d302771
+    m_ActionName: 'UI/Previous[/Keyboard/leftArrow,/DualSenseGamepadHID4/dpad/left,/DualSenseGamepadHID4/leftShoulder]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7316c25e-4a67-4cc2-848a-12941b6f943e
+    m_ActionName: 'UI/Select[/DualSenseGamepadHID4/buttonSouth,/Keyboard/enter]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

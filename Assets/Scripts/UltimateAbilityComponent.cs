@@ -33,7 +33,7 @@ public class UltimateAbilityComponent : MonoBehaviour
     }
     public void ChargeUltOverTime()
     {
-        ultBar.fillAmount = Mathf.Clamp01(ultBar.fillAmount + Time.deltaTime * 0.01f);
+        ultBar.fillAmount = Mathf.Clamp01(ultBar.fillAmount + Time.deltaTime * 1f);
     }
 
     public bool IsUltReady()

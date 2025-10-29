@@ -9,12 +9,25 @@ namespace MaykerStudio.Demo
         [SerializeField]
         private GameObject SpawnWhenFinish;
 
-        public float speed = 10;
+        public float speed = 5011;
         public float distance = 30;
         public float damage;
         private ParticleSystem mainParticle;
 
         private Vector3 initPosition;
+
+        public GameObject player;
+        public bool canDealDamage = false;
+        public bool isInPlayerEnemie = false;
+        private UltimateAbilityComponent ultCharge;
+        private void Start()
+        {
+            ultCharge = player.GetComponent<UltimateAbilityComponent>();
+            Collider weaponCollider = GetComponent<Collider>();
+            Collider playerCollider = player.GetComponent<Collider>();
+            if (weaponCollider != null && playerCollider != null)
+                Physics.IgnoreCollision(weaponCollider, playerCollider);
+        }
 
         public void Fire()
         {
@@ -44,11 +57,14 @@ namespace MaykerStudio.Demo
         }
         private void OnTriggerEnter(Collider other)
         {
+            if (canDealDamage)
             {
+                ultCharge.ChargeUltDamage(damage, player);
                 PlayerHealthComponent playerHealth = other.GetComponent<PlayerHealthComponent>();
                 if (playerHealth != null)
                 {
                     playerHealth.TakeDamage(damage);
+                    canDealDamage = false;
                 }
             }
         }

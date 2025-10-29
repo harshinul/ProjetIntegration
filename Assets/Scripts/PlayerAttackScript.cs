@@ -224,9 +224,14 @@ public class PlayerAttackScript : MonoBehaviour
         yield return new WaitForSeconds(beginingAnimationTime);
         if (classType.Equals(ClassType.Warrior))
         {
-            var obj = Instantiate(projectile, firePoint.position, Quaternion.Euler(0, 90, 90));
+            var obj = Instantiate(projectile, firePoint.position, Quaternion.Euler(0, transform.rotation.y > 0 ? 90 : -90 , 90));
             obj.GetComponent<Projectile>().damage = characterStats.ultDamage;
             obj.GetComponent<Projectile>().Fire();
+        }
+        if(classType.Equals(ClassType.Assassin))
+        {
+            var obj = Instantiate(projectile, firePoint.position, Quaternion.Euler(0,0,0)/*Quaternion.Euler(0, transform.rotation.y > 0 ? 90 : -90, 90)*/);
+            obj.GetComponent<ParticleSystem>().Play();
         }
         playerMovementComponent.ResumeMovement();
         yield return new WaitForSeconds(endAnimationTime);

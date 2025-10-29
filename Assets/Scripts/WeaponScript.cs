@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class WeaponScript : MonoBehaviour
@@ -38,7 +39,20 @@ public class WeaponScript : MonoBehaviour
         }
     }
 
-
+    void OnParticleCollision(GameObject other)
+    {
+        Debug.Log("Particle Collision with " + other.name);
+        if (canDealDamage)
+        {
+            ultCharge.ChargeUltDamage(damage, player);
+            PlayerHealthComponent playerHealth = other.GetComponent<PlayerHealthComponent>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(damage);
+                canDealDamage = false; // Prevent multiple damage instances in one swing
+            }
+        }
+    }
 
 }
 
