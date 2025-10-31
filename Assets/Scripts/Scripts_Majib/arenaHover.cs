@@ -18,14 +18,14 @@ public class ArenaHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             back.SetActive(false);
     }
 
-    // 🔹 Appelé quand le bouton est "sélectionné" via manette / clavier
+    //Appelé quand le bouton est "sélectionné" via manette / clavier
     public void OnSelect(BaseEventData eventData)
     {
         if (back != null)
             back.SetActive(true);
     }
 
-    // 🔹 Appelé quand on navigue vers un autre bouton
+    //Appelé quand on navigue vers un autre bouton
     public void OnDeselect(BaseEventData eventData)
     {
         if (back != null)

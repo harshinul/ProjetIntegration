@@ -86,7 +86,7 @@ public class MapManager : MonoBehaviour
             // Met à jour le texte pour indiquer quel joueur doit sélectionner
             if (pairs[arenaIndex].playerSelect != null)
             {
-                pairs[arenaIndex].playerSelect.text += $"J {currentSelection + 1}";
+                pairs[arenaIndex].playerSelect.text += $" J {currentSelection + 1}";
                 pairs[arenaIndex].playerSelect.gameObject.SetActive(true);
             }
         
