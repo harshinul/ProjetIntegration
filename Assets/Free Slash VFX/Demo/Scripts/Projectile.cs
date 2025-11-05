@@ -17,8 +17,6 @@ namespace MaykerStudio.Demo
         private Vector3 initPosition;
 
         public GameObject player;
-        public bool canDealDamage = false;
-        public bool isInPlayerEnemie = false;
         private UltimateAbilityComponent ultCharge;
         private void Start()
         {
@@ -57,16 +55,13 @@ namespace MaykerStudio.Demo
         }
         private void OnTriggerEnter(Collider other)
         {
-            if (canDealDamage)
+            ultCharge.ChargeUltDamage(damage, player);
+            PlayerHealthComponent playerHealth = other.GetComponent<PlayerHealthComponent>();
+            if (playerHealth != null)
             {
-                ultCharge.ChargeUltDamage(damage, player);
-                PlayerHealthComponent playerHealth = other.GetComponent<PlayerHealthComponent>();
-                if (playerHealth != null)
-                {
-                    playerHealth.TakeDamage(damage);
-                    canDealDamage = false;
-                }
+                playerHealth.TakeDamage(damage);
             }
+
         }
     }
 }

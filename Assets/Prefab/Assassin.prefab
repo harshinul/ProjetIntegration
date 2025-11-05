@@ -1402,7 +1402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack1: {fileID: 7400000, guid: da05a6b16f06d4b49a952ffca494b8e8, type: 2}
   attack2: {fileID: 7400000, guid: 2f00ef0973d4f644cb6ba78f1c70da55, type: 2}
-  ulti: {fileID: 7400000, guid: e8c05103a34a28c4298a2ae2628f82ff, type: 2}
+  ulti: {fileID: 7400000, guid: 06b8ff49a9c953341add7e3e53d4ac66, type: 2}
 --- !u!114 &4333463403478860494
 MonoBehaviour:
   m_ObjectHideFlags: 0
