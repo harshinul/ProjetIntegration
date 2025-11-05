@@ -15,6 +15,7 @@ namespace SCRIPTS_MARC
 
         private int playerIndex;
         private bool isReady = false;
+        private bool isJoined = false;
         private int selectedCharacter = 0;
         public List<GameObject> characters = new List<GameObject>();
         private CharacterSelectionManager manager;
@@ -24,24 +25,24 @@ namespace SCRIPTS_MARC
             this.playerIndex = index;
             this.manager = managerRef;
 
-            playerNameText.text = "JOUEUR " + (playerIndex + 1);
+            playerNameText.text = "APPUYEZ POUR REJOINDRE";
             readyIndicator.SetActive(false);
+            readyButton.gameObject.SetActive(false);
+            nextButton.gameObject.SetActive(false);
+            previousButton.gameObject.SetActive(false);
 
             foreach (Transform child in assignedSocle.transform.GetChild(0)) 
             {
                 characters.Add(child.gameObject);
             }
 
-            for (int i = 0; i < characters.Count; i++)
-            {
-                characters[i].SetActive(i == selectedCharacter);
-            }
+            characters.ForEach(c => c.SetActive(false));
         }
 
 
         public void NextCharacter()
         {
-            if (isReady) return; 
+            if (isReady || !isJoined) return; 
 
             characters[selectedCharacter].SetActive(false);
             selectedCharacter = (selectedCharacter + 1) % characters.Count;
@@ -50,7 +51,7 @@ namespace SCRIPTS_MARC
 
         public void PreviousCharacter()
         {
-            if (isReady) return; 
+            if (isReady || !isJoined) return; 
 
             characters[selectedCharacter].SetActive(false);
             selectedCharacter--;
@@ -61,10 +62,24 @@ namespace SCRIPTS_MARC
             characters[selectedCharacter].SetActive(true);
         }
 
+        public void JoinSelection()
+        {
+            if (isJoined) return;
+
+            isJoined = true;
+            playerNameText.text = "JOUEUR " + (playerIndex + 1);
+
+            readyButton.gameObject.SetActive(true);
+            nextButton.gameObject.SetActive(true);
+            previousButton.gameObject.SetActive(true);
+
+            characters[selectedCharacter].SetActive(true);
+        }
+
         public void ConfirmSelection()
         {
-            if (isReady) return;
-
+            if (isReady || !isJoined) return;
+            
             isReady = true;
             readyIndicator.SetActive(true); 
     
