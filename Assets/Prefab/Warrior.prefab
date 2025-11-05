@@ -606,8 +606,11 @@ MonoBehaviour:
   speed: 5
   gravityValue: -9.81
   fallMultiplier: 5.4
-  jumpForce: 5
-  maxJumpCount: 2
+  oneWayGround:
+    serializedVersion: 2
+    m_Bits: 128
+  jumpForce: 5.5
+  maxJumpCount: 3
 --- !u!143 &7882644716322585257
 CharacterController:
   m_ObjectHideFlags: 0

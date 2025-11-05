@@ -1279,7 +1279,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f9c0a8e7c193d17448a84b3654f57380, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4212457731576547858}
+      addedObject: {fileID: 2734086075293452841}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f9c0a8e7c193d17448a84b3654f57380, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6661369824171525367}
@@ -1312,7 +1312,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f9c0a8e7c193d17448a84b3654f57380, type: 3}
   m_PrefabInstance: {fileID: 4299529193670950003}
   m_PrefabAsset: {fileID: 0}
---- !u!143 &4212457731576547858
+--- !u!143 &2734086075293452841
 CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1330,8 +1330,8 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 0.0066282074
-  m_Radius: 0.0015
+  m_Height: 0.006628207
+  m_Radius: 0.00155
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -1352,7 +1352,10 @@ MonoBehaviour:
   speed: 5
   gravityValue: -9.81
   fallMultiplier: 5.4
-  jumpForce: 7
+  oneWayGround:
+    serializedVersion: 2
+    m_Bits: 128
+  jumpForce: 5.5
   maxJumpCount: 3
 --- !u!114 &5772798530041544422
 MonoBehaviour:
