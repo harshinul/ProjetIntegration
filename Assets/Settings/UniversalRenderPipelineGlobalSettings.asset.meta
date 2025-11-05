@@ -6,3 +6,10 @@ NativeFormatImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 236633
+  packageName: Kaleidoscope VFX
+  packageVersion: 1.0.0
+  assetPath: Assets/Settings/UniversalRenderPipelineGlobalSettings.asset
+  uploadId: 541205
