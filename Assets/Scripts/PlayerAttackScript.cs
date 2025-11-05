@@ -102,12 +102,8 @@ public class PlayerAttackScript : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         weapon = GetComponentInChildren<WeaponScript>();
         weapon.player = this.gameObject;
-
         characterStats = CharacterStats.GetStatsForClass(classType);
 
-        attack1Duration = playerAnimationComponent.GetAttack1Duration();
-        attack2Duration = playerAnimationComponent.GetAttack2Duration();
-        ultDuration = playerAnimationComponent.GetUltDuration();
     }
 
     void Start()
@@ -120,23 +116,27 @@ public class PlayerAttackScript : MonoBehaviour
         {
             InitializePlayerInput();
         }
+
+        attack1Duration = playerAnimationComponent.GetAttack1Duration();
+        attack2Duration = playerAnimationComponent.GetAttack2Duration();
+        ultDuration = playerAnimationComponent.GetUltDuration();
     }
 
-   
+
     public void SetPlayerInput(PlayerInput input)
     {
         playerInput = input;
         InitializePlayerInput();
     }
 
- 
+
     private void InitializePlayerInput()
     {
         if (playerInput == null)
         {
             return;
         }
-        
+
         playerInput.actions.FindAction("Player/Attack").performed += Attack1;
         playerInput.actions.FindAction("Player/Attack2").performed += Attack2;
         playerInput.actions.FindAction("Player/Ultimate").performed += UseUltimate;
@@ -160,7 +160,7 @@ public class PlayerAttackScript : MonoBehaviour
         }
         return characterStats;
     }
-    
+
     void CanDealDamage() //animation event
     {
         weapon.canDealDamage = true;
@@ -176,7 +176,7 @@ public class PlayerAttackScript : MonoBehaviour
         float beginingAnimationTime = (attack1Duration / characterStats.attackSpeed) / 2f;
         float endAnimationTime = attack1Duration - beginingAnimationTime;
         isAttacking = true;
-       // playerMovementComponent.StopMovement();
+        // playerMovementComponent.StopMovement();
         playerAnimationComponent.ActivateFirstAttack();
 
         weapon.damage = characterStats.lightDamage;
@@ -236,7 +236,7 @@ public class PlayerAttackScript : MonoBehaviour
         {
             StartCoroutine(CouroutineStartAttack2());
         }
-        else if(wantsToUltimate && !isAttacking && ultimateAbilityComponent.IsUltReady() && characterController.isGrounded)
+        else if (wantsToUltimate && !isAttacking && ultimateAbilityComponent.IsUltReady() && characterController.isGrounded)
         {
             StartCoroutine(CouroutineStartUltimate());
         }

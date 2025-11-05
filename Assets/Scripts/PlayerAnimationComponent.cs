@@ -10,7 +10,7 @@ public class PlayerAnimationComponent : MonoBehaviour
 
     void Awake()
     {
-        animator = GetComponentInChildren<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     public float GetUltDuration()

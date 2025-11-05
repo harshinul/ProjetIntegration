@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: c00644106bf45f14dbaa58de417fac73
+AssetOrigin:
+  serializedVersion: 1
+  productId: 326043
+  packageName: Human Spellcasting Animations FREE
+  packageVersion: 1.0
+  assetPath: Assets/Kevin Iglesias/Human Animations/Animations/Male/Idles/HumanM@Idle03-Idle01.fbx
+  uploadId: 771492
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -17,19 +24,7 @@ ModelImporter:
     removeConstantScaleCurves: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Untitled' has import animation warnings that
-      might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'B-indexFinger01.R' has scale animation
-      that will be discarded.\n\t'B-indexFinger03.R' has scale animation that will
-      be discarded.\n\t'B-middleFinger03.R' has scale animation that will be discarded.\n\t'B-ringFinger01.R'
-      has scale animation that will be discarded.\n\t'B-ringFinger03.R' has scale
-      animation that will be discarded.\n\t'B-pinky01.R' has scale animation that
-      will be discarded.\n\t'B-pinky03.R' has scale animation that will be discarded.\n\t'B-thumb01.R'
-      has scale animation that will be discarded.\n\t'B-indexFinger03.L' has scale
-      animation that will be discarded.\n\t'B-ringFinger01.L' has scale animation
-      that will be discarded.\n\t'B-pinky01.L' has scale animation that will be discarded.\n\t'B-thumb01.L'
-      has scale animation that will be discarded.\n\t'B-thumb03.L' has scale animation
-      that will be discarded.\n"
+    animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -54,7 +49,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
@@ -963,8 +958,7 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 2faa610713d3b3c439473daa55e8c60a,
-    type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 2faa610713d3b3c439473daa55e8c60a, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
@@ -976,10 +970,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 326043
-  packageName: Human Spellcasting Animations FREE
-  packageVersion: 1.0
-  assetPath: Assets/Kevin Iglesias/Human Animations/Animations/Male/Idles/HumanM@Idle03-Idle01.fbx
-  uploadId: 771492

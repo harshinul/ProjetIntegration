@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: ba8e21cc193ca22408469ca869a01557
+AssetOrigin:
+  serializedVersion: 1
+  productId: 319722
+  packageName: Low Poly Modular Fantasy Characters
+  packageVersion: 1.01
+  assetPath: Assets/LP_FantasyCharacters_JC/Male_Human/Models/SM_Male_01.fbx
+  uploadId: 758526
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -16,8 +23,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -161,8 +166,7 @@ ModelImporter:
     - name: LeftHandThumb4
       parentName: LeftHandThumb3
       position: {x: -0.0054451358, y: 0.035089992, z: -0.00000026728958}
-      rotation: {x: 0.0000000038908174, y: -0.00000058399735, z: -0.0000010696165,
-        w: 1}
+      rotation: {x: 0.0000000038908174, y: -0.00000058399735, z: -0.0000010696165, w: 1}
       scale: {x: 1.0000056, y: 1.0000198, z: 1.0000163}
     - name: LeftHandIndex1
       parentName: LeftHand
@@ -182,8 +186,7 @@ ModelImporter:
     - name: LeftHandIndex4
       parentName: LeftHandIndex3
       position: {x: 0.00003462541, y: 0.035135075, z: -0.00000018287597}
-      rotation: {x: -0.000000004115463, y: -0.00000028533393, z: -0.00000022753731,
-        w: 1}
+      rotation: {x: -0.000000004115463, y: -0.00000028533393, z: -0.00000022753731, w: 1}
       scale: {x: 1.000003, y: 1.0000079, z: 1.0000064}
     - name: LeftHandMiddle1
       parentName: LeftHand
@@ -203,8 +206,7 @@ ModelImporter:
     - name: LeftHandMiddle4
       parentName: LeftHandMiddle3
       position: {x: 0.0002546655, y: 0.034770813, z: -0.00000047987976}
-      rotation: {x: -0.00000007705225, y: 0.000000035710386, z: -0.000000052220365,
-        w: 1}
+      rotation: {x: -0.00000007705225, y: 0.000000035710386, z: -0.000000052220365, w: 1}
       scale: {x: 1.0000012, y: 1.0000014, z: 1.000004}
     - name: LeftHandRing1
       parentName: LeftHand
@@ -224,8 +226,7 @@ ModelImporter:
     - name: LeftHandRing4
       parentName: LeftHandRing3
       position: {x: 0.00007258053, y: 0.0331666, z: 0.00000003408445}
-      rotation: {x: 0.000000035173223, y: -0.0000004853099, z: -0.00000039284492,
-        w: 1}
+      rotation: {x: 0.000000035173223, y: -0.0000004853099, z: -0.00000039284492, w: 1}
       scale: {x: 1.0000069, y: 1.0000055, z: 1.0000042}
     - name: LeftHandPinky1
       parentName: LeftHand
@@ -509,7 +510,7 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: SM_Male_Body_Hair_04
       parentName: SM_Male_01(Clone)
-      position: {x: 0.0000000023283064, y: 0.000000004656614, z: 0.000000011874363}
+      position: {x: 0.0069774594, y: 0.011747844, z: 0.00366486}
       rotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: SM_Male_Body_Hair_05
@@ -585,7 +586,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: 
+    rootMotionBoneName: Armature
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
@@ -601,10 +602,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 319722
-  packageName: Low Poly Modular Fantasy Characters
-  packageVersion: 1.01
-  assetPath: Assets/LP_FantasyCharacters_JC/Male_Human/Models/SM_Male_01.fbx
-  uploadId: 758526
