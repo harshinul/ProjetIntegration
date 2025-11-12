@@ -24,5 +24,6 @@ EditorBuildSettings:
     path: Assets/Scenes/new scenes/Cathedrale_Anthique.unity
     guid: 6511a9892aca46f46abdda7b682bfe95
   m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 122df74e18d6b1e4facd1b71df5c2f3a, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

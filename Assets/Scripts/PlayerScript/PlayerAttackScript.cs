@@ -1,3 +1,4 @@
+using MaykerStudio.Demo;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -79,6 +80,7 @@ public class PlayerAttackScript : MonoBehaviour
     private UltimateAbilityComponent ultimateAbilityComponent;
 
     //Attack
+    [SerializeField] GameObject projectile;
     WeaponScript weapon;
     float attack1Duration;
     float attack2Duration;
@@ -92,6 +94,8 @@ public class PlayerAttackScript : MonoBehaviour
     bool wantsToUltimate = false;
 
     private PlayerInput playerInput;
+
+    [SerializeField] Transform firePoint;
 
     void Awake()
     {
@@ -225,6 +229,19 @@ public class PlayerAttackScript : MonoBehaviour
         weapon.damage = characterStats.ultDamage;
 
         yield return new WaitForSeconds(beginingAnimationTime);
+        if (classType.Equals(ClassType.Warrior))
+        {
+            var obj = Instantiate(projectile, firePoint.position, Quaternion.Euler(0, transform.rotation.y > 0 ? 90 : -90 , 90));
+            obj.GetComponent<Projectile>().damage = characterStats.ultDamage;
+            obj.GetComponent<Projectile>().player = this.gameObject;
+            obj.GetComponent<Projectile>().Fire();
+        }
+        if(classType.Equals(ClassType.Assassin))
+        {
+            var obj = Instantiate(projectile, firePoint.position, Quaternion.Euler(0,0,0)/*Quaternion.Euler(0, transform.rotation.y > 0 ? 90 : -90, 90)*/);
+            obj.GetComponentInChildren<DamageOverTime>().player = this.gameObject;
+            obj.GetComponent<ParticleSystem>().Play();
+        }
         playerMovementComponent.ResumeMovement();
         yield return new WaitForSeconds(endAnimationTime);
         playerAnimationComponent.DeactivateUltimate();
