@@ -161,15 +161,22 @@ public class PlayerAttackScript : MonoBehaviour
         return characterStats;
     }
 
-    void CanDealDamage() //animation event
+    //Attack calls to weapon - animation events
+    void Attack1()
     {
-        weapon.canDealDamage = true;
+        weapon.Attack1();
     }
 
-    void CannotDealDamage() //animation event
+    void Attack2() 
     {
-        weapon.canDealDamage = false;
+        weapon.Attack2();
     }
+
+    void stopAttack()
+    {
+        weapon.StopAttack();
+    }
+    
 
     public IEnumerator CouroutineStartAttack1()
     {

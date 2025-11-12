@@ -177,7 +177,7 @@ PrefabInstance:
     - target: {fileID: 2194341877839688381, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
       propertyPath: m_Avatar
       value: 
-      objectReference: {fileID: 9000000, guid: 77fe717f1e117424cb1fb3af2851ea4f, type: 2}
+      objectReference: {fileID: 9000000, guid: bd250583b855d2e4791b65cee027151f, type: 2}
     - target: {fileID: 2194341877839688381, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -921,6 +921,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8604a65dbb0d0754ca3ed17e3a7c286b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  frontHealthBar: {fileID: 0}
+  backHealthBar: {fileID: 0}
   chipSpeed: 1
   chipDelay: 0.5
   health: 0
@@ -1035,7 +1037,7 @@ PrefabInstance:
       addedObject: {fileID: 1993637630260933708}
     - targetCorrespondingSourceObject: {fileID: 298363975528676421, guid: 9d82d845404be7e4396e77f2de5fd79f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9206688398836251605}
+      addedObject: {fileID: 5990274229618220072}
   m_SourcePrefab: {fileID: 100100000, guid: 9d82d845404be7e4396e77f2de5fd79f, type: 3}
 --- !u!4 &8608585698940493571 stripped
 Transform:
@@ -1068,7 +1070,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.33728176, y: 1.3882726, z: 0.15960234}
   m_Center: {x: -0.00016466332, y: 0.89052856, z: -0.00000010008961}
---- !u!114 &9206688398836251605
+--- !u!114 &5990274229618220072
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1077,10 +1079,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8952038653164209593}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02381ebbcf513d94ca1755d593dc4da0, type: 3}
+  m_Script: {fileID: 11500000, guid: b9918608834f3904b8b2bc29f49d9097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   canDealDamage: 0
   damage: 10
-  isInPlayerEnemie: 0

@@ -170,4 +170,5 @@ public class PlayerHealthComponent : MonoBehaviour
         backHealthBar.fillAmount = toFill;
         backHealthBar.fillAmount = toFill;
     }
+
 }
