@@ -6,6 +6,8 @@ namespace MaykerStudio.Demo
 {
     public class Projectile : MonoBehaviour
     {
+        [SerializeField]
+        private GameObject SpawnWhenFinish;
 
         public float speed = 5011;
         public float distance = 30;
@@ -43,6 +45,10 @@ namespace MaykerStudio.Demo
                 if (Vector3.Distance(initPosition, transform.position) > distance)
                 {
                     mainParticle.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+                    if (SpawnWhenFinish != null)
+                    {
+                        mainParticle = null;
+                    }
                     Destroy(this);
                 }
             }
