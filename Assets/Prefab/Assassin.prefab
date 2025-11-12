@@ -119,7 +119,7 @@ PrefabInstance:
       addedObject: {fileID: 1111906447287962523}
     - targetCorrespondingSourceObject: {fileID: 7120993385342881108, guid: 90e49dcb8d4095d499a8c16d9fd770a4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5569125466468238374}
+      addedObject: {fileID: 5947062599552708562}
   m_SourcePrefab: {fileID: 100100000, guid: 90e49dcb8d4095d499a8c16d9fd770a4, type: 3}
 --- !u!1 &8446432247976214212 stripped
 GameObject:
@@ -147,7 +147,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.22652926, y: 0.81593174, z: 0.055222735}
   m_Center: {x: -0.000013802552, y: 0.20511748, z: 0.00000063721416}
---- !u!114 &5569125466468238374
+--- !u!114 &5947062599552708562
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,13 +156,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8446432247976214212}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02381ebbcf513d94ca1755d593dc4da0, type: 3}
+  m_Script: {fileID: 11500000, guid: b9918608834f3904b8b2bc29f49d9097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   canDealDamage: 0
   damage: 10
-  isInPlayerEnemie: 0
 --- !u!4 &9114179315820848254 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7609123412529944558, guid: 90e49dcb8d4095d499a8c16d9fd770a4, type: 3}
@@ -1445,6 +1444,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8604a65dbb0d0754ca3ed17e3a7c286b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  frontHealthBar: {fileID: 0}
+  backHealthBar: {fileID: 0}
   chipSpeed: 1
   chipDelay: 0.5
   health: 0
@@ -1728,6 +1729,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 0db964e3-df61-4b9d-990b-d1d22f2c5ad3
+<<<<<<< HEAD
     m_ActionName: 'UI/Next[/Keyboard/rightArrow,/DualSenseGamepadHID4/dpad/right,/DualSenseGamepadHID4/rightShoulder]'
   - m_PersistentCalls:
       m_Calls: []
@@ -1737,6 +1739,17 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 7316c25e-4a67-4cc2-848a-12941b6f943e
     m_ActionName: 'UI/Select[/DualSenseGamepadHID4/buttonSouth,/Keyboard/enter]'
+=======
+    m_ActionName: 'UI/Next[/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c1cb4344-cb3a-46fc-b601-2f3a3d302771
+    m_ActionName: 'UI/Previous[/Keyboard/leftArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7316c25e-4a67-4cc2-848a-12941b6f943e
+    m_ActionName: 'UI/Select[/Keyboard/enter]'
+>>>>>>> origin/BrancheHarsh
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
