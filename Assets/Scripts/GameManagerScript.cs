@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using SCRIPTS_MARC;
+using Unity.Cinemachine;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] Image[] backHealthBar = new Image[4];
     [SerializeField] Image[] frontHealthBar = new Image[4];
     [SerializeField] Image[] ultBar = new Image[4];
+    [SerializeField] CinemachineTargetGroup cinemachineTargetGroup;
     [SerializeField] Canvas gameOverCanva;
     [SerializeField] Canvas afterGameLocal;
     [SerializeField] Canvas pauseMenuCanva;
@@ -151,6 +153,9 @@ public class GameManagerScript : MonoBehaviour
             UltimateAbilityComponent uAC;
             uAC = playerCharacter.GetComponent<UltimateAbilityComponent>();
             uAC.SetUltBarUI(ultBar[playerNumber - 1]);
+
+            // 11. Ajouter le joueur au Cinemachine Target Group
+            cinemachineTargetGroup.AddMember(playerCharacter.GetComponentInChildren<headBodyPart>().transform, 1f, 1f);
         }
     }
 
@@ -191,6 +196,10 @@ public class GameManagerScript : MonoBehaviour
             if (!player.PlayerIsDead())
             {
                 playerAlive++;
+            }
+            else
+            {
+                cinemachineTargetGroup.RemoveMember(player.GetComponentInChildren<headBodyPart>().transform);
             }
         }
         return playerAlive;
