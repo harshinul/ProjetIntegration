@@ -15,12 +15,15 @@ EditorBuildSettings:
     path: Assets/Scenes/AreneSelection.unity
     guid: 55a9870311af3b94494ec0e84f04f041
   - enabled: 1
+    path: Assets/Scenes/TempleReal.unity
+    guid: cbfe25d6bb6ed594b873b92ac2227d74
+  - enabled: 1
     path: Assets/Scenes/Temple.unity
     guid: bd1742f8c53eda348a8caf45e92dee1f
   - enabled: 1
     path: Assets/Scenes/Hell.unity
     guid: b748d63cab2f1bc4cb0b6e6f96b6d145
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/new scenes/Cathedrale_Anthique.unity
     guid: 6511a9892aca46f46abdda7b682bfe95
   m_configObjects:
