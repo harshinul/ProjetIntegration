@@ -939,7 +939,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   classType: 0
-  projectile: {fileID: 6882116249847192011, guid: c4b2ddd78a478394da66879a43e7af99, type: 3}
+  ultimateProjectile: {fileID: 6882116249847192011, guid: c4b2ddd78a478394da66879a43e7af99, type: 3}
+  lightAttackProjectile: {fileID: 0}
+  heavyAttackProjectile: {fileID: 0}
   isAttacking: 0
   firePoint: {fileID: 3416726274296986629}
 --- !u!114 &1130802719554443878

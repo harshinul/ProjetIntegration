@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9918608834f3904b8b2bc29f49d9097, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 3993451333853151522}
   canDealDamage: 0
   damage: 10
 --- !u!4 &9114179315820848254 stripped
@@ -1414,8 +1414,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 670ce7196acba444da4408d64e20fd44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  classType: 0
-  projectile: {fileID: 2183146480622160771, guid: 131ad0e894ecda14eac32155d82d6c3d, type: 3}
+  classType: 2
+  ultimateProjectile: {fileID: 2183146480622160771, guid: 131ad0e894ecda14eac32155d82d6c3d, type: 3}
+  lightAttackProjectile: {fileID: 0}
+  heavyAttackProjectile: {fileID: 0}
   isAttacking: 0
   firePoint: {fileID: 2672924509278389928}
 --- !u!114 &4858236528764770343

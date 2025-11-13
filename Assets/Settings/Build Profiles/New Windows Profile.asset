@@ -29,6 +29,8 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/MainMenu.unity
   - m_enabled: 1
+    m_path: Assets/Scenes/TempleReal.unity
+  - m_enabled: 1
     m_path: Assets/Scenes/selection.unity
   - m_enabled: 1
     m_path: Assets/Scenes/Temple.unity
