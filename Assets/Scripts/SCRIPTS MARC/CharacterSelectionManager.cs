@@ -29,15 +29,18 @@ namespace SCRIPTS_MARC
         
         void Start()
         {
-            // On désactive tous les panneaux au début.
+            // On s'assure que tous les panneaux sont ACTIFS au début
+            // pour afficher le message "Appuyez pour rejoindre".
             foreach (var panel in panels)
             {
                 if (panel != null)
                 {
-                    panel.gameObject.SetActive(false);
+                    panel.gameObject.SetActive(true);
+                    // Le panneau lui-même gérera son état visuel initial
                 }
             }
             
+            // On désactive tous les socles (modèles 3D) au début.
             foreach (var socle in socles)
             {
                 if (socle != null)

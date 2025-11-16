@@ -1273,6 +1273,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Join",
+                    "type": "Button",
+                    "id": "9c643e83-4b06-4bba-91e8-7a3645709b0f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1786,7 +1795,7 @@
                     "name": "",
                     "id": "997a2e11-5c8e-44f7-8c23-f2111bbf7f4b",
                     "path": "<Keyboard>/enter",
-                    "interactions": "MultiTap",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Select",
@@ -1812,6 +1821,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "126f612b-ea01-4dcc-9576-5308cda44fab",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Join",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0b8c25ad-f710-4ee5-a8b2-789d53d30e22",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Join",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
