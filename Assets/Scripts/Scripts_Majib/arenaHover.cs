@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ArenaHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler
 {
@@ -10,12 +11,14 @@ public class ArenaHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         if (back != null)
             back.SetActive(true);
+       
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (back != null)
             back.SetActive(false);
+        
     }
 
     //Appelé quand le bouton est "sélectionné" via manette / clavier
@@ -23,6 +26,7 @@ public class ArenaHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         if (back != null)
             back.SetActive(true);
+       
     }
 
     //Appelé quand on navigue vers un autre bouton
@@ -30,5 +34,6 @@ public class ArenaHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         if (back != null)
             back.SetActive(false);
+        
     }
 }

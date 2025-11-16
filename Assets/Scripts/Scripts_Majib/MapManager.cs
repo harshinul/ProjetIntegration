@@ -58,8 +58,8 @@ public class MapManager : MonoBehaviour
 
         // très important: selectedIndex = -1 pour dire "rien encore"
         selectedIndex = -1;
-        //previewIndex = 0; // point de départ logique pour la navigation
-        ActivatePreview(selectedIndex);
+        previewIndex = 0; // point de départ logique pour la navigation
+        ActivatePreview(previewIndex);
     }
 
     private void Awake()
@@ -210,15 +210,29 @@ public class MapManager : MonoBehaviour
     /// <summary>
     /// Active preview pour l'index donné.
     /// </summary>
-    void ActivatePreview(int index)
+    private void ActivatePreview(int index)
     {
-        selectedIndex = index; // Important pour votre logique DoubleClick
-        previewIndex = index;  // Garde l'index en surbrillance à jour
-
+        // Désactiver tous les visuels
         for (int i = 0; i < pairs.Count; i++)
         {
-            if (pairs[i].image) pairs[i].image.SetActive(i == index);
-            if (pairs[i].title) pairs[i].title.gameObject.SetActive(i == index);
+            if (pairs[i].image) pairs[i].image.SetActive(false);
+            if (pairs[i].title) pairs[i].title.gameObject.SetActive(false);
+            if (pairs[i].back) pairs[i].back.SetActive(false); // AJOUTÉ : Gérer le fond ici
+        }
+
+        // Activer les visuels de l'arène sélectionnée
+        if (index >= 0 && index < pairs.Count)
+        {
+            if (pairs[index].image) pairs[index].image.SetActive(true);
+            if (pairs[index].title) pairs[index].title.gameObject.SetActive(true);
+            if (pairs[index].back) pairs[index].back.SetActive(true); // AJOUTÉ : Activer le fond
+
+            if (ArenaSelected != null && ArenaName.ContainsKey(index))
+            {
+                ArenaSelected.text = ArenaName[index];
+            }
+
+            selectedIndex = index;
         }
     }
     
