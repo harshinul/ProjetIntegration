@@ -93,11 +93,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TrackerSettings:
     BindingMode: 4
-    PositionDamping: {x: 1, y: 1, z: 1}
+    PositionDamping: {x: 1, y: 5.88, z: 4.03}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
-  FollowOffset: {x: 0, y: 0, z: -10}
+  FollowOffset: {x: 0, y: 0.04, z: -0.2}
 --- !u!114 &3166463148457770166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,7 +121,7 @@ MonoBehaviour:
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
   TargetOffset: {x: 0, y: 0, z: 0}
-  Damping: {x: 100, y: 100}
+  Damping: {x: 10000, y: 10000}
   Lookahead:
     Enabled: 0
     Time: 0
@@ -143,10 +143,10 @@ MonoBehaviour:
   FramingSize: 0.3
   CenterOffset: {x: 0, y: 0}
   Damping: 5
-  SizeAdjustment: 2
+  SizeAdjustment: 1
   LateralAdjustment: 0
-  FovRange: {x: 1, y: 100}
-  DollyRange: {x: -100, y: 100}
+  FovRange: {x: 65, y: 65}
+  DollyRange: {x: -10, y: 100}
   OrthoSizeRange: {x: 1, y: 1000}
 --- !u!114 &2847837625335894129
 MonoBehaviour:
@@ -160,6 +160,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4700f9f03ad19f94baf0367cb7a9c988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Width: 10
-  Damping: 5
-  FovRange: {x: 53.252342, y: 103.25234}
+  Width: 6.4
+  Damping: 7
+  FovRange: {x: 65, y: 65}
