@@ -912,6 +912,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   classType: 0
   isAttacking: 0
+  attack1Audio:
+  - {fileID: 8300000, guid: c60f0ceae54860b409774148c2b55e1b, type: 3}
+  attack2Audio: []
+  ultimateAudio:
+  - {fileID: 8300000, guid: 256c5adea496aa747a9884b0e71685a7, type: 3}
 --- !u!114 &1130802719554443878
 MonoBehaviour:
   m_ObjectHideFlags: 0

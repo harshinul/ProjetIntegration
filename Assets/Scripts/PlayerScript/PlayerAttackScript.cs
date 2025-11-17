@@ -91,6 +91,11 @@ public class PlayerAttackScript : MonoBehaviour
     bool wantsToAttack2 = false;
     bool wantsToUltimate = false;
 
+    //SFX
+    [SerializeField] AudioClip[] attack1Audio;
+    [SerializeField] AudioClip[] attack2Audio;
+    [SerializeField] AudioClip[] ultimateAudio;
+
     private PlayerInput playerInput;
 
     void Awake()
@@ -176,7 +181,23 @@ public class PlayerAttackScript : MonoBehaviour
     {
         weapon.StopAttack();
     }
-    
+
+    //Audio calls - animation events
+
+    void PlayAttack1Sound()
+    {
+        PlaySound(attack1Audio);
+    }
+    void PlayAttack2Sound()
+    {
+        PlaySound(attack2Audio);
+    }
+
+    void PlayUltimateSound()
+    {
+        PlaySound(ultimateAudio);
+    }
+
 
     public IEnumerator CouroutineStartAttack1()
     {
@@ -232,6 +253,14 @@ public class PlayerAttackScript : MonoBehaviour
         ResetAttack();
 
     }
+
+    void PlaySound(AudioClip[] audioClips)
+    {
+        if (audioClips.Length == 0) return;
+        int index = UnityEngine.Random.Range(0, audioClips.Length);
+        SFXManager.Instance.PlaySFX(audioClips[index], transform, 1);
+    }
+    
 
     void Update()
     {

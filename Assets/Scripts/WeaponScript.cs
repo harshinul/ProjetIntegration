@@ -2,10 +2,12 @@ using UnityEngine;
 
 public abstract class WeaponScript : MonoBehaviour
 {
+
     public GameObject player;
     public bool canDealDamage = false;
     protected UltimateAbilityComponent ultCharge;
     public float damage = 10f;
+
 
     virtual public void Attack1()
     {
