@@ -3,20 +3,23 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ButtonControl : MonoBehaviour
-    
 {
     [SerializeField] private EventSystem eventSystem;
     [SerializeField] private Selectable element;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Reset()
+
+    // Reset is called when the script is added or reset in the Inspector
+    private void Reset()
     {
-        eventSystem = FindObjectOfType<EventSystem>();
-       
+        // Use FindFirstObjectByType instead of FindObjectOfType
+        eventSystem = FindFirstObjectByType<EventSystem>();
     }
 
     // Update is called once per frame
-    void JumpTo()
+    public void JumpTo()
     {
-        eventSystem.SetSelectedGameObject(element.gameObject);
+        if (eventSystem != null && element != null)
+        {
+            eventSystem.SetSelectedGameObject(element.gameObject);
+        }
     }
 }
