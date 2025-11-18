@@ -253,10 +253,11 @@ public class PlayerAttackScript : MonoBehaviour
         yield return new WaitForSeconds(beginingAnimationTime);
         if (classType.Equals(ClassType.Warrior))
         {
-            var obj = Instantiate(ultimateProjectile, firePoint.position, Quaternion.Euler(0, transform.rotation.y > 0 ? 90 : -90, 90));
-            obj.GetComponent<Projectile>().damage = characterStats.ultDamage;
-            obj.GetComponent<Projectile>().player = this.gameObject;
-            obj.GetComponent<Projectile>().Fire();
+            var ultWarrior = Instantiate(ultimateProjectile, firePoint.position, Quaternion.Euler(0, transform.rotation.y > 0 ? 90 : -90, 90));
+            var obj = ultWarrior.GetComponent<Projectile>();
+            obj.damage = characterStats.ultDamage;
+            obj.player = this.gameObject;
+            obj.Fire();
         }
         else if (classType.Equals(ClassType.Assassin))
         {
@@ -269,11 +270,12 @@ public class PlayerAttackScript : MonoBehaviour
             closestPlayer = ClosestPlayer();
             if (closestPlayer != null)
             {
-                var obj = Instantiate(ultimateProjectile, new Vector3(closestPlayer.transform.position.x + 0.8f, 0, closestPlayer.transform.position.z), Quaternion.Euler(90, 0, 0));
-                obj.GetComponent<Projectile>().damage = characterStats.ultDamage;
-                obj.GetComponent<Projectile>().player = this.gameObject;
-                obj.GetComponent<Projectile>().speed = 0;
-                obj.GetComponent<Projectile>().Fire();
+                var ultMage = Instantiate(ultimateProjectile, new Vector3(closestPlayer.transform.position.x + 0.8f, 0, closestPlayer.transform.position.z), Quaternion.Euler(90, 0, 0));
+                var projectile = ultMage.GetComponent<Projectile>();
+                projectile.damage = characterStats.ultDamage;
+                projectile.player = this.gameObject;
+                projectile.speed = 0;
+                projectile.Fire();
             }
         }
         playerMovementComponent.ResumeMovement();

@@ -20,19 +20,21 @@ public class SpellWeapon : WeaponScript
     override public void Attack1()
     {
         canDealDamage = true;
-        var obj = Instantiate(smallFireball, firePoint.position, Quaternion.Euler(0, transform.rotation.y > 0 ? 90 : -90, 90));
-        obj.GetComponent<Projectile>().damage = characterStats.lightDamage;
-        obj.GetComponent<Projectile>().player = player;
-        obj.GetComponent<Projectile>().Fire();
+        var lightAttack = Instantiate(smallFireball, firePoint.position, Quaternion.Euler(0, transform.rotation.y > 0 ? 90 : -90, 90));
+        var obj = lightAttack.GetComponent<Projectile>();
+        obj.damage = characterStats.lightDamage;
+        obj.player = player;
+        obj.Fire();
     }
 
     override public void Attack2()
     {
         canDealDamage = true;
-        var obj = Instantiate(bigFireball, firePoint.position, Quaternion.Euler(0, transform.rotation.y > 0 ? 90 : -90, 90));
-        obj.GetComponent<Projectile>().damage = characterStats.heavyDamage;
-        obj.GetComponent<Projectile>().player = player;
-        obj.GetComponent<Projectile>().Fire();
+        var heavyAttack = Instantiate(bigFireball, firePoint.position, Quaternion.Euler(0, transform.rotation.y > 0 ? 90 : -90, 90));
+        var obj = heavyAttack.GetComponent<Projectile>();
+        obj.damage = characterStats.heavyDamage;
+        obj.player = player;
+        obj.Fire();
     }
     override public void StopAttack()
     {
