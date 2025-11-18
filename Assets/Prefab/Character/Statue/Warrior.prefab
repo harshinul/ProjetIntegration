@@ -206,7 +206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5022688414229774171, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
       propertyPath: m_Name
-      value: Statue
+      value: WarriorStatue
       objectReference: {fileID: 0}
     - target: {fileID: 5022688414229774171, guid: 87811ec317514d84096f9e23eb16d76c, type: 3}
       propertyPath: m_Layer
@@ -478,7 +478,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6207425082242127126}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3495aa5c958f4c446995fa4539516e0e, type: 3}
   m_Name: 
@@ -486,6 +486,9 @@ MonoBehaviour:
   speed: 5
   gravityValue: -9.81
   fallMultiplier: 5.4
+  oneWayGround:
+    serializedVersion: 2
+    m_Bits: 0
   jumpForce: 5
   maxJumpCount: 2
 --- !u!143 &1901303442458484895
@@ -504,7 +507,7 @@ CharacterController:
     m_Bits: 64
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Height: 2
   m_Radius: 0.5
@@ -753,11 +756,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6207425082242127126}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8604a65dbb0d0754ca3ed17e3a7c286b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  frontHealthBar: {fileID: 0}
+  backHealthBar: {fileID: 0}
   chipSpeed: 1
   chipDelay: 0.5
   health: 150
@@ -771,7 +776,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6207425082242127126}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 480a76a72e49b7c479e97e8fee8fa89d, type: 3}
   m_Name: 
@@ -784,7 +789,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6207425082242127126}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6af12c7c579d57840bf1c3d248333880, type: 3}
   m_Name: 
