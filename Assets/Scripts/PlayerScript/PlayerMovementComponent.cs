@@ -46,7 +46,10 @@ public class PlayerMovementComponent : MonoBehaviour
 
     // Components
     PlayerInput playerInput;
-    CharacterController characterController;
+    public CharacterController characterController;
+
+    //testting
+    public bool ISGROUNDED = false;
 
     private InputAction moveAction;
     private InputAction jumpAction;
@@ -130,24 +133,49 @@ public class PlayerMovementComponent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ISGROUNDED = characterController.isGrounded;
+
+        if (player.isPlayerDead())
+        {
+            DeathMovement();
+            return;
+        }
+
         if (canMove)
         {
             Movement();
         }
-        else if(player.PlayerIsDead())
-        {
-            if (characterController.isGrounded)
-            {
-                characterController.enabled = false;
-            }
-            else
-            {
-                GravityMovement();
-            }
-        }
+
+        //if (canMove)
+        //{
+        //    Movement();
+        //}
+        //else if(player.isPlayerDead())
+        //{
+        //    if (characterController.isGrounded)
+        //    {
+        //        characterController.enabled = false;
+        //    }
+        //    else
+        //    {
+        //        GravityMovement();
+        //    }
+        //}
     }
 
     //Movement
+
+    void DeathMovement()
+    {
+        if (!characterController.isGrounded)
+        {
+            GravityMovement();
+        }
+        else
+        {
+            characterController.enabled = false;
+        }
+    }
     public void Movement()
     {
         direction = new Vector3(move.x, 0, 0).normalized;
@@ -223,7 +251,7 @@ public class PlayerMovementComponent : MonoBehaviour
     
     public void Move(InputAction.CallbackContext ctx)
     {
-        if (!player.PlayerIsDead())
+        if (!player.isPlayerDead())
         {
             move = ctx.ReadValue<Vector2>().normalized;
         }
@@ -232,7 +260,7 @@ public class PlayerMovementComponent : MonoBehaviour
     //Jump
     public void Jump(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && !player.PlayerIsDead())
+        if (ctx.performed && !player.isPlayerDead())
         {
             wantsToJump = true;
         }
@@ -245,13 +273,13 @@ public class PlayerMovementComponent : MonoBehaviour
     //Dash
     public void Dash(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && canDash && !isDashing && canMove && !player.PlayerIsDead())
+        if (ctx.performed && canDash && !isDashing && canMove && !player.isPlayerDead())
             StartCoroutine(DashCoroutine());
     }
 
     public IEnumerator DashCoroutine()
     {
-        if (!player.PlayerIsDead())
+        if (!player.isPlayerDead())
         {
             canDash = false;
             isDashing = true;
@@ -283,18 +311,26 @@ public class PlayerMovementComponent : MonoBehaviour
     //FastFall
     public void FastFall(InputAction.CallbackContext ctx)
     {
-        if(!player.PlayerIsDead())
+        if(!player.isPlayerDead())
             fastFall = ctx.performed;
     }
 
     public void GravityMovement()
     {
-        characterController.Move((speed * direction + Vector3.down) * Time.deltaTime);
+        if (player.isPlayerDead())
+        {
+            characterController.Move(((speed * 2) * direction + Vector3.down) * Time.deltaTime);
+        }
+        else
+        {
+            characterController.Move((speed * direction + Vector3.down) * Time.deltaTime);
+        }
     }
 
     public void StopMovement()
     {
         canMove = false;
+        direction = Vector3.zero;
         playerAnimationComponent.DeactivateRunning();
         playerAnimationComponent.DeactivateJumping();
         playerAnimationComponent.DeactivateFalling();

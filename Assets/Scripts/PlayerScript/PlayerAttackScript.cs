@@ -41,9 +41,9 @@ public class CharacterStats
                 return new CharacterStats
                 {
                     health = 100f,
-                    lightDamage = 8f,
-                    heavyDamage = 13f,
-                    ultDamage = 30f,
+                    lightDamage = 5f,
+                    heavyDamage = 9f,
+                    ultDamage = 25f,
                     attackSpeed = 0.7f,
                     dashPower = 15f,
                     speed = 5f
@@ -75,7 +75,7 @@ public class PlayerAttackScript : MonoBehaviour
     CharacterController characterController;
 
     public ClassType classType;
-    private PlayerHealthComponent player;
+    private PlayerHealthComponent playerHealthComponent;
     private CharacterStats characterStats;
     private UltimateAbilityComponent ultimateAbilityComponent;
     private GameObject closestPlayer;
@@ -105,14 +105,14 @@ public class PlayerAttackScript : MonoBehaviour
 
     void Awake()
     {
+        characterStats = CharacterStats.GetStatsForClass(classType);
         playerMovementComponent = GetComponent<PlayerMovementComponent>();
         playerAnimationComponent = GetComponent<PlayerAnimationComponent>();
-        player = GetComponent<PlayerHealthComponent>();
+        playerHealthComponent = GetComponent<PlayerHealthComponent>();
         ultimateAbilityComponent = GetComponent<UltimateAbilityComponent>();
         characterController = GetComponent<CharacterController>();
         weapon = GetComponentInChildren<WeaponScript>();
         weapon.player = this.gameObject;
-        characterStats = CharacterStats.GetStatsForClass(classType);
 
     }
 
@@ -226,23 +226,47 @@ public class PlayerAttackScript : MonoBehaviour
     {
         float beginingAnimationTime = (attack2Duration / characterStats.attackSpeed) / 2f;
         float endAnimationTime = attack2Duration - beginingAnimationTime;
-        isAttacking = true;
-        //playerMovementComponent.StopMovement();
-        playerAnimationComponent.ActivateSecondAttack();
 
-        weapon.damage = characterStats.heavyDamage;
+        
+        if(classType == ClassType.Warrior || classType == ClassType.Assassin)
+        {
+            isAttacking = true;
+            playerAnimationComponent.ActivateSecondAttack();
 
-        yield return new WaitForSeconds(beginingAnimationTime);
-        playerMovementComponent.ResumeMovement();
-        yield return new WaitForSeconds(endAnimationTime);
-        playerAnimationComponent.DeactivateSecondAttack();
+            weapon.damage = characterStats.heavyDamage;
 
-        ResetAttack();
+            yield return new WaitForSeconds(beginingAnimationTime);
+            playerMovementComponent.ResumeMovement();
+            yield return new WaitForSeconds(endAnimationTime);
+            playerAnimationComponent.DeactivateSecondAttack();
+
+            ResetAttack();
+
+        }
+        else
+        {
+            if (playerMovementComponent.characterController.isGrounded)
+            {
+                isAttacking = true;
+                playerAnimationComponent.ActivateSecondAttack();
+
+                weapon.damage = characterStats.heavyDamage;
+
+                yield return new WaitForSeconds(beginingAnimationTime);
+                playerMovementComponent.ResumeMovement();
+                yield return new WaitForSeconds(endAnimationTime);
+                playerAnimationComponent.DeactivateSecondAttack();
+
+                ResetAttack();
+            }
+        }
+
+
     }
 
     public IEnumerator CouroutineStartUltimate()
     {
-        float beginingAnimationTime = ultDuration / 2f;
+       float beginingAnimationTime = ultDuration / 2f;
         float endAnimationTime = beginingAnimationTime;
         isAttacking = true;
         playerMovementComponent.StopMovement();
@@ -253,10 +277,11 @@ public class PlayerAttackScript : MonoBehaviour
         yield return new WaitForSeconds(beginingAnimationTime);
         if (classType.Equals(ClassType.Warrior))
         {
-            var obj = Instantiate(ultimateProjectile, firePoint.position, Quaternion.Euler(0, transform.rotation.y > 0 ? 90 : -90, 90));
-            obj.GetComponent<Projectile>().damage = characterStats.ultDamage;
-            obj.GetComponent<Projectile>().player = this.gameObject;
-            obj.GetComponent<Projectile>().Fire();
+            var ultWarrior = Instantiate(ultimateProjectile, firePoint.position, Quaternion.Euler(0, transform.rotation.y > 0 ? 90 : -90, 90));
+            var obj = ultWarrior.GetComponent<Projectile>();
+            obj.damage = characterStats.ultDamage;
+            obj.player = this.gameObject;
+            obj.Fire();
         }
         else if (classType.Equals(ClassType.Assassin))
         {
@@ -269,11 +294,14 @@ public class PlayerAttackScript : MonoBehaviour
             closestPlayer = ClosestPlayer();
             if (closestPlayer != null)
             {
-                var obj = Instantiate(ultimateProjectile, new Vector3(closestPlayer.transform.position.x + 0.8f, 0, closestPlayer.transform.position.z), Quaternion.Euler(90, 0, 0));
-                obj.GetComponent<Projectile>().damage = characterStats.ultDamage;
-                obj.GetComponent<Projectile>().player = this.gameObject;
-                obj.GetComponent<Projectile>().speed = 0;
-                obj.GetComponent<Projectile>().Fire();
+                Vector3 lastPlayerPosition = new Vector3(closestPlayer.transform.position.x, 0, closestPlayer.transform.position.z);
+                yield return new WaitForSeconds(0.1f);
+                var ultMage = Instantiate(ultimateProjectile, lastPlayerPosition, Quaternion.Euler(90, 0, 0));
+                var projectile = ultMage.GetComponent<Projectile>();
+                projectile.damage = characterStats.ultDamage;
+                projectile.player = this.gameObject;
+                projectile.speed = 0;
+                projectile.Fire();
             }
         }
         playerMovementComponent.ResumeMovement();
@@ -300,7 +328,7 @@ public class PlayerAttackScript : MonoBehaviour
         Vector3 currentPosition = transform.position;
         foreach (GameObject player in players)
         {
-            if (player != this.gameObject)
+            if (player != this.gameObject && !player.GetComponent<PlayerHealthComponent>().isPlayerDead())
             {
                 float distance = Vector3.Distance(player.transform.position, currentPosition);
                 if (distance < closestDistance)
@@ -314,6 +342,9 @@ public class PlayerAttackScript : MonoBehaviour
     }
     void Update()
     {
+        if (playerHealthComponent.isPlayerDead())
+            return;
+
         if (wantsToAttack1 && !isAttacking)
         {
             StartCoroutine(CouroutineStartAttack1());

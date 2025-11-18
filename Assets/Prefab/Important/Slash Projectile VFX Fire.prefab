@@ -24323,10 +24323,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f421297964672ed4b8246b0b1ee0ef17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnWhenFinish: {fileID: 6882116249847192011}
   speed: 20
   distance: 30
   damage: 20
+  lifetime: 5
+  isUltimate: 1
+  player: {fileID: 0}
 --- !u!65 &8981429666767312415
 BoxCollider:
   m_ObjectHideFlags: 0

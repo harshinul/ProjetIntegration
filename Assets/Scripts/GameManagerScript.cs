@@ -156,6 +156,25 @@ public class GameManagerScript : MonoBehaviour
 
             // 11. Ajouter le joueur au Cinemachine Target Group
             cinemachineTargetGroup.AddMember(playerCharacter.GetComponentInChildren<headBodyPart>().transform, 1f, 1f);
+
+            // 12. Changer la couleur de la flèche du joueur
+
+            switch(playerNumber)
+            {
+                case 1:
+                    playerCharacter.GetComponentInChildren<Image>().color = Color.blue;
+                    break;
+                case 2:
+                    playerCharacter.GetComponentInChildren<Image>().color = Color.red;
+                    break;
+                case 3:
+                    playerCharacter.GetComponentInChildren<Image>().color = Color.green;
+                    break;
+                case 4:
+                    playerCharacter.GetComponentInChildren<Image>().color = Color.yellow;
+                    break;
+            }
+
         }
     }
 
@@ -193,7 +212,7 @@ public class GameManagerScript : MonoBehaviour
         int playerAlive = 0;
         foreach (PlayerHealthComponent player in playersHealthComponents)
         {
-            if (!player.PlayerIsDead())
+            if (!player.isPlayerDead())
             {
                 playerAlive++;
             }

@@ -15,6 +15,7 @@ namespace MaykerStudio.Demo
         [SerializeField] float lifetime = 5f;
         Collider weaponCollider;
         Collider playerCollider;
+        [SerializeField] bool isUltimate = false;
 
         private Vector3 initPosition;
 
@@ -36,7 +37,8 @@ namespace MaykerStudio.Demo
             mainParticle.Play(true);
 
             initPosition = transform.position;
-            StartCoroutine(DeactivateColliderAfterTime(1f));
+            if(isUltimate)
+                StartCoroutine(DeactivateColliderAfterTime(0.2f));
         }
 
         IEnumerator DeactivateColliderAfterTime(float time)
@@ -67,6 +69,8 @@ namespace MaykerStudio.Demo
             if (playerHealth != null)
             {
                 playerHealth.TakeDamage(damage);
+                if(!isUltimate)
+                    Destroy(gameObject);
             }
 
         }
