@@ -14921,7 +14921,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41bdbbb9820f8314aba02904a6b52e96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePerSecond: 10
+  damagePerSecond: 20
+  player: {fileID: 0}
 --- !u!4 &5263332564618712314 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6424247364373830703, guid: 8a02c4042c68dd244abad8cf394dab42, type: 3}

@@ -9,10 +9,14 @@ namespace MaykerStudio.Demo
         [SerializeField]
         private GameObject SpawnWhenFinish;
 
-        public float speed = 5011;
-        public float distance = 30;
+        public float speed;
+        public float distance;
         public float damage;
         private ParticleSystem mainParticle;
+        private float timer = 0f;
+        [SerializeField] float lifetime = 5f;
+        Collider weaponCollider;
+        Collider playerCollider;
 
         private Vector3 initPosition;
 
@@ -21,8 +25,8 @@ namespace MaykerStudio.Demo
         private void Start()
         {
             ultCharge = player.GetComponent<UltimateAbilityComponent>();
-            Collider weaponCollider = GetComponent<Collider>();
-            Collider playerCollider = player.GetComponent<Collider>();
+            weaponCollider = GetComponent<Collider>();
+            playerCollider = player.GetComponent<Collider>();
             if (weaponCollider != null && playerCollider != null)
                 Physics.IgnoreCollision(weaponCollider, playerCollider);
         }
@@ -34,13 +38,22 @@ namespace MaykerStudio.Demo
             mainParticle.Play(true);
 
             initPosition = transform.position;
+            StartCoroutine(DeactivateColliderAfterTime(1f));
+        }
+
+        IEnumerator DeactivateColliderAfterTime(float time)
+        {
+            yield return new WaitForSeconds(time);
+            weaponCollider.enabled = false;
+
         }
 
         private void Update()
         {
-            if (mainParticle && mainParticle.isPlaying)
+            timer += Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, speed * Time.deltaTime);
+            if (mainParticle && mainParticle.isPlaying || timer >= lifetime)
             {
-                transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, speed * Time.deltaTime);
 
                 if (Vector3.Distance(initPosition, transform.position) > distance)
                 {

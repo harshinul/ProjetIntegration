@@ -29,7 +29,7 @@ public class CharacterStats
             case ClassType.Warrior:
                 return new CharacterStats
                 {
-                    health = 150f,
+                    health = 135f,
                     lightDamage = 6f,
                     heavyDamage = 8f,
                     ultDamage = 20f,
@@ -46,7 +46,7 @@ public class CharacterStats
                     ultDamage = 30f,
                     attackSpeed = 0.7f,
                     dashPower = 15f,
-                    speed = 4f
+                    speed = 5f
                 };
             case ClassType.Assassin:
                 return new CharacterStats
@@ -78,9 +78,10 @@ public class PlayerAttackScript : MonoBehaviour
     private PlayerHealthComponent player;
     private CharacterStats characterStats;
     private UltimateAbilityComponent ultimateAbilityComponent;
+    private GameObject closestPlayer;
 
     //Attack
-    [SerializeField] GameObject projectile;
+    [SerializeField] GameObject ultimateProjectile;
     WeaponScript weapon;
     float attack1Duration;
     float attack2Duration;
@@ -212,7 +213,7 @@ public class PlayerAttackScript : MonoBehaviour
         playerAnimationComponent.ActivateFirstAttack();
 
         weapon.damage = characterStats.lightDamage;
-
+        
         yield return new WaitForSeconds(beginingAnimationTime);
         playerMovementComponent.ResumeMovement();
         yield return new WaitForSeconds(endAnimationTime);
@@ -252,16 +253,28 @@ public class PlayerAttackScript : MonoBehaviour
         yield return new WaitForSeconds(beginingAnimationTime);
         if (classType.Equals(ClassType.Warrior))
         {
-            var obj = Instantiate(projectile, firePoint.position, Quaternion.Euler(0, transform.rotation.y > 0 ? 90 : -90 , 90));
+            var obj = Instantiate(ultimateProjectile, firePoint.position, Quaternion.Euler(0, transform.rotation.y > 0 ? 90 : -90 , 90));
             obj.GetComponent<Projectile>().damage = characterStats.ultDamage;
             obj.GetComponent<Projectile>().player = this.gameObject;
             obj.GetComponent<Projectile>().Fire();
         }
-        if(classType.Equals(ClassType.Assassin))
+        else if(classType.Equals(ClassType.Assassin))
         {
-            var obj = Instantiate(projectile, firePoint.position, Quaternion.Euler(0,0,0)/*Quaternion.Euler(0, transform.rotation.y > 0 ? 90 : -90, 90)*/);
+            var obj = Instantiate(ultimateProjectile, firePoint.position, Quaternion.Euler(0,0,0)/*Quaternion.Euler(0, transform.rotation.y > 0 ? 90 : -90, 90)*/);
             obj.GetComponentInChildren<DamageOverTime>().player = this.gameObject;
             obj.GetComponent<ParticleSystem>().Play();
+        }
+        else if (classType.Equals(ClassType.Mage))
+        {
+            closestPlayer = ClosestPlayer();
+            if (closestPlayer != null)
+            {
+                var obj = Instantiate(ultimateProjectile, new Vector3(closestPlayer.transform.position.x + 0.8f,0,closestPlayer.transform.position.z), Quaternion.Euler(90, 0, 0));
+                obj.GetComponent<Projectile>().damage = characterStats.ultDamage;
+                obj.GetComponent<Projectile>().player = this.gameObject;
+                obj.GetComponent<Projectile>().speed = 0;
+                obj.GetComponent<Projectile>().Fire();
+            }
         }
         playerMovementComponent.ResumeMovement();
         yield return new WaitForSeconds(endAnimationTime);
@@ -279,6 +292,26 @@ public class PlayerAttackScript : MonoBehaviour
     }
     
 
+    public GameObject ClosestPlayer()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        GameObject closestPlayer = null;
+        float closestDistance = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+        foreach (GameObject player in players)
+        {
+            if (player != this.gameObject)
+            {
+                float distance = Vector3.Distance(player.transform.position, currentPosition);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestPlayer = player;
+                }
+            }
+        }
+        return closestPlayer;
+    }
     void Update()
     {
         if (wantsToAttack1 && !isAttacking)

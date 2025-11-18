@@ -23,7 +23,7 @@ public class MapManager : MonoBehaviour
     public Dictionary<int, string> ArenaName = new Dictionary<int, string>()
     {
         {0,"FightReal" },
-        {1,"Temple" },
+        {1,"TempleReal" },
         {2,"Cathedrale_Anthique" },
         {3,"Hell" }
     };

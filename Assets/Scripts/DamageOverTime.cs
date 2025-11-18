@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class DamageOverTime : MonoBehaviour
 {
-    [SerializeField] float damagePerSecond = 10f;
+    [SerializeField] float damagePerSecond = 20f;
     public GameObject player;
 
     List<PlayerHealthComponent> affectedPlayers = new List<PlayerHealthComponent>();

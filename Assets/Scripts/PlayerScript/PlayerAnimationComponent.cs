@@ -15,6 +15,7 @@ public class PlayerAnimationComponent : MonoBehaviour
 
     public float GetUltDuration()
     {
+        var test = animator.GetFloat("ultiSpeed");
         return ulti != null ? ulti.length / animator.GetFloat("ultiSpeed") : 0f;
     }
     public float GetAttack1Duration()

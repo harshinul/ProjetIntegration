@@ -12,6 +12,7 @@ public abstract class WeaponScript : MonoBehaviour
 
     virtual public void Attack1()
     {
+        
     }
 
     virtual public void Attack2()
