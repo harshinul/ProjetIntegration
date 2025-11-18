@@ -36,7 +36,7 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "852140f2-7766-474d-8707-702459ba45f3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "Hold",
                     "initialStateCheck": false
@@ -1158,7 +1158,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Submit",
+                    "name": "Start",
                     "type": "Button",
                     "id": "7607c7b6-cd76-4816-beef-bd0341cfe950",
                     "expectedControlType": "",
@@ -1260,6 +1260,24 @@
                     "name": "Select",
                     "type": "Button",
                     "id": "7316c25e-4a67-4cc2-848a-12941b6f943e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Submit",
+                    "type": "Button",
+                    "id": "ee60e6d0-dad8-4fa2-8853-37eeaa9e8026",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Join",
+                    "type": "Button",
+                    "id": "9c643e83-4b06-4bba-91e8-7a3645709b0f",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -1534,11 +1552,22 @@
                 {
                     "name": "",
                     "id": "9e92bb26-7e3b-4ec4-b06b-3c8f8e498ddc",
-                    "path": "*/{Submit}",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "MultiTap",
                     "processors": "",
                     "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
-                    "action": "Submit",
+                    "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6f2e7445-9ff8-46c3-bc0d-ae6b14c4971f",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "MultiTap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Start",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1754,7 +1783,18 @@
                 {
                     "name": "",
                     "id": "47cd9877-c30d-41db-a78d-b70759c83297",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "997a2e11-5c8e-44f7-8c23-f2111bbf7f4b",
+                    "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1764,12 +1804,45 @@
                 },
                 {
                     "name": "",
-                    "id": "997a2e11-5c8e-44f7-8c23-f2111bbf7f4b",
+                    "id": "e5edc5ae-cc00-4229-8815-a1c8c0eb3915",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "MultiTap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d6e69f05-f7cf-48a1-9d10-86a00d60541c",
                     "path": "<Keyboard>/enter",
                     "interactions": "MultiTap",
                     "processors": "",
                     "groups": "",
-                    "action": "Select",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "126f612b-ea01-4dcc-9576-5308cda44fab",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Join",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0b8c25ad-f710-4ee5-a8b2-789d53d30e22",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Join",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

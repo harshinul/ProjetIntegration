@@ -51,7 +51,8 @@ namespace SCRIPTS_MARC
                     playerInput.SwitchCurrentActionMap("UI");
                     playerInput.actions.FindAction("UI/Next").performed += OnNextCharacter;
                     playerInput.actions.FindAction("UI/Previous").performed += OnPreviousCharacter;
-                    playerInput.actions.FindAction("UI/Select").performed += OnSelectCharacter;
+                    playerInput.actions.FindAction("UI/Select").performed += OnJoinSelection;
+                    playerInput.actions.FindAction("UI/Start").performed += OnConfirmSelection;
                 }
                 else
                 {
@@ -74,18 +75,29 @@ namespace SCRIPTS_MARC
             var uiMap = playerInput.actions.FindActionMap("UI");
             if (uiMap == null) return;
 
-            uiMap.FindAction("Next").performed -= OnNextCharacter;
-            uiMap.FindAction("Previous").performed -= OnPreviousCharacter;
-            uiMap.FindAction("Select").performed -= OnSelectCharacter;
+            var nextAction = uiMap.FindAction("Next");
+            if (nextAction != null) nextAction.performed -= OnNextCharacter;
+
+            var previousAction = uiMap.FindAction("Previous");
+            if (previousAction != null) previousAction.performed -= OnPreviousCharacter;
+
+            var selectAction = uiMap.FindAction("Select");
+            if (selectAction != null) selectAction.performed -= OnJoinSelection;
+
+            var startAction = uiMap.FindAction("Start");
+            if (startAction != null) startAction.performed -= OnConfirmSelection;
             
-            uiMap.FindAction("Navigate").performed -= OnMapNavigate;
-            uiMap.FindAction("Submit").performed -= OnMapSubmit;
+            var navigateAction = uiMap.FindAction("Navigate");
+            if (navigateAction != null) navigateAction.performed -= OnMapNavigate;
+
+            var submitAction = uiMap.FindAction("Submit");
+            if (submitAction != null) submitAction.performed -= OnMapSubmit;
         }
 
         private void OnNextCharacter(InputAction.CallbackContext context)     { myPanel?.NextCharacter(); }
         private void OnPreviousCharacter(InputAction.CallbackContext context) { myPanel?.PreviousCharacter(); }
-        private void OnSelectCharacter(InputAction.CallbackContext context)   { myPanel?.ConfirmSelection(); }
-
+        private void OnJoinSelection(InputAction.CallbackContext context)     { myPanel?.JoinSelection(); }
+        private void OnConfirmSelection(InputAction.CallbackContext context)  { myPanel?.ConfirmSelection(); }
 
 
         private void OnMapNavigate(InputAction.CallbackContext context)
