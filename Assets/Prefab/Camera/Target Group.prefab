@@ -47,11 +47,5 @@ MonoBehaviour:
   PositionMode: 0
   RotationMode: 0
   UpdateMethod: 2
-  Targets:
-  - Object: {fileID: 0}
-    Weight: 1
-    Radius: 1
-  - Object: {fileID: 0}
-    Weight: 1
-    Radius: 1
+  Targets: []
   m_LegacyTargets: []

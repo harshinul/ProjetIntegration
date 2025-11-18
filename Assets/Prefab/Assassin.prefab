@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8744357377360785424
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7641974203241089837}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7641974203241089837
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8744357377360785424}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.008802043, y: 0.008649743, z: 0.008649744, w: 0.99988645}
+  m_LocalPosition: {x: -0.041, y: 0.614, z: -0.013}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9114179315820848254}
+  m_LocalEulerAnglesHint: {x: 1, y: 1, z: 1}
 --- !u!1001 &1721809515483132816
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78,7 +109,10 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 947ecebfb3192164292c46e96c5647c5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7609123412529944558, guid: 90e49dcb8d4095d499a8c16d9fd770a4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7641974203241089837}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7120993385342881108, guid: 90e49dcb8d4095d499a8c16d9fd770a4, type: 3}
       insertIndex: -1
@@ -1449,9 +1483,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   classType: 2
-  projectile: {fileID: 0}
+  projectile: {fileID: 1116249604692860204, guid: 8a02c4042c68dd244abad8cf394dab42, type: 3}
   isAttacking: 0
-  firePoint: {fileID: 0}
+  attack1Audio: []
+  attack2Audio: []
+  ultimateAudio: []
+  firePoint: {fileID: 7641974203241089837}
 --- !u!114 &4858236528764770343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1772,6 +1809,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 7316c25e-4a67-4cc2-848a-12941b6f943e
     m_ActionName: 'UI/Select[/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ee60e6d0-dad8-4fa2-8853-37eeaa9e8026
+    m_ActionName: 'UI/Submit[/DualSenseGamepadHID/buttonSouth,/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9c643e83-4b06-4bba-91e8-7a3645709b0f
+    m_ActionName: 'UI/Join[/Keyboard/anyKey]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

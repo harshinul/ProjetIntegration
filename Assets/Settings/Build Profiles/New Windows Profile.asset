@@ -21,13 +21,15 @@ MonoBehaviour:
   m_OverrideGlobalSceneList: 1
   m_Scenes:
   - m_enabled: 1
-    m_path: Assets/Scenes/HarshBackup/MainMenu.unity
+    m_path: Assets/Scenes/MainMenu.unity
   - m_enabled: 1
-    m_path: Assets/Scenes/HarshBackup/AreneSelection.unity
+    m_path: Assets/Scenes/selection.unity
   - m_enabled: 1
-    m_path: Assets/Scenes/HarshBackup/Cathedrale_Anthique.unity
+    m_path: Assets/Scenes/AreneSelection.unity
   - m_enabled: 1
-    m_path: Assets/Scenes/HarshBackup/Hell.unity
+    m_path: Assets/Scenes/Cathedrale_Anthique.unity
+  - m_enabled: 1
+    m_path: Assets/Scenes/Hell.unity
   - m_enabled: 1
     m_path: Assets/Scenes/Temple.unity
   m_ScriptingDefines: []
