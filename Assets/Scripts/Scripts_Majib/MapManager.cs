@@ -14,6 +14,8 @@ public class MapManager : MonoBehaviour
         public Button button;
         public GameObject image;
         public TMP_Text title;
+        public GameObject back;
+        public TMP_Text playerSelect;
     }
 
     public List<PairButton> pairs;
@@ -40,13 +42,23 @@ public class MapManager : MonoBehaviour
 
     private void Start()
     {
-        this.numberOfPlayers = PlayerPrefs.GetInt("numberOfPlayer", 4); // J'ai remis votre PlayerPrefs
+        this.numberOfPlayers = PlayerPrefs.GetInt("numberOfPlayer", 4);
         for (int i = 0; i < numberOfPlayers; i++)
         {
             PlayerSelection[i] = -1;
         }
 
-        // AJOUTÉ : Affiche la première arène par défaut
+        // On désactive tout visuel au départ
+        for (int i = 0; i < pairs.Count; i++)
+        {
+            if (pairs[i].image) pairs[i].image.SetActive(false);
+            if (pairs[i].title) pairs[i].title.gameObject.SetActive(false);
+            if (pairs[i].back) pairs[i].back.SetActive(false);
+        }
+
+        // très important: selectedIndex = -1 pour dire "rien encore"
+        selectedIndex = -1;
+        previewIndex = 0; // point de départ logique pour la navigation
         ActivatePreview(previewIndex);
     }
 
@@ -56,13 +68,13 @@ public class MapManager : MonoBehaviour
         // mais les fonctions publiques appelées par les manettes.
         // Vous pouvez les laisser si vous voulez un support souris ET manette,
         // mais cela complique la logique de qui clique.
-        /*
+        
         for (int i = 0; i < pairs.Count; i++)
         {
             int idx = i;
             pairs[i].button.onClick.AddListener(() => DoubleClick(idx));
         }
-        */
+        
     }
 
     // ... (SelectArena, ValidateAll, DetermineArena restent identiques) ...
@@ -71,6 +83,13 @@ public class MapManager : MonoBehaviour
     {
         PlayerSelection[currentSelection] = arenaIndex;
         selectedIndex = arenaIndex;
+            // Met à jour le texte pour indiquer quel joueur doit sélectionner
+            if (pairs[arenaIndex].playerSelect != null)
+            {
+                pairs[arenaIndex].playerSelect.text += $" J {currentSelection + 1}";
+                pairs[arenaIndex].playerSelect.gameObject.SetActive(true);
+            }
+        
         playersWhoSelected++;
 
         Debug.Log($"Joueur {currentSelection + 1} a sélectionné l'arène {arenaIndex}");
@@ -156,6 +175,7 @@ public class MapManager : MonoBehaviour
         }
         else // Si c'est le 1er clic (prévisualisation)
         {
+            
             ActivatePreview(index);
         }
     }
@@ -173,6 +193,7 @@ public class MapManager : MonoBehaviour
         if (previewIndex >= pairs.Count) previewIndex = 0;
 
         // Met à jour l'aperçu
+
         ActivatePreview(previewIndex);
     }
 
@@ -189,15 +210,29 @@ public class MapManager : MonoBehaviour
     /// <summary>
     /// Active preview pour l'index donné.
     /// </summary>
-    void ActivatePreview(int index)
+    private void ActivatePreview(int index)
     {
-        selectedIndex = index; // Important pour votre logique DoubleClick
-        previewIndex = index;  // Garde l'index en surbrillance à jour
-
+        // Désactiver tous les visuels
         for (int i = 0; i < pairs.Count; i++)
         {
-            if (pairs[i].image) pairs[i].image.SetActive(i == index);
-            if (pairs[i].title) pairs[i].title.gameObject.SetActive(i == index);
+            if (pairs[i].image) pairs[i].image.SetActive(false);
+            if (pairs[i].title) pairs[i].title.gameObject.SetActive(false);
+            if (pairs[i].back) pairs[i].back.SetActive(false); // AJOUTÉ : Gérer le fond ici
+        }
+
+        // Activer les visuels de l'arène sélectionnée
+        if (index >= 0 && index < pairs.Count)
+        {
+            if (pairs[index].image) pairs[index].image.SetActive(true);
+            if (pairs[index].title) pairs[index].title.gameObject.SetActive(true);
+            if (pairs[index].back) pairs[index].back.SetActive(true); // AJOUTÉ : Activer le fond
+
+            if (ArenaSelected != null && ArenaName.ContainsKey(index))
+            {
+                ArenaSelected.text = ArenaName[index];
+            }
+
+            selectedIndex = index;
         }
     }
     
