@@ -23,8 +23,6 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/HarshBackup/MainMenu.unity
   - m_enabled: 1
-    m_path: Assets/Scenes/HarshBackup/selection.unity
-  - m_enabled: 1
     m_path: Assets/Scenes/HarshBackup/AreneSelection.unity
   - m_enabled: 1
     m_path: Assets/Scenes/HarshBackup/Cathedrale_Anthique.unity
