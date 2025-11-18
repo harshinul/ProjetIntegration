@@ -23,10 +23,6 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/AreneSelection.unity
   - m_enabled: 1
-    m_path: Assets/Scenes/Cathedrale_Anthique.unity
-  - m_enabled: 1
-    m_path: Assets/Scenes/Hell.unity
-  - m_enabled: 1
     m_path: Assets/Scenes/MainMenu.unity
   - m_enabled: 1
     m_path: Assets/Scenes/selection.unity
