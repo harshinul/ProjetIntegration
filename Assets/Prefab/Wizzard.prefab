@@ -3704,8 +3704,8 @@ MonoBehaviour:
   player: {fileID: 0}
   canDealDamage: 0
   damage: 10
-  litleFireball: {fileID: 7606620699271223679, guid: 5aa2236667d208e41a28e0f79695320a, type: 3}
-  bigFireball: {fileID: 0}
+  litleFireball: {fileID: 7035514809651449673, guid: 1f9ce85a656fbae41b34256f26ebaccd, type: 3}
+  bigFireball: {fileID: 7377289066447227278, guid: 05184c918c63a3f40a80358189b31813, type: 3}
 --- !u!1 &5286159452133281306
 GameObject:
   m_ObjectHideFlags: 0
@@ -4712,12 +4712,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   classType: 1
-  projectile: {fileID: 0}
+  projectile: {fileID: 3266835628973167763, guid: 0550eaef1e5c01045bcabce8225c831a, type: 3}
   isAttacking: 0
   attack1Audio: []
   attack2Audio: []
   ultimateAudio: []
-  firePoint: {fileID: 0}
+  firePoint: {fileID: 2523139674031561118}
 --- !u!114 &1646035302362600087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5038,6 +5038,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 7316c25e-4a67-4cc2-848a-12941b6f943e
     m_ActionName: 'UI/Select[/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ee60e6d0-dad8-4fa2-8853-37eeaa9e8026
+    m_ActionName: 'UI/Submit[/DualSenseGamepadHID/buttonSouth,/Keyboard/enter]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9c643e83-4b06-4bba-91e8-7a3645709b0f
+    m_ActionName: 'UI/Join[/Keyboard/anyKey]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
