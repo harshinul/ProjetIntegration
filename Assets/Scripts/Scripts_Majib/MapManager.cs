@@ -79,6 +79,18 @@ public class MapManager : MonoBehaviour
 
     // ... (SelectArena, ValidateAll, DetermineArena restent identiques) ...
     // ...
+    private string GetPlayerColor(int playerIndex)
+    {
+        switch (playerIndex)
+        {
+            case 0: return "#0023FF";
+            case 1: return "#FF0000";   // Bleu J2
+            case 2: return "#00C422";   // Vert J3
+            case 3: return "#FFF800";   // Orange J4
+            default: return "white";
+        }
+    }
+
     public void SelectArena(int arenaIndex)
     {
         PlayerSelection[currentSelection] = arenaIndex;
@@ -86,7 +98,8 @@ public class MapManager : MonoBehaviour
             // Met à jour le texte pour indiquer quel joueur doit sélectionner
             if (pairs[arenaIndex].playerSelect != null)
             {
-                pairs[arenaIndex].playerSelect.text += $" J {currentSelection + 1}";
+                string color = GetPlayerColor(currentSelection);
+                pairs[arenaIndex].playerSelect.text += $" <color={color}>J{currentSelection + 1}</color>";
                 pairs[arenaIndex].playerSelect.gameObject.SetActive(true);
             }
         
