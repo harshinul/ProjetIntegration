@@ -1043,7 +1043,8 @@ MonoBehaviour:
   isAttacking: 0
   attack1Audio:
   - {fileID: 8300000, guid: c60f0ceae54860b409774148c2b55e1b, type: 3}
-  attack2Audio: []
+  attack2Audio:
+  - {fileID: 8300000, guid: f4502bf5f4e6dc24abc8c8406c580cef, type: 3}
   ultimateAudio:
   - {fileID: 8300000, guid: 256c5adea496aa747a9884b0e71685a7, type: 3}
   firePoint: {fileID: 3416726274296986629}

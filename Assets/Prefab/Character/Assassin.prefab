@@ -1664,9 +1664,12 @@ MonoBehaviour:
   classType: 2
   ultimateProjectile: {fileID: 2183146480622160771, guid: 131ad0e894ecda14eac32155d82d6c3d, type: 3}
   isAttacking: 0
-  attack1Audio: []
-  attack2Audio: []
-  ultimateAudio: []
+  attack1Audio:
+  - {fileID: 8300000, guid: 00f096b2921684641a41e29cdf08d504, type: 3}
+  attack2Audio:
+  - {fileID: 8300000, guid: 40b12cd422f07d64da4756472f03a9c8, type: 3}
+  ultimateAudio:
+  - {fileID: 8300000, guid: 8a3ba26ab9c6c224b8415f1c6697c7e6, type: 3}
   firePoint: {fileID: 7641974203241089837}
 --- !u!114 &4858236528764770343
 MonoBehaviour:

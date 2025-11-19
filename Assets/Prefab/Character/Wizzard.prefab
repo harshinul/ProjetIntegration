@@ -4795,9 +4795,12 @@ MonoBehaviour:
   classType: 1
   ultimateProjectile: {fileID: 3266835628973167763, guid: 0550eaef1e5c01045bcabce8225c831a, type: 3}
   isAttacking: 0
-  attack1Audio: []
-  attack2Audio: []
-  ultimateAudio: []
+  attack1Audio:
+  - {fileID: 8300000, guid: 07811e34c78ae484aab7b5131dfcc0b4, type: 3}
+  attack2Audio:
+  - {fileID: 8300000, guid: 5129a9f7b34b3414484146a1b1b9c61d, type: 3}
+  ultimateAudio:
+  - {fileID: 8300000, guid: 8f483df5a6f48094e8419b01ec68a0b5, type: 3}
   firePoint: {fileID: 2523139674031561118}
 --- !u!114 &1646035302362600087
 MonoBehaviour:
@@ -5887,7 +5890,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7279733010716798692}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000059604645, y: -0, z: 0.00000017881393, w: 1}
+  m_LocalRotation: {x: -0.0000004172325, y: -0.00000020861626, z: 0.00000020861626, w: 1}
   m_LocalPosition: {x: -3.3435713e-12, y: 0.06331283, z: 0.014597282}
   m_LocalScale: {x: 1, y: 1.0000001, z: 1.0000001}
   m_ConstrainProportionsScale: 0

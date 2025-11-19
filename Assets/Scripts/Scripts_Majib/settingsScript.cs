@@ -16,18 +16,24 @@ public class settingsScript : MonoBehaviour
     public void ChangeMasterVolume()
     {
         mainAudioMixer.SetFloat("MasterVol",masterVol.value);
+        //PlayerPrefs.SetFloat("MasterVol", masterVol.value);
     }
     public void ChangeMusicVolume()
     {
         mainAudioMixer.SetFloat("MusicVol", musicVol.value);
+        //PlayerPrefs.SetFloat("MusicVol", musicVol.value);
     }
     public void ChangeSfxVolume()
     {
-        mainAudioMixer.SetFloat("SfxVol", sfxVol.value);
+        mainAudioMixer.SetFloat("SFXVol", sfxVol.value);
+        //PlayerPrefs.SetFloat("SFXVol", sfxVol.value);
     }
     void Start()
     {
-        
+        //masterVol.value = PlayerPrefs.GetFloat("MasterVol", 0f);
+        //musicVol.value = PlayerPrefs.GetFloat("MusicVol", 0f);
+        //sfxVol.value = PlayerPrefs.GetFloat("SFXVol", 0f);
+
     }
 
     // Update is called once per frame
