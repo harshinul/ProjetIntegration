@@ -51,7 +51,7 @@ public class CharacterStats
             case ClassType.Assassin:
                 return new CharacterStats
                 {
-                    health = 80f,
+                    health = 90f,
                     lightDamage = 8f,
                     heavyDamage = 12f,
                     ultDamage = 25f,
