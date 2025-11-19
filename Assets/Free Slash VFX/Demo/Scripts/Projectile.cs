@@ -6,13 +6,17 @@ namespace MaykerStudio.Demo
 {
     public class Projectile : MonoBehaviour
     {
-        [SerializeField]
-        private GameObject SpawnWhenFinish;
 
-        public float speed = 5011;
-        public float distance = 30;
+        public float speed;
+        public float distance;
         public float damage;
         private ParticleSystem mainParticle;
+        private float timer = 0f;
+        [SerializeField] float lifetime = 5f;
+        Collider weaponCollider;
+        Collider playerCollider;
+        [SerializeField] bool wantToDesactivateAfterHit = false;
+        [SerializeField] float colliderLifeTime = 0f;
 
         private Vector3 initPosition;
 
@@ -21,34 +25,46 @@ namespace MaykerStudio.Demo
         private void Start()
         {
             ultCharge = player.GetComponent<UltimateAbilityComponent>();
-            Collider weaponCollider = GetComponent<Collider>();
-            Collider playerCollider = player.GetComponent<Collider>();
+            weaponCollider = GetComponent<Collider>();
+            playerCollider = player.GetComponent<Collider>();
             if (weaponCollider != null && playerCollider != null)
                 Physics.IgnoreCollision(weaponCollider, playerCollider);
+
         }
 
         public void Fire()
         {
+            if (colliderLifeTime == 0f)
+            {
+                colliderLifeTime = lifetime;
+            }
+
             mainParticle = GetComponent<ParticleSystem>();
 
             mainParticle.Play(true);
 
             initPosition = transform.position;
+
+            StartCoroutine(DeactivateColliderAfterTime(colliderLifeTime));
+        }
+
+        IEnumerator DeactivateColliderAfterTime(float time)
+        {
+            yield return new WaitForSeconds(time);
+            weaponCollider.enabled = false;
+
         }
 
         private void Update()
         {
-            if (mainParticle && mainParticle.isPlaying)
+            timer += Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, speed * Time.deltaTime);
+            if (mainParticle && mainParticle.isPlaying || timer >= lifetime)
             {
-                transform.position = Vector3.MoveTowards(transform.position, transform.position + transform.forward, speed * Time.deltaTime);
 
                 if (Vector3.Distance(initPosition, transform.position) > distance)
                 {
                     mainParticle.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-                    if (SpawnWhenFinish != null)
-                    {
-                        mainParticle = null;
-                    }
                     Destroy(this);
                 }
             }
@@ -60,6 +76,8 @@ namespace MaykerStudio.Demo
             if (playerHealth != null)
             {
                 playerHealth.TakeDamage(damage);
+                if(wantToDesactivateAfterHit)
+                    Destroy(gameObject);
             }
 
         }

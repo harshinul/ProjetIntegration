@@ -12,11 +12,11 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] GameObject warriorPrefab;
     [SerializeField] GameObject assassinPrefab;
     [SerializeField] GameObject magePrefab;
+    [SerializeField] GameObject[] playersUI = new GameObject[4];
     [SerializeField] Image[] backHealthBar = new Image[4];
     [SerializeField] Image[] frontHealthBar = new Image[4];
     [SerializeField] Image[] ultBar = new Image[4];
     [SerializeField] CinemachineTargetGroup cinemachineTargetGroup;
-    [SerializeField] Canvas gameOverCanva;
     [SerializeField] Canvas afterGameLocal;
     [SerializeField] Canvas pauseMenuCanva;
 
@@ -37,7 +37,10 @@ public class GameManagerScript : MonoBehaviour
         if (magePrefab) characterPrefabsList.Add(magePrefab);
 
         // UI
-        gameOverCanva.enabled = false;
+        for (int i = 0; i < playersUI.Length; i++)
+        {
+            playersUI[i].SetActive(false);
+        }
         pauseMenuCanva.enabled = false;
         afterGameLocal.enabled = false;
         Time.timeScale = 1f;
@@ -132,7 +135,8 @@ public class GameManagerScript : MonoBehaviour
             // 9. RÉACTIVER le personnage
             playerCharacter.SetActive(true);
 
-            // 9. Configuration de la Health Bar
+            // 9. Activation du UI et configuration de la Health Bar
+            playersUI[playerIndex].SetActive(true);
             PlayerHealthComponent pHC = playerCharacter.GetComponent<PlayerHealthComponent>();
             if (pHC != null && playerIndex < backHealthBar.Length)
             {
@@ -148,6 +152,7 @@ public class GameManagerScript : MonoBehaviour
             PlayerPauseMenuComponent pPMC = playerCharacter.GetComponent<PlayerPauseMenuComponent>();
             if (pPMC != null)
             {
+                pPMC.SetPlayerInput(playerInput);
                 playersPauseMenuComponents.Add(pPMC);
             }
             UltimateAbilityComponent uAC;
@@ -156,6 +161,25 @@ public class GameManagerScript : MonoBehaviour
 
             // 11. Ajouter le joueur au Cinemachine Target Group
             cinemachineTargetGroup.AddMember(playerCharacter.GetComponentInChildren<headBodyPart>().transform, 1f, 1f);
+
+            // 12. Changer la couleur de la flèche du joueur
+
+            switch(playerNumber)
+            {
+                case 1:
+                    playerCharacter.GetComponentInChildren<Image>().color = Color.blue;
+                    break;
+                case 2:
+                    playerCharacter.GetComponentInChildren<Image>().color = Color.red;
+                    break;
+                case 3:
+                    playerCharacter.GetComponentInChildren<Image>().color = Color.green;
+                    break;
+                case 4:
+                    playerCharacter.GetComponentInChildren<Image>().color = Color.yellow;
+                    break;
+            }
+
         }
     }
 
@@ -193,7 +217,7 @@ public class GameManagerScript : MonoBehaviour
         int playerAlive = 0;
         foreach (PlayerHealthComponent player in playersHealthComponents)
         {
-            if (!player.PlayerIsDead())
+            if (!player.isPlayerDead())
             {
                 playerAlive++;
             }
@@ -224,7 +248,5 @@ public class GameManagerScript : MonoBehaviour
         isGameOver = true;
 
         afterGameLocal.enabled = true;
-        gameOverCanva.enabled = true;
-        Time.timeScale = 0f;
     }
 }

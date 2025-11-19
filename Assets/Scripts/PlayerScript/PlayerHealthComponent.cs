@@ -76,20 +76,6 @@ public class PlayerHealthComponent : MonoBehaviour
         backHealthBar.fillAmount = 1f;
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            
-            if (!isInvincible)
-            {
-                TakeDamage(100f);
-                Debug.Log("Player takes 3 damage");
-            }
-                
-
-        }
-    }
     public void TakeDamage(float damage)
 {
         if (isDead) return;
@@ -109,7 +95,7 @@ public class PlayerHealthComponent : MonoBehaviour
         UpdateHealthUI();
     }
 
-    public bool PlayerIsDead()
+    public bool isPlayerDead()
     {
         return isDead;
     }
