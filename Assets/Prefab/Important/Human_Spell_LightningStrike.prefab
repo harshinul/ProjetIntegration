@@ -14751,6 +14751,8 @@ MonoBehaviour:
   distance: 0
   damage: 0
   lifetime: 5
+  wantToDesactivateAfterHit: 0
+  colliderLifeTime: 0.1
   player: {fileID: 0}
 --- !u!1 &5262697278740000762
 GameObject:

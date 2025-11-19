@@ -9730,6 +9730,9 @@ MonoBehaviour:
   speed: 10
   distance: 30
   damage: 20
+  lifetime: 5
+  wantToDesactivateAfterHit: 1
+  colliderLifeTime: 0
   player: {fileID: 0}
 --- !u!1 &8407726589901608928
 GameObject:

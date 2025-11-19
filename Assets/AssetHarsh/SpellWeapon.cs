@@ -7,8 +7,9 @@ public class SpellWeapon : WeaponScript
     [SerializeField] GameObject smallFireball;
     [SerializeField] GameObject bigFireball;
     [SerializeField] Transform firePoint;
+    [SerializeField] PlayerMovementComponent playerMovement;
 
-    ClassType classType;
+    ClassType classType = ClassType.Mage;
     CharacterStats characterStats;
     private void Start()
     {

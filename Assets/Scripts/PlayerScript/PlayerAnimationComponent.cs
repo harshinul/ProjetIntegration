@@ -109,5 +109,11 @@ public class PlayerAnimationComponent : MonoBehaviour
     public void ActivateDeath()
     {
         animator.SetTrigger("isDead");
+        DeactivateFalling();
+        DeactivateFirstAttack();
+        DeactivateSecondAttack();
+        DeactivateRunning();
+        DeactivateJumping();
+
     }
 }

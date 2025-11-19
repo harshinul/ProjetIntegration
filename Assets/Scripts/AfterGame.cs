@@ -36,7 +36,7 @@ public class AfterGame : MonoBehaviour
     {
         try
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu 2");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
         }
         catch (System.Exception e)
         {
