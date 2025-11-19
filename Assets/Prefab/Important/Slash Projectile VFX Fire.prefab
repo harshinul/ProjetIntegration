@@ -24327,7 +24327,8 @@ MonoBehaviour:
   distance: 30
   damage: 20
   lifetime: 5
-  isUltimate: 1
+  wantToDesactivateAfterHit: 0
+  colliderLifeTime: 0
   player: {fileID: 0}
 --- !u!65 &8981429666767312415
 BoxCollider:

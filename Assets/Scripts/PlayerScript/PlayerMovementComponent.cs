@@ -76,8 +76,7 @@ public class PlayerMovementComponent : MonoBehaviour
 
         // Initialisez vos stats ici
         if (characterStats == null)
-        {
-            characterStats = GetComponent<PlayerAttackScript>().GetCharacterStats();
+        {           characterStats = GetComponent<PlayerAttackScript>().GetCharacterStats();
             if (characterStats != null)
             {
                 speed = characterStats.speed;

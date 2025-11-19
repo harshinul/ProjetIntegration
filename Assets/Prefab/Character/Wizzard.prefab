@@ -4761,7 +4761,7 @@ MonoBehaviour:
   oneWayGround:
     serializedVersion: 2
     m_Bits: 128
-  jumpForce: 5
+  jumpForce: 5.5
   maxJumpCount: 2
   characterController: {fileID: 0}
   ISGROUNDED: 0
