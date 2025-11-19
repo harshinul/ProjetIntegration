@@ -4813,7 +4813,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frontHealthBar: {fileID: 0}
   backHealthBar: {fileID: 0}
-  chipSpeed: 4
+  chipSpeed: 0.5
   chipDelay: 0.5
   health: 0
   damageColor: {r: 1, g: 0, b: 0, a: 1}

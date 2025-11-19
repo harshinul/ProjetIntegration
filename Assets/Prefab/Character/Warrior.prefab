@@ -699,6 +699,7 @@ MonoBehaviour:
   jumpForce: 5.5
   maxJumpCount: 2
   characterController: {fileID: 0}
+  ISGROUNDED: 0
 --- !u!143 &7882644716322585257
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1060,7 +1061,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frontHealthBar: {fileID: 0}
   backHealthBar: {fileID: 0}
-  chipSpeed: 1
+  chipSpeed: 0.5
   chipDelay: 0.5
   health: 150
   damageColor: {r: 1, g: 0, b: 0, a: 1}
