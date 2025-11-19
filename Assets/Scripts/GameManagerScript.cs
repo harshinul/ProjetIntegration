@@ -248,6 +248,5 @@ public class GameManagerScript : MonoBehaviour
         isGameOver = true;
 
         afterGameLocal.enabled = true;
-        //Time.timeScale = 0f;
     }
 }
