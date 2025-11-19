@@ -23,7 +23,7 @@ public class settingsScript : MonoBehaviour
     }
     public void ChangeSfxVolume()
     {
-        mainAudioMixer.SetFloat("SfxVol", sfxVol.value);
+        mainAudioMixer.SetFloat("SFXVol", sfxVol.value);
     }
     void Start()
     {
