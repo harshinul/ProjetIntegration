@@ -5,6 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using SCRIPTS_MARC;
 using Unity.Cinemachine;
+using UnityEngine.EventSystems;
+using System.Collections;
+using System;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -19,15 +22,31 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] CinemachineTargetGroup cinemachineTargetGroup;
     [SerializeField] Canvas afterGameLocal;
     [SerializeField] Canvas pauseMenuCanva;
+    [SerializeField] Selectable PauseMenuFirstSelected;
+    [SerializeField] Selectable GameOverFistSelected;
 
     // Listes pour suivre les joueurs
+    List<PlayerMovementComponent> playerMovementComponents = new List<PlayerMovementComponent>();
     List<PlayerHealthComponent> playersHealthComponents = new List<PlayerHealthComponent>();
     List<PlayerPauseMenuComponent> playersPauseMenuComponents = new List<PlayerPauseMenuComponent>();
 
     // Liste pour trouver les prefabs par nom
     private List<GameObject> characterPrefabsList = new List<GameObject>();
 
+
     private bool isGameOver = false;
+    private bool pauseJustOpened = false;
+
+    public void Kill() // Fonction de debug pour tuer tous les joueurs
+    {
+        if (Keyboard.current.fKey.isPressed) // Utilisation correcte de l'API InputSystem
+        {
+            foreach (PlayerHealthComponent phc in playersHealthComponents)
+            {
+                phc.TakeDamage(99999f);
+            }
+        }
+    }
 
     private void Start()
     {
@@ -50,6 +69,7 @@ public class GameManagerScript : MonoBehaviour
 
     private void Update()
     {
+        Kill();
         if (isGameOver) return;
 
         (bool isPaused, int playerIndex) = CheckIfPlayerPaused();
@@ -57,17 +77,41 @@ public class GameManagerScript : MonoBehaviour
         {
             pauseMenuCanva.enabled = true;
             Time.timeScale = 0f;
+
+            // ⭐ Sélection du bouton UNIQUEMENT au moment où la pause s'ouvre
+            if (!pauseJustOpened)
+            {
+                pauseJustOpened = true;
+
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(PauseMenuFirstSelected.gameObject);
+
+                foreach (PlayerMovementComponent pmc in playerMovementComponents) // On stoppe le mouvement
+                {
+                    pmc.StopMovement();
+                }
+
+            }
         }
         else
         {
             pauseMenuCanva.enabled = false;
             Time.timeScale = 1f;
+
+            pauseJustOpened = false; // reset pour la prochaine pause
+
+            EventSystem.current.SetSelectedGameObject(null);
+
+            foreach (PlayerMovementComponent pmc in playerMovementComponents) // On reprend le mouvement
+            {
+                pmc.ResumeMovement();
+            }
         }
 
         // On vérifie > 1 pour les modes à 1 joueur (ou test)
         if (CheckNumberOfPlayerAlive() <= 1 && playersHealthComponents.Count > 1)
         {
-            GameOver();
+            StartCoroutine(GameOver());
         }
     }
 
@@ -116,6 +160,7 @@ public class GameManagerScript : MonoBehaviour
             if (movementComponent != null)
             {
                 movementComponent.SetPlayerInput(playerInput);
+                playerMovementComponents.Add(movementComponent);
             }
             else
             {
@@ -243,10 +288,21 @@ public class GameManagerScript : MonoBehaviour
         return (false, 0);
     }
 
-    void GameOver()
-    {
-        isGameOver = true;
 
+    IEnumerator GameOver()
+    {
+        yield return new WaitForSecondsRealtime(1f); // Petit délai 
+
+        foreach (PlayerMovementComponent pmc in playerMovementComponents)
+        {
+            pmc.StopMovement();
+        }
+
+        isGameOver = true;
         afterGameLocal.enabled = true;
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(GameOverFistSelected.gameObject);
     }
 }
+

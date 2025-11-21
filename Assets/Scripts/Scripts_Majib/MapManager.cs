@@ -64,32 +64,42 @@ public class MapManager : MonoBehaviour
 
     private void Awake()
     {
-        // SUPPRIMÉ : Nous n'utilisons plus les clics de souris, 
-        // mais les fonctions publiques appelées par les manettes.
-        // Vous pouvez les laisser si vous voulez un support souris ET manette,
-        // mais cela complique la logique de qui clique.
-        
+
         for (int i = 0; i < pairs.Count; i++)
         {
             int idx = i;
             pairs[i].button.onClick.AddListener(() => DoubleClick(idx));
         }
-        
+
     }
 
     // ... (SelectArena, ValidateAll, DetermineArena restent identiques) ...
     // ...
+    private string GetPlayerColor(int playerIndex)
+    {
+        switch (playerIndex)
+        {
+            case 0: return "#0023FF";
+            case 1: return "#FF0000";
+            case 2: return "#00C422";
+            case 3: return "#FFF800";
+            default: return "white";
+        }
+
+    }
+
     public void SelectArena(int arenaIndex)
     {
         PlayerSelection[currentSelection] = arenaIndex;
         selectedIndex = arenaIndex;
-            // Met à jour le texte pour indiquer quel joueur doit sélectionner
-            if (pairs[arenaIndex].playerSelect != null)
-            {
-                pairs[arenaIndex].playerSelect.text += $" J {currentSelection + 1}";
-                pairs[arenaIndex].playerSelect.gameObject.SetActive(true);
-            }
-        
+        // Met à jour le texte pour indiquer quel joueur doit sélectionner
+        if (pairs[arenaIndex].playerSelect != null)
+        {
+            string color = GetPlayerColor(currentSelection);
+            pairs[arenaIndex].playerSelect.text += $" <color={color}>J{currentSelection + 1}</color>";
+            pairs[arenaIndex].playerSelect.gameObject.SetActive(true);
+        }
+
         playersWhoSelected++;
 
         Debug.Log($"Joueur {currentSelection + 1} a sélectionné l'arène {arenaIndex}");
@@ -99,10 +109,10 @@ public class MapManager : MonoBehaviour
             Debug.Log($"C'est au tour du joueur {currentSelection + 1} de sélectionner une arène.");
 
             // Met à jour la prévisualisation pour le nouveau joueur
-            ActivatePreview(previewIndex); 
+            ActivatePreview(previewIndex);
         }
     }
-    
+
     public void ValidateAll()
     {
         foreach (var selection in PlayerSelection.Values)
@@ -175,7 +185,7 @@ public class MapManager : MonoBehaviour
         }
         else // Si c'est le 1er clic (prévisualisation)
         {
-            
+
             ActivatePreview(index);
         }
     }
@@ -235,7 +245,7 @@ public class MapManager : MonoBehaviour
             selectedIndex = index;
         }
     }
-    
+
     // ... (LoadArena et RandomArena restent identiques) ...
     // ...
     void LoadArena(int arenaIndex)

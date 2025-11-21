@@ -51,7 +51,7 @@ namespace SCRIPTS_MARC
                     playerInput.SwitchCurrentActionMap("UI");
                     playerInput.actions.FindAction("UI/Next").performed += OnNextCharacter;
                     playerInput.actions.FindAction("UI/Previous").performed += OnPreviousCharacter;
-                    playerInput.actions.FindAction("UI/Select").performed += OnJoinSelection;
+                    playerInput.actions.FindAction("UI/Join").performed += OnJoinSelection;
                     playerInput.actions.FindAction("UI/Start").performed += OnConfirmSelection;
                 }
                 else
