@@ -15,6 +15,7 @@ public class PlayerMovementComponent : MonoBehaviour
 
     //Movement
     [SerializeField] private float speed = 5f;
+    public bool isMoving = false;
     // Gravity
     [SerializeField] private float gravityValue = -9.81f;
     [SerializeField] private float fallMultiplier = 2.5f;
@@ -39,7 +40,7 @@ public class PlayerMovementComponent : MonoBehaviour
     Vector3 jump = Vector3.zero;
     Vector2 move = Vector2.zero;
     Vector2 lastMove = Vector2.zero;
-    bool canMove = true;
+    bool canMove = true; 
 
     // Input
     bool wantsToJump = false;
@@ -184,10 +185,12 @@ public class PlayerMovementComponent : MonoBehaviour
         if (direction.magnitude > 0)
         {
             playerAnimationComponent.ActivateRunning();
+            isMoving = true;
         }
         else
         {
             playerAnimationComponent.DeactivateRunning();
+            isMoving = false;
         }
 
         characterController.Move((speed * direction + jump) * Time.deltaTime);

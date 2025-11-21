@@ -78,7 +78,7 @@ public class PlayerAttackScript : MonoBehaviour
     private PlayerHealthComponent playerHealthComponent;
     private CharacterStats characterStats;
     private UltimateAbilityComponent ultimateAbilityComponent;
-    private GameObject closestPlayer;
+    private Vector3 closestPlayerGround;
 
     //Attack
     [SerializeField] GameObject ultimateProjectile;
@@ -266,7 +266,8 @@ public class PlayerAttackScript : MonoBehaviour
 
     public IEnumerator CouroutineStartUltimate()
     {
-       float beginingAnimationTime = ultDuration / 2f;
+
+        float beginingAnimationTime = ultDuration / 2f;
         float endAnimationTime = beginingAnimationTime;
         isAttacking = true;
         playerMovementComponent.StopMovement();
@@ -291,10 +292,10 @@ public class PlayerAttackScript : MonoBehaviour
         }
         else if (classType.Equals(ClassType.Mage))
         {
-            closestPlayer = ClosestPlayer();
-            if (closestPlayer != null)
+            closestPlayerGround = ClosestPlayerOnGround();
+            if (closestPlayerGround != null)
             {
-                Vector3 lastPlayerPosition = new Vector3(closestPlayer.transform.position.x, 0, closestPlayer.transform.position.z);
+                Vector3 lastPlayerPosition = new Vector3(closestPlayerGround.x, 0, closestPlayerGround.z);
                 yield return new WaitForSeconds(0.1f);
                 var ultMage = Instantiate(ultimateProjectile, lastPlayerPosition, Quaternion.Euler(90, 0, 0));
                 var projectile = ultMage.GetComponent<Projectile>();
@@ -304,8 +305,9 @@ public class PlayerAttackScript : MonoBehaviour
                 projectile.Fire();
             }
         }
-        playerMovementComponent.ResumeMovement();
         yield return new WaitForSeconds(endAnimationTime);
+        playerMovementComponent.ResumeMovement();
+
         playerAnimationComponent.DeactivateUltimate();
         ultimateAbilityComponent.ActivateUltimate();
         ResetAttack();
@@ -320,12 +322,13 @@ public class PlayerAttackScript : MonoBehaviour
     }
 
 
-    public GameObject ClosestPlayer()
+    public Vector3 ClosestPlayerOnGround()
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         GameObject closestPlayer = null;
         float closestDistance = Mathf.Infinity;
         Vector3 currentPosition = transform.position;
+
         foreach (GameObject player in players)
         {
             if (player != this.gameObject && !player.GetComponent<PlayerHealthComponent>().isPlayerDead())
@@ -338,8 +341,33 @@ public class PlayerAttackScript : MonoBehaviour
                 }
             }
         }
-        return closestPlayer;
+
+        if (closestPlayer == null)
+            return Vector3.zero;
+
+        // ---- RAYCAST POUR TROUVER LE SOL ----
+
+        // 1. Définir le masque pour inclure "Default" et "OneWayPlatform"
+        int layerMask = LayerMask.GetMask("Default", "OneWayPlatform");
+
+        Vector3 origin = closestPlayer.transform.position + Vector3.up * 1f;
+        RaycastHit hit;
+
+        // 2. Ajouter le layerMask dans les paramètres du Raycast
+        if (Physics.Raycast(origin, Vector3.down, out hit, 10f, layerMask))
+        {
+            // Le sol (Default ou OneWayPlatform) est touché
+            return new Vector3(
+                closestPlayer.transform.position.x,
+                hit.point.y,
+                closestPlayer.transform.position.z
+            );
+        }
+
+        // Si aucun sol trouvé, renvoyer la position du joueur
+        return closestPlayer.transform.position;
     }
+
     void Update()
     {
         if (playerHealthComponent.isPlayerDead())

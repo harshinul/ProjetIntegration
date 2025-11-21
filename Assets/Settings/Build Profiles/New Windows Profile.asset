@@ -25,13 +25,13 @@ MonoBehaviour:
   - m_enabled: 1
     m_path: Assets/Scenes/selection.unity
   - m_enabled: 1
-    m_path: Assets/Scenes/AreneSelection.unity
+    m_path: Assets/Scenes/Test/AreneSelection.unity
   - m_enabled: 1
-    m_path: Assets/Scenes/Cathedrale_Anthique.unity
+    m_path: Assets/Scenes/Test/Cathedrale_Anthique.unity
   - m_enabled: 1
-    m_path: Assets/Scenes/Hell.unity
+    m_path: Assets/Scenes/Test/Hell.unity
   - m_enabled: 1
-    m_path: Assets/Scenes/Temple.unity
+    m_path: Assets/Scenes/Test/Temple.unity
   m_ScriptingDefines: []
   m_PlayerSettingsYaml:
     m_Settings: []

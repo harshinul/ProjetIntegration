@@ -11,6 +11,7 @@ using System;
 
 public class GameManagerScript : MonoBehaviour
 {
+    public static GameManagerScript Instance;
     [SerializeField] Transform[] spawnPoints = new Transform[5];
     [SerializeField] GameObject warriorPrefab;
     [SerializeField] GameObject assassinPrefab;
@@ -35,6 +36,7 @@ public class GameManagerScript : MonoBehaviour
 
 
     private bool isGameOver = false;
+    private bool isPaused = false;
     private bool pauseJustOpened = false;
 
     public void Kill() // Fonction de debug pour tuer tous les joueurs
@@ -46,6 +48,21 @@ public class GameManagerScript : MonoBehaviour
                 phc.TakeDamage(99999f);
             }
         }
+    }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            //DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+
     }
 
     private void Start()
@@ -63,7 +80,7 @@ public class GameManagerScript : MonoBehaviour
         pauseMenuCanva.enabled = false;
         afterGameLocal.enabled = false;
         Time.timeScale = 1f;
-
+        EventSystem.current.SetSelectedGameObject(null);
         SpawnPlayersFromHandlers();
     }
 
@@ -72,41 +89,34 @@ public class GameManagerScript : MonoBehaviour
         Kill();
         if (isGameOver) return;
 
-        (bool isPaused, int playerIndex) = CheckIfPlayerPaused();
-        if (isPaused)
-        {
-            pauseMenuCanva.enabled = true;
-            Time.timeScale = 0f;
+        //(bool isPaused, int playerIndex) = CheckIfPlayerPaused();
+        //if (isPaused)
+        //{
 
-            // ⭐ Sélection du bouton UNIQUEMENT au moment où la pause s'ouvre
-            if (!pauseJustOpened)
-            {
-                pauseJustOpened = true;
 
-                EventSystem.current.SetSelectedGameObject(null);
-                EventSystem.current.SetSelectedGameObject(PauseMenuFirstSelected.gameObject);
+        //    // ⭐ Sélection du bouton UNIQUEMENT au moment où la pause s'ouvre
+        //    if (!pauseJustOpened)
+        //    {
+        //        pauseJustOpened = true;
 
-                foreach (PlayerMovementComponent pmc in playerMovementComponents) // On stoppe le mouvement
-                {
-                    pmc.StopMovement();
-                }
 
-            }
-        }
-        else
-        {
-            pauseMenuCanva.enabled = false;
-            Time.timeScale = 1f;
 
-            pauseJustOpened = false; // reset pour la prochaine pause
+        //    }
+        //}
+        //else
+        //{
+        //    pauseMenuCanva.enabled = false;
+        //    Time.timeScale = 1f;
 
-            EventSystem.current.SetSelectedGameObject(null);
+        //    pauseJustOpened = false; // reset pour la prochaine pause
 
-            foreach (PlayerMovementComponent pmc in playerMovementComponents) // On reprend le mouvement
-            {
-                pmc.ResumeMovement();
-            }
-        }
+        //    EventSystem.current.SetSelectedGameObject(null);
+
+        //    foreach (PlayerMovementComponent pmc in playerMovementComponents) // On reprend le mouvement
+        //    {
+        //        pmc.ResumeMovement();
+        //    }
+        //}
 
         // On vérifie > 1 pour les modes à 1 joueur (ou test)
         if (CheckNumberOfPlayerAlive() <= 1 && playersHealthComponents.Count > 1)
@@ -288,21 +298,67 @@ public class GameManagerScript : MonoBehaviour
         return (false, 0);
     }
 
+    public void TogglePause()
+    {
+        if (!isPaused)
+        {
+            pauseMenuCanva.enabled = true;
+            Time.timeScale = 0f;
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(PauseMenuFirstSelected.gameObject);
+
+            foreach (PlayerMovementComponent pmc in playerMovementComponents) // On stoppe le mouvement
+            {
+                pmc.StopMovement();
+            }
+            isPaused = true;
+        }
+        else
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            pauseMenuCanva.enabled = false;
+            Time.timeScale = 1f;
+            foreach (PlayerMovementComponent pmc in playerMovementComponents) // On reprend le mouvement
+            {
+                pmc.ResumeMovement();
+            }
+            isPaused = false;
+        }
+
+    }
+
 
     IEnumerator GameOver()
     {
-        yield return new WaitForSecondsRealtime(1f); // Petit délai 
+        StartCoroutine(GradualGameSlowdown(3f,0f));
 
         foreach (PlayerMovementComponent pmc in playerMovementComponents)
         {
             pmc.StopMovement();
         }
 
+        yield return new WaitForSecondsRealtime(3f);
         isGameOver = true;
         afterGameLocal.enabled = true;
 
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(GameOverFistSelected.gameObject);
+
+    }
+    IEnumerator GradualGameSlowdown(float duration, float targetTimeScale)
+    {
+        Time.timeScale = 0.5f;
+        float startTimeScale = Time.timeScale;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.unscaledDeltaTime;
+            Time.timeScale = Mathf.Lerp(startTimeScale, targetTimeScale, elapsedTime / duration);
+            yield return null;
+        }
+
+        Time.timeScale = targetTimeScale;
     }
 }
 

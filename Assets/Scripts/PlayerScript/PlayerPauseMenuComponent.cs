@@ -27,7 +27,7 @@ public class PlayerPauseMenuComponent : MonoBehaviour
     {
         if(ctx.performed)
         {
-            isPaused = !isPaused;
+            GameManagerScript.Instance.TogglePause();
         }
 
     }
