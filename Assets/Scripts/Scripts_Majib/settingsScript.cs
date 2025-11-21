@@ -26,7 +26,10 @@ public class settingsScript : MonoBehaviour
     public void ChangeSfxVolume()
     {
         mainAudioMixer.SetFloat("SFXVol", sfxVol.value);
+<<<<<<< HEAD
         //PlayerPrefs.SetFloat("SFXVol", sfxVol.value);
+=======
+>>>>>>> BrancheHarsh
     }
     void Start()
     {
