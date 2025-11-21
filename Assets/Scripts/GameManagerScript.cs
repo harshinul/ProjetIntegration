@@ -1,11 +1,12 @@
+using SCRIPTS_MARC;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
-using SCRIPTS_MARC;
 using Unity.Cinemachine;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class GameManagerScript : MonoBehaviour
 {
@@ -21,13 +22,14 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] Canvas afterGameLocal;
     [SerializeField] Canvas pauseMenuCanva;
     [SerializeField] Selectable element; // bouton par défaut
+    [SerializeField] Selectable gameOver; // bouton par défaut
 
     List<PlayerHealthComponent> playersHealthComponents = new List<PlayerHealthComponent>();
     List<PlayerPauseMenuComponent> playersPauseMenuComponents = new List<PlayerPauseMenuComponent>();
     private List<GameObject> characterPrefabsList = new List<GameObject>();
 
     private bool isGameOver = false;
-    private bool pauseJustOpened = false; // 👉 empêche la sélection en boucle
+    private bool pauseJustOpened = false; 
 
     private void Start()
     {
@@ -56,7 +58,7 @@ public class GameManagerScript : MonoBehaviour
             pauseMenuCanva.enabled = true;
             Time.timeScale = 0f;
 
-            // ⭐ Sélection du bouton UNIQUEMENT au moment où la pause s'ouvre
+            // Sélection du bouton UNIQUEMENT au moment où la pause s'ouvre
             if (!pauseJustOpened)
             {
                 pauseJustOpened = true;
@@ -65,7 +67,7 @@ public class GameManagerScript : MonoBehaviour
                 EventSystem.current.SetSelectedGameObject(element.gameObject);
             }
         }
-        else
+        else if (!isGameOver)
         {
             pauseMenuCanva.enabled = false;
             Time.timeScale = 1f;
@@ -205,10 +207,21 @@ public class GameManagerScript : MonoBehaviour
         }
         return (false, 0);
     }
+    private IEnumerator SelectGameOverButton()
+    {
+        yield return null; // attendre 1 frame pour que l'UI se mette à jour
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(gameOver.gameObject);
+    }
 
     void GameOver()
     {
         isGameOver = true;
         afterGameLocal.enabled = true;
+        Time.timeScale = 0f;
+
+        StartCoroutine(SelectGameOverButton());
     }
+
 }
