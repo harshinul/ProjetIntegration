@@ -44,7 +44,7 @@ public class MusicManager : MonoBehaviour
         while (elapsed < fadeInDuration)
         {
             elapsed += Time.deltaTime;
-            musicSource.volume = Mathf.Lerp(1f, musicVolume, elapsed / fadeInDuration);
+            musicSource.volume = Mathf.Lerp(0f, musicVolume, elapsed / fadeInDuration);
             yield return null;
         }
         
