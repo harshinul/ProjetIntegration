@@ -16,10 +16,12 @@ public class MapManager : MonoBehaviour
         public TMP_Text title;
         public GameObject back;
         public TMP_Text playerSelect;
+        
     }
 
     public List<PairButton> pairs;
     public TMP_Text ArenaSelected;
+    public TMP_Text current;
     public Dictionary<int, string> ArenaName = new Dictionary<int, string>()
     {
         {0,"FightReal" },
@@ -64,10 +66,6 @@ public class MapManager : MonoBehaviour
 
     private void Awake()
     {
-        // SUPPRIMÉ : Nous n'utilisons plus les clics de souris, 
-        // mais les fonctions publiques appelées par les manettes.
-        // Vous pouvez les laisser si vous voulez un support souris ET manette,
-        // mais cela complique la logique de qui clique.
         
         for (int i = 0; i < pairs.Count; i++)
         {
@@ -79,6 +77,19 @@ public class MapManager : MonoBehaviour
 
     // ... (SelectArena, ValidateAll, DetermineArena restent identiques) ...
     // ...
+    private string GetPlayerColor(int playerIndex)
+    {
+        switch (playerIndex)
+        {
+            case 0: return "#0023FF";
+            case 1: return "#FF0000";   
+            case 2: return "#00C422";   
+            case 3: return "#FFF800";
+            default: return "white";
+        }
+
+    }
+
     public void SelectArena(int arenaIndex)
     {
         PlayerSelection[currentSelection] = arenaIndex;
@@ -86,7 +97,8 @@ public class MapManager : MonoBehaviour
             // Met à jour le texte pour indiquer quel joueur doit sélectionner
             if (pairs[arenaIndex].playerSelect != null)
             {
-                pairs[arenaIndex].playerSelect.text += $" J {currentSelection + 1}";
+                string color = GetPlayerColor(currentSelection);
+                pairs[arenaIndex].playerSelect.text += $" <color={color}>J{currentSelection + 1}</color>";
                 pairs[arenaIndex].playerSelect.gameObject.SetActive(true);
             }
         
@@ -96,7 +108,8 @@ public class MapManager : MonoBehaviour
         if (numberOfPlayers > 1 && playersWhoSelected < numberOfPlayers) // Modifié pour ne pas boucler après le dernier vote
         {
             currentSelection = (currentSelection + 1) % numberOfPlayers;
-            Debug.Log($"C'est au tour du joueur {currentSelection + 1} de sélectionner une arène.");
+            current.text = $"";
+            current.text= $"tour du joueur {currentSelection + 1}.";
 
             // Met à jour la prévisualisation pour le nouveau joueur
             ActivatePreview(previewIndex); 

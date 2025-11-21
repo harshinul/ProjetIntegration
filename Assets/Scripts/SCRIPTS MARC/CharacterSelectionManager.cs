@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.InputSystem; // <-- IMPORTANT : Ajoutez ceci
+using UnityEngine.InputSystem; 
 
 namespace SCRIPTS_MARC
 {
@@ -17,6 +17,7 @@ namespace SCRIPTS_MARC
 
         void Awake()
         {
+            Time.timeScale = 1f;
             playerInputManager = GetComponent<PlayerInputManager>();
             
             // On vérifie juste si le prefab est assigné
@@ -25,22 +26,6 @@ namespace SCRIPTS_MARC
                 Debug.LogError("ERREUR : Le 'Player Prefab' (PlayerInputHandlerPrefab) n'est pas assigné " +
                                "dans l'inspecteur du PlayerInputManager !");
             }
-        }
-        
-        void Start()
-        {
-            // On s'assure que tous les panneaux sont ACTIFS au début
-            // pour afficher le message "Appuyez pour rejoindre".
-            foreach (var panel in panels)
-            {
-                if (panel != null)
-                {
-                    panel.gameObject.SetActive(true);
-                    // Le panneau lui-même gérera son état visuel initial
-                }
-            }
-            
-            // On désactive tous les socles (modèles 3D) au début.
             foreach (var socle in socles)
             {
                 if (socle != null)
@@ -49,8 +34,19 @@ namespace SCRIPTS_MARC
                 }
             }
         }
+        
+        void Start()
+        {
+            // On s'assure que tous les panneaux sont ACTIFS au début
+            foreach (var panel in panels)
+            {
+                if (panel != null)
+                {
+                    panel.gameObject.SetActive(true);
+                }
+            }
+        }
 
-        // Nouvelle méthode appelée par PlayerInputHandler.cs
         public PlayerSelectionPanel RegisterPlayerAndGetPanel(PlayerInput playerInput)
         {
             int playerIndex = playerInput.playerIndex;
@@ -73,7 +69,7 @@ namespace SCRIPTS_MARC
             }
 
             Debug.LogWarning($"Aucun panneau ou socle trouvé pour l'index {playerIndex}");
-            return null; // Pas de panneau disponible
+            return null; 
         }
 
         public void PlayerIsReady(int playerIndex, string characterName)
