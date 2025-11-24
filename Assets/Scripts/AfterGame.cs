@@ -12,9 +12,10 @@ public class AfterGame : MonoBehaviour
 
     public void GoToCharacSelect()
     {
+        Time.timeScale = 1f;
         try
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("selection");
+            SceneManager.LoadScene("selection");
         }
         catch (System.Exception e)
         {
@@ -23,6 +24,7 @@ public class AfterGame : MonoBehaviour
     }
     public void RestartFight()
     {
+        Time.timeScale = 1f;
         try
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -34,9 +36,10 @@ public class AfterGame : MonoBehaviour
     }
     public void BackMEnu()
     {
+        Time.timeScale = 1f;
         try
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("MainMenu");
         }
         catch (System.Exception e)
         {

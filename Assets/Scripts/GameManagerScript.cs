@@ -86,37 +86,8 @@ public class GameManagerScript : MonoBehaviour
 
     private void Update()
     {
-        Kill();
+        //Kill(); // Fonction de debug pour tuer tous les joueurs
         if (isGameOver) return;
-
-        //(bool isPaused, int playerIndex) = CheckIfPlayerPaused();
-        //if (isPaused)
-        //{
-
-
-        //    // ⭐ Sélection du bouton UNIQUEMENT au moment où la pause s'ouvre
-        //    if (!pauseJustOpened)
-        //    {
-        //        pauseJustOpened = true;
-
-
-
-        //    }
-        //}
-        //else
-        //{
-        //    pauseMenuCanva.enabled = false;
-        //    Time.timeScale = 1f;
-
-        //    pauseJustOpened = false; // reset pour la prochaine pause
-
-        //    EventSystem.current.SetSelectedGameObject(null);
-
-        //    foreach (PlayerMovementComponent pmc in playerMovementComponents) // On reprend le mouvement
-        //    {
-        //        pmc.ResumeMovement();
-        //    }
-        //}
 
         // On vérifie > 1 pour les modes à 1 joueur (ou test)
         if (CheckNumberOfPlayerAlive() <= 1 && playersHealthComponents.Count > 1)
@@ -281,6 +252,7 @@ public class GameManagerScript : MonoBehaviour
                 cinemachineTargetGroup.RemoveMember(player.GetComponentInChildren<headBodyPart>().transform);
             }
         }
+
         return playerAlive;
     }
 
@@ -341,7 +313,6 @@ public class GameManagerScript : MonoBehaviour
         isGameOver = true;
         afterGameLocal.enabled = true;
 
-        EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(GameOverFistSelected.gameObject);
 
     }

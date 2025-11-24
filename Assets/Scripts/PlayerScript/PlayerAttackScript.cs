@@ -292,10 +292,10 @@ public class PlayerAttackScript : MonoBehaviour
         }
         else if (classType.Equals(ClassType.Mage))
         {
-            closestPlayerGround = ClosestPlayerOnGround();
+            closestPlayerGround = ClosestPlayerGround();
             if (closestPlayerGround != null)
             {
-                Vector3 lastPlayerPosition = new Vector3(closestPlayerGround.x, 0, closestPlayerGround.z);
+                Vector3 lastPlayerPosition = new Vector3(closestPlayerGround.x, closestPlayerGround.y, closestPlayerGround.z);
                 yield return new WaitForSeconds(0.1f);
                 var ultMage = Instantiate(ultimateProjectile, lastPlayerPosition, Quaternion.Euler(90, 0, 0));
                 var projectile = ultMage.GetComponent<Projectile>();
@@ -322,7 +322,7 @@ public class PlayerAttackScript : MonoBehaviour
     }
 
 
-    public Vector3 ClosestPlayerOnGround()
+    public Vector3 ClosestPlayerGround() // Trouve le joueur le plus proche et retourne la position au sol
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         GameObject closestPlayer = null;
@@ -348,20 +348,38 @@ public class PlayerAttackScript : MonoBehaviour
         // ---- RAYCAST POUR TROUVER LE SOL ----
 
         // 1. Définir le masque pour inclure "Default" et "OneWayPlatform"
-        int layerMask = LayerMask.GetMask("Default", "OneWayPlatform");
+        int groundLayerMask = playerMovementComponent.groundLayer;
+        int oneWayPlatformLayerMask = playerMovementComponent.oneWayPlatform;
 
         Vector3 origin = closestPlayer.transform.position + Vector3.up * 1f;
         RaycastHit hit;
 
-        // 2. Ajouter le layerMask dans les paramètres du Raycast
-        if (Physics.Raycast(origin, Vector3.down, out hit, 10f, layerMask))
+        // 2. Essayer de toucher "OneWayPlatform" en premier
+        if (Physics.Raycast(origin, Vector3.down, out hit, 10f, oneWayPlatformLayerMask))
         {
-            // Le sol (Default ou OneWayPlatform) est touché
-            return new Vector3(
-                closestPlayer.transform.position.x,
-                hit.point.y,
-                closestPlayer.transform.position.z
-            );
+            // Le sol (OneWayPlatform) est touché
+
+            if (hit.collider != null)
+            {
+                return new Vector3(
+                    closestPlayer.transform.position.x,
+                    hit.point.y,
+                    closestPlayer.transform.position.z
+                );
+            }
+        }
+        // 3. Si pas touché, essayer avec "Default"
+        if (Physics.Raycast(origin, Vector3.down, out hit, 10f, groundLayerMask))
+        {
+            // Le sol (Default) est touché
+            if (hit.collider != null)
+            {
+                return new Vector3(
+                    closestPlayer.transform.position.x,
+                    hit.point.y,
+                    closestPlayer.transform.position.z
+                );
+            }
         }
 
         // Si aucun sol trouvé, renvoyer la position du joueur

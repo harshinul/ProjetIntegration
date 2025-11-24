@@ -691,9 +691,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  isMoving: 0
   gravityValue: -9.81
   fallMultiplier: 5.4
-  oneWayGround:
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  oneWayPlatform:
     serializedVersion: 2
     m_Bits: 128
   jumpForce: 5.5

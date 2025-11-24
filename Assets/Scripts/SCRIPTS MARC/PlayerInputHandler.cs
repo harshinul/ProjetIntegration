@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement; // AJOUTÉ
+using UnityEngine.SceneManagement; 
 
 namespace SCRIPTS_MARC
 {

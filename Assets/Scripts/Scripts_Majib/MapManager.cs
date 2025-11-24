@@ -22,7 +22,7 @@ public class MapManager : MonoBehaviour
     public TMP_Text ArenaSelected;
     public Dictionary<int, string> ArenaName = new Dictionary<int, string>()
     {
-        {0,"FightReal" },
+        {0,"FirstFight" },
         {1,"Temple" },
         {2,"Cathedrale_Anthique" },
         {3,"Hell" }

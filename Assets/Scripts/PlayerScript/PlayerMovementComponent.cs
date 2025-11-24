@@ -19,7 +19,8 @@ public class PlayerMovementComponent : MonoBehaviour
     // Gravity
     [SerializeField] private float gravityValue = -9.81f;
     [SerializeField] private float fallMultiplier = 2.5f;
-    [SerializeField] LayerMask oneWayGround;
+    public LayerMask groundLayer;
+    public LayerMask oneWayPlatform;
     private bool fastFall = false;
     float multiplier;
 
@@ -224,12 +225,12 @@ public class PlayerMovementComponent : MonoBehaviour
         if (fastFall)
         {
             // Ajoute le layer au masque d'exclusion
-            characterController.excludeLayers |= oneWayGround;
+            characterController.excludeLayers |= oneWayPlatform;
         }
         else
         {
             // Retire le layer du masque d'exclusion
-            characterController.excludeLayers &= ~oneWayGround;
+            characterController.excludeLayers &= ~oneWayPlatform;
         }
 
         if (!characterController.isGrounded)

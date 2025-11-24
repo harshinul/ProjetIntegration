@@ -12,6 +12,7 @@ namespace SCRIPTS_MARC
         [SerializeField] private GameObject[] socles;
         [SerializeField] private string nextSceneName = "AreneSelectionFRL 1";
     
+        private int playerWhoJoinedCount = 0;
         private int readyPlayersCount = 0;
         private PlayerInputManager playerInputManager;
 
@@ -19,22 +20,37 @@ namespace SCRIPTS_MARC
         {
             Time.timeScale = 1f;
             playerInputManager = GetComponent<PlayerInputManager>();
-            
-            // On vérifie juste si le prefab est assigné
-            if (playerInputManager.playerPrefab == null)
+
+            // 1. IMPORTANT : On coupe l'arrivée de nouveaux joueurs immédiatement
+            playerInputManager.DisableJoining();
+
+            // 2. NETTOYAGE FORCÉ
+            foreach (var player in PlayerInput.all.ToArray())
             {
-                Debug.LogError("ERREUR : Le 'Player Prefab' (PlayerInputHandlerPrefab) n'est pas assigné " +
-                               "dans l'inspecteur du PlayerInputManager !");
+                Destroy(player.gameObject);
             }
+
+            // 3. Reset des compteurs
+            playerWhoJoinedCount = 0;
+            readyPlayersCount = 0;
+
+            // Reset visuel des socles
             foreach (var socle in socles)
             {
-                if (socle != null)
-                {
-                    socle.SetActive(false);
-                }
+                if (socle != null) socle.SetActive(false);
             }
+
+            // Vérification de sécurité
+            if (playerInputManager.playerPrefab == null)
+            {
+                Debug.LogError("ERREUR : Player Prefab non assigné dans le PlayerInputManager !");
+            }
+
+            // 4. On rouvre les vannes
+            // Maintenant que c'est propre, on autorise les joueurs à appuyer sur un bouton pour rejoindre.
+            playerInputManager.EnableJoining();
         }
-        
+
         void Start()
         {
             // On s'assure que tous les panneaux sont ACTIFS au début
@@ -50,6 +66,8 @@ namespace SCRIPTS_MARC
         public PlayerSelectionPanel RegisterPlayerAndGetPanel(PlayerInput playerInput)
         {
             int playerIndex = playerInput.playerIndex;
+            if (playerIndex < 0)
+                return null;
 
             Debug.Log($"Enregistrement du joueur {playerIndex}");
 
@@ -64,7 +82,10 @@ namespace SCRIPTS_MARC
                 panel.gameObject.SetActive(true); 
                 socle.SetActive(true);
                 panel.Initialize(playerIndex, this, socle);
-                
+
+                // On incrémente le nombre de joueurs qui se sont connectés
+                playerWhoJoinedCount++;
+
                 return panel; // On retourne le panneau au PlayerInputHandler
             }
 
@@ -80,9 +101,9 @@ namespace SCRIPTS_MARC
             Debug.Log("Player " + (playerIndex + 1) + " is ready with " + characterName);
 
             // On vérifie si tous les joueurs qui se SONT CONNECTÉS sont prêts
-            int totalJoinedPlayers = playerInputManager.playerCount;
+            //int totalJoinedPlayers = playerInputManager.playerCount;
             
-            if (readyPlayersCount > 0 && readyPlayersCount == totalJoinedPlayers)
+            if (readyPlayersCount > 1 && readyPlayersCount == playerWhoJoinedCount)
             {
                 // Tous les joueurs connectés sont prêts, on lance le jeu !
                 StartGame();
@@ -91,8 +112,8 @@ namespace SCRIPTS_MARC
         
         public void StartGame()
         {
-            if (readyPlayersCount > 0)
-            {
+            //if (readyPlayersCount > 1)
+            //{
                 Debug.Log(readyPlayersCount + " joueurs sont prêts !");
                 PlayerPrefs.SetInt("numberOfPlayer", readyPlayersCount);
                 PlayerPrefs.Save();
@@ -103,11 +124,11 @@ namespace SCRIPTS_MARC
                 // On charge la scène de sélection d'arène
                 // Les objets "PlayerInputHandler" vont persister grâce à DontDestroyOnLoad
                 SceneManager.LoadScene(nextSceneName);
-            }
-            else
-            {
-                Debug.LogWarning("Aucun joueur n'est prêt !");
-            }
+            //}
+            //else
+            //{
+            //    Debug.LogWarning("Aucun joueur n'est prêt !");
+            //}
         }
     }
 }

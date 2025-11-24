@@ -10,6 +10,7 @@ public abstract class WeaponScript : MonoBehaviour
     public float damage = 10f;
 
 
+
     virtual public void Attack1()
     {
     }
