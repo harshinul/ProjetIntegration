@@ -180,6 +180,17 @@ public class MapManager : MonoBehaviour
         // Si c'est le 2e clic (ou une confirmation)
         if (selectedIndex == index)
         {
+            if(index < 7 && index >= 4)
+            {
+                Debug.Log("Bouton non assigné.");
+                return; // Ignorer les boutons non assignés
+            }
+
+            if (index == 7)// bouton aléatoire
+            {
+                index = UnityEngine.Random.Range(0, 4); 
+            }
+
             SelectArena(index);
             if (playersWhoSelected >= numberOfPlayers)
             {
@@ -193,17 +204,33 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    // AJOUTÉ : Fonction publique pour la navigation par manette
-    public void PlayerNavigate(int playerIndex, int direction)
+    //Fonction publique pour la navigation par manette
+
+    public void PlayerNavigate(int playerIndex, Vector2 direction)
     {
         // On vérifie si c'est bien le tour de ce joueur
         if (playerIndex != currentSelection) return;
 
-        previewIndex += direction; // direction est 1 ou -1
+        if(direction.x != 0)
+        {
+            previewIndex += (int)Mathf.Sign(direction.x); // direction.x est positif ou négatif
 
-        // Boucle la sélection
-        if (previewIndex < 0) previewIndex = pairs.Count - 1;
-        if (previewIndex >= pairs.Count) previewIndex = 0;
+            if (previewIndex < 0) previewIndex = pairs.Count - 1;
+            if (previewIndex >= pairs.Count) previewIndex = 0;
+        }
+        else if(direction.y != 0)
+        {
+            if(direction.y < 0)
+            {
+                if(previewIndex <= 3) // si on est en haut
+                    previewIndex += 4; // Descendre dans la grille
+            }
+            else if(direction.y > 0)
+            {
+                if(previewIndex >= 4) // si on est en bas
+                    previewIndex -= 4; // Monter dans la grille
+            }
+        }
 
         // Met à jour l'aperçu
 
@@ -249,8 +276,6 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    // ... (LoadArena et RandomArena restent identiques) ...
-    // ...
     void LoadArena(int arenaIndex)
     {
         if (ArenaName.TryGetValue(arenaIndex, out string name))
@@ -261,10 +286,4 @@ public class MapManager : MonoBehaviour
             SceneManager.LoadScene(name);
         }
     }
-    public void RandomArena()
-    {
-        int randomIndex = UnityEngine.Random.Range(0, pairs.Count);
-        LoadArena(randomIndex);
-    }
-    // ...
 }

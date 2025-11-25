@@ -106,10 +106,25 @@ namespace SCRIPTS_MARC
 
             Vector2 move = context.ReadValue<Vector2>();
             
-            if (move.x > 0.8f) 
-                mapManager.PlayerNavigate(playerInput.playerIndex, 1); 
-            else if (move.x < -0.8f) 
-                mapManager.PlayerNavigate(playerInput.playerIndex, -1); 
+            if (move.x > 0.8f)
+            {
+                mapManager.PlayerNavigate(playerInput.playerIndex, new Vector2 (1,0));
+            }
+            else if (move.x < -0.8f)
+            {
+                mapManager.PlayerNavigate(playerInput.playerIndex, new Vector2(-1,0));
+            }
+            else if (move.y > 0.8f)
+            {
+                mapManager.PlayerNavigate(playerInput.playerIndex, new Vector2(0,1) );
+            }
+            else if (move.y < -0.8f)
+            {
+                mapManager.PlayerNavigate(playerInput.playerIndex, new Vector2(0,-1) );
+            }
+
+            // on ne fait rien si le mouvement est trop faible ou si on est au centre
+
         }
 
         private void OnMapSubmit(InputAction.CallbackContext context)
