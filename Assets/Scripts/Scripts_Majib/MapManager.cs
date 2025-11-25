@@ -16,13 +16,15 @@ public class MapManager : MonoBehaviour
         public TMP_Text title;
         public GameObject back;
         public TMP_Text playerSelect;
+
     }
 
     public List<PairButton> pairs;
     public TMP_Text ArenaSelected;
+    public TMP_Text current;
     public Dictionary<int, string> ArenaName = new Dictionary<int, string>()
     {
-        {0,"FirstFight" },
+        {0,"FightReal" },
         {1,"Temple" },
         {2,"Cathedrale_Anthique" },
         {3,"Hell" }
@@ -106,7 +108,8 @@ public class MapManager : MonoBehaviour
         if (numberOfPlayers > 1 && playersWhoSelected < numberOfPlayers) // Modifié pour ne pas boucler après le dernier vote
         {
             currentSelection = (currentSelection + 1) % numberOfPlayers;
-            Debug.Log($"C'est au tour du joueur {currentSelection + 1} de sélectionner une arène.");
+            current.text = $"";
+            current.text = $"Tour du joueur {currentSelection + 1}";
 
             // Met à jour la prévisualisation pour le nouveau joueur
             ActivatePreview(previewIndex);
