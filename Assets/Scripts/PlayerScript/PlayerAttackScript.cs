@@ -347,17 +347,14 @@ public class PlayerAttackScript : MonoBehaviour
 
         // ---- RAYCAST POUR TROUVER LE SOL ----
 
-        // 1. Définir le masque pour inclure "Default" et "OneWayPlatform"
         int groundLayerMask = playerMovementComponent.groundLayer;
         int oneWayPlatformLayerMask = playerMovementComponent.oneWayPlatform;
 
         Vector3 origin = closestPlayer.transform.position + Vector3.up * 1f;
         RaycastHit hit;
 
-        // 2. Essayer de toucher "OneWayPlatform" en premier
         if (Physics.Raycast(origin, Vector3.down, out hit, 10f, oneWayPlatformLayerMask))
         {
-            // Le sol (OneWayPlatform) est touché
 
             if (hit.collider != null)
             {
@@ -368,10 +365,8 @@ public class PlayerAttackScript : MonoBehaviour
                 );
             }
         }
-        // 3. Si pas touché, essayer avec "Default"
         if (Physics.Raycast(origin, Vector3.down, out hit, 10f, groundLayerMask))
         {
-            // Le sol (Default) est touché
             if (hit.collider != null)
             {
                 return new Vector3(

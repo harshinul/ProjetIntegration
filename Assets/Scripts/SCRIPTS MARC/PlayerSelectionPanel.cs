@@ -24,7 +24,6 @@ namespace SCRIPTS_MARC
 
         void Awake()
         {
-            // Définir l'état visuel par défaut "En attente de joueur"
             isJoined = false;
             isReady = false;
 
@@ -49,26 +48,19 @@ namespace SCRIPTS_MARC
                 previousButton.gameObject.SetActive(false);
             }
             
-            // On s'assure aussi qu'aucun personnage n'est montré
             characters.ForEach(c => { if (c != null) c.SetActive(false); });
         }
 
-        // ÉTAPE 2 : MODIFIER LA MÉTHODE INITIALIZE()
-        // Cette méthode est appelée par le Manager lorsqu'un contrôleur se connecte.
-        // On enlève toute la logique d'UI pour la laisser dans Awake() et JoinSelection().
         public void Initialize(int index, CharacterSelectionManager managerRef, GameObject assignedSocle)
         {
             this.playerIndex = index;
             this.manager = managerRef;
 
-            // L'état visuel est déjà géré par Awake().
-            // On se contente de préparer la liste des personnages (qui sont sur le socle).
             
-            characters.Clear(); // Vider la liste au cas où
+            characters.Clear(); 
             
             if (assignedSocle != null && assignedSocle.transform.childCount > 0)
             {
-                // Assumant que les personnages sont sur le *premier* enfant du socle
                 foreach (Transform child in assignedSocle.transform.GetChild(0)) 
                 {
                     if (child != null)
@@ -78,7 +70,6 @@ namespace SCRIPTS_MARC
                 }
             }
 
-            // On s'assure qu'ils sont tous désactivés avant la sélection
             characters.ForEach(c => { if (c != null) c.SetActive(false); });
         }
 
@@ -115,7 +106,6 @@ namespace SCRIPTS_MARC
             nextButton.gameObject.SetActive(true);
             previousButton.gameObject.SetActive(true);
 
-            // S'assurer qu'on a bien des personnages avant d'y accéder
             if (characters.Count > 0)
             {
                 characters[selectedCharacter].SetActive(true);

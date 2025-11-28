@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using SCRIPTS_MARC; // <-- IMPORTANT : Pour trouver PlayerInputHandler
+using SCRIPTS_MARC; 
 
 public class AfterGame : MonoBehaviour
 {

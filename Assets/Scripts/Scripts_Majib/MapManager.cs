@@ -24,7 +24,7 @@ public class MapManager : MonoBehaviour
     public TMP_Text current;
     public Dictionary<int, string> ArenaName = new Dictionary<int, string>()
     {
-        {0,"FightReal" },
+        {0,"FirstFight" },
         {1,"Temple" },
         {2,"Cathedrale_Anthique" },
         {3,"Hell" }
@@ -33,13 +33,11 @@ public class MapManager : MonoBehaviour
     private Dictionary<int, int> PlayerSelection = new Dictionary<int, int>();
     private int selectedIndex = -1;
     private int numberOfPlayers;
-    private int currentSelection = 0; // Tour du joueur actuel (0 = J1, 1 = J2...)
+    private int currentSelection = 0; 
     private int playersWhoSelected = 0;
 
-    // AJOUTÉ : Indice de l'arène actuellement en surbrillance
     private int previewIndex = 0;
 
-    // AJOUTÉ : Propriété publique pour que les Handlers sachent qui joue
     public int CurrentPlayerIndex => currentSelection;
 
     private void Start()
@@ -58,9 +56,8 @@ public class MapManager : MonoBehaviour
             if (pairs[i].back) pairs[i].back.SetActive(false);
         }
 
-        // très important: selectedIndex = -1 pour dire "rien encore"
         selectedIndex = -1;
-        previewIndex = 0; // point de départ logique pour la navigation
+        previewIndex = 0; 
         ActivatePreview(previewIndex);
     }
 
@@ -75,8 +72,6 @@ public class MapManager : MonoBehaviour
 
     }
 
-    // ... (SelectArena, ValidateAll, DetermineArena restent identiques) ...
-    // ...
     private string GetPlayerColor(int playerIndex)
     {
         switch (playerIndex)
@@ -123,7 +118,7 @@ public class MapManager : MonoBehaviour
             if (selection == -1)
             {
                 Debug.Log("Tous les joueurs doivent sélectionner une arène avant de valider.");
-                return; // AJOUTÉ : Arrête la validation si quelqu'un n'a pas voté
+                return; 
             }
         }
         int finalArena = DetermineArena();
@@ -132,7 +127,6 @@ public class MapManager : MonoBehaviour
 
     private int DetermineArena()
     {
-        //Count votes for each arena
         Dictionary<int, int> voteCount = new Dictionary<int, int>();
 
         foreach (var selection in PlayerSelection.Values)
@@ -170,11 +164,8 @@ public class MapManager : MonoBehaviour
         Debug.Log($"Arène choisie aléatoirement : {selectedArena}");
         return selectedArena;
     }
-    // ...
-
-    /// <summary>
-    /// Logique de double-clic, maintenant appelée par PlayerSubmit
-    /// </summary>
+    
+    
     public void DoubleClick(int index)
     {
         // Si c'est le 2e clic (ou une confirmation)
@@ -204,7 +195,6 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    //Fonction publique pour la navigation par manette
 
     public void PlayerNavigate(int playerIndex, Vector2 direction)
     {
@@ -237,7 +227,6 @@ public class MapManager : MonoBehaviour
         ActivatePreview(previewIndex);
     }
 
-    // AJOUTÉ : Fonction publique pour la sélection par manette
     public void PlayerSubmit(int playerIndex)
     {
         // On vérifie si c'est bien le tour de ce joueur
@@ -247,9 +236,7 @@ public class MapManager : MonoBehaviour
         DoubleClick(previewIndex);
     }
 
-    /// <summary>
-    /// Active preview pour l'index donné.
-    /// </summary>
+
     private void ActivatePreview(int index)
     {
         // Désactiver tous les visuels
@@ -257,7 +244,7 @@ public class MapManager : MonoBehaviour
         {
             if (pairs[i].image) pairs[i].image.SetActive(false);
             if (pairs[i].title) pairs[i].title.gameObject.SetActive(false);
-            if (pairs[i].back) pairs[i].back.SetActive(false); // AJOUTÉ : Gérer le fond ici
+            if (pairs[i].back) pairs[i].back.SetActive(false); 
         }
 
         // Activer les visuels de l'arène sélectionnée
@@ -265,7 +252,7 @@ public class MapManager : MonoBehaviour
         {
             if (pairs[index].image) pairs[index].image.SetActive(true);
             if (pairs[index].title) pairs[index].title.gameObject.SetActive(true);
-            if (pairs[index].back) pairs[index].back.SetActive(true); // AJOUTÉ : Activer le fond
+            if (pairs[index].back) pairs[index].back.SetActive(true); 
 
             if (ArenaSelected != null && ArenaName.ContainsKey(index))
             {

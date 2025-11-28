@@ -123,7 +123,6 @@ namespace SCRIPTS_MARC
                 mapManager.PlayerNavigate(playerInput.playerIndex, new Vector2(0,-1) );
             }
 
-            // on ne fait rien si le mouvement est trop faible ou si on est au centre
 
         }
 

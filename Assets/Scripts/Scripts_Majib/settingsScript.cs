@@ -5,7 +5,6 @@ using UnityEngine.Audio;
 
 public class settingsScript : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public TMP_Dropdown graphicsDropdown;
     public Slider masterVol,musicVol,sfxVol;
     public AudioMixer mainAudioMixer;
@@ -36,7 +35,6 @@ public class settingsScript : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         

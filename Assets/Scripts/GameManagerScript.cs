@@ -41,7 +41,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void Kill() // Fonction de debug pour tuer tous les joueurs
     {
-        if (Keyboard.current.fKey.isPressed) // Utilisation correcte de l'API InputSystem
+        if (Keyboard.current.fKey.isPressed) 
         {
             foreach (PlayerHealthComponent phc in playersHealthComponents)
             {
@@ -72,7 +72,6 @@ public class GameManagerScript : MonoBehaviour
         if (assassinPrefab) characterPrefabsList.Add(assassinPrefab);
         if (magePrefab) characterPrefabsList.Add(magePrefab);
 
-        // UI
         for (int i = 0; i < playersUI.Length; i++)
         {
             playersUI[i].SetActive(false);
@@ -86,10 +85,8 @@ public class GameManagerScript : MonoBehaviour
 
     private void Update()
     {
-        //Kill(); // Fonction de debug pour tuer tous les joueurs
         if (isGameOver) return;
 
-        // On vérifie > 1 pour les modes à 1 joueur (ou test)
         if (CheckNumberOfPlayerAlive() <= 1 && playersHealthComponents.Count > 1)
         {
             StartCoroutine(GameOver());
@@ -214,21 +211,20 @@ public class GameManagerScript : MonoBehaviour
         Quaternion rotationLeft = Quaternion.Euler(0f, -90f, 0f);
         Quaternion rotationRight = Quaternion.Euler(0f, 90f, 0f);
 
-        // Note : playerIndex est de 0 à 3
         switch (totalPlayers)
         {
-            case 1: // Index 0
+            case 1: 
                 return (spawnPoints[0].position, rotationRight);
-            case 2: // Index 0, 1
+            case 2: 
                 if (playerIndex == 0) return (spawnPoints[0].position, rotationRight);
                 if (playerIndex == 1) return (spawnPoints[4].position, rotationLeft);
                 break;
-            case 3: // Index 0, 1, 2
+            case 3: 
                 if (playerIndex == 0) return (spawnPoints[0].position, rotationRight);
                 if (playerIndex == 1) return (spawnPoints[2].position, rotationLeft);
                 if (playerIndex == 2) return (spawnPoints[4].position, rotationLeft);
                 break;
-            case 4: // Index 0, 1, 2, 3
+            case 4: 
                 if (playerIndex == 0) return (spawnPoints[0].position, rotationRight);
                 if (playerIndex == 1) return (spawnPoints[1].position, rotationLeft);
                 if (playerIndex == 2) return (spawnPoints[3].position, rotationRight);
